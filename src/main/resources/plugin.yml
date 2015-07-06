@@ -1,0 +1,30 @@
+name: ${project.name}
+version: ${project.version}
+description: ${project.description}
+main: com.github.hexosse.addlight.AddLight
+
+author: hexosse
+website: www.github.hexosse
+
+depend: [LightAPI]
+softdepend: []
+
+commands:
+  al:
+    aliases: [AddLight]
+    description: Add light to clicked item.
+    usage: |
+           /AddLight help : Display AddLight help
+           /AddLight [enable|on] : Enable light creation
+           /AddLight [disable|off] : Disable light creation
+           /AddLight <number> : Define light intensity
+
+permissions:
+  AddLight.*:
+    description: Gives access to all AddLight permissions
+    default: op
+    children:
+        AddLight.admin: true
+AddLight.admin:
+    description: Allows creation of light
+    default: op
