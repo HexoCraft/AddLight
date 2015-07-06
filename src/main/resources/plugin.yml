@@ -12,12 +12,12 @@ softdepend: []
 commands:
   al:
     aliases: [AddLight]
-    description: Add light to clicked item.
+    description: Add invisible light source to item when clicked with glowstone dust.
     usage: |
            /AddLight help : Display AddLight help
            /AddLight [enable|on] : Enable light creation
            /AddLight [disable|off] : Disable light creation
-           /AddLight <number> : Define light intensity
+           /AddLight <number> : Define light intensity (1-15)
 
 permissions:
   AddLight.*:
