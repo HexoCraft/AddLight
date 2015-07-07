@@ -10,8 +10,8 @@ depend: [LightAPI]
 softdepend: []
 
 commands:
-  al:
-    aliases: [AddLight]
+  AddLight:
+    aliases: [al]
     description: Add invisible light source to item when clicked with glowstone dust.
     usage: |
            /AddLight help : Display AddLight help
