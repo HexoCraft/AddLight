@@ -25,7 +25,6 @@ import org.bukkit.command.CommandSender;
  * This file is part AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
- * @date 05/07/2015
  */
 public class CommandDisable
 {

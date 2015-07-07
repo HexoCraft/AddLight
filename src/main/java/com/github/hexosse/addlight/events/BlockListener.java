@@ -27,7 +27,6 @@ import org.bukkit.event.block.BlockBreakEvent;
  * This file is part AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
- * @date 05/07/2015
  */
 @SuppressWarnings("unused")
 public class BlockListener implements Listener

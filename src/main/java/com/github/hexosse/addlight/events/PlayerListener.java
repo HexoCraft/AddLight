@@ -30,7 +30,6 @@ import ru.BeYkeRYkt.LightAPI.LightAPI;
  * This file is part AddGlow
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
- * @date 05/07/2015
  */
 @SuppressWarnings("unused")
 public class PlayerListener implements Listener
