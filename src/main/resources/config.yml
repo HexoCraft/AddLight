@@ -1,0 +1,5 @@
+# *---------------- Plugin configuration --------------------*
+plugin:
+  useMetrics: true
+  useUpdater: true
+  downloadUpdate: true

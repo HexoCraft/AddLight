@@ -17,6 +17,7 @@ package com.github.hexosse.addlight.events;
  */
 
 import com.github.hexosse.addlight.AddLight;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -28,6 +29,7 @@ import org.bukkit.event.block.BlockBreakEvent;
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  * @date 05/07/2015
  */
+@SuppressWarnings("unused")
 public class BlockListener implements Listener
 {
     private final static AddLight plugin = AddLight.getPlugin();
@@ -35,6 +37,7 @@ public class BlockListener implements Listener
     @EventHandler(priority= EventPriority.HIGH)
     public void onBlockBreak(BlockBreakEvent event)
     {
-        if(plugin.isEnable()) event.setCancelled(true);
+        if(plugin.isEnable() && event.getPlayer().getItemInHand().getType() == Material.GLOWSTONE_DUST)
+            event.setCancelled(true);
     }
 }

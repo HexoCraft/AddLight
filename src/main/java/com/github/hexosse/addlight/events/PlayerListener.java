@@ -32,6 +32,7 @@ import ru.BeYkeRYkt.LightAPI.LightAPI;
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  * @date 05/07/2015
  */
+@SuppressWarnings("unused")
 public class PlayerListener implements Listener
 {
     private final static AddLight plugin = AddLight.getPlugin();

@@ -19,8 +19,12 @@ package com.github.hexosse.addlight;
 import com.github.hexosse.addlight.commands.Commands;
 import com.github.hexosse.addlight.events.BlockListener;
 import com.github.hexosse.addlight.events.PlayerListener;
+import com.github.hexosse.addlight.utils.MetricsLite;
+import com.github.hexosse.githubupdater.GitHubUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.IOException;
 
 /**
  * This file is part AddLight
@@ -31,6 +35,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class AddLight extends JavaPlugin
 {
     private static AddLight plugin;
+    private static String repository;
 
     public boolean enable;
     public int lightlevel;
@@ -42,6 +47,8 @@ public class AddLight extends JavaPlugin
     public AddLight()
     {
         plugin = this;
+        repository = "hexosse/AddLight";
+
         enable = false;
         lightlevel = 10;
     }
@@ -52,12 +59,22 @@ public class AddLight extends JavaPlugin
     @Override
     public void onEnable()
     {
+        loadConfig();
+
         /* Enregistrement des listeners */
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         Bukkit.getPluginManager().registerEvents(new BlockListener(), this);
 
         /* Enregistrement du gestionnaire de commandes */
         this.getCommand("al").setExecutor(new Commands());
+
+        /* Updater */
+        if(this.getConfig().getBoolean("plugin.useUpdater"))
+            RunUpdater(this.getConfig().getBoolean("plugin.downloadUpdate"));
+
+        /* Metrics */
+        if(this.getConfig().getBoolean("plugin.useMetrics"))
+            RunMetrics();
     }
 
     /**
@@ -67,6 +84,33 @@ public class AddLight extends JavaPlugin
     public void onDisable()
     {
         super.onDisable();
+    }
+
+    public void loadConfig()
+    {
+        this.getConfig().options().copyDefaults(true);
+        this.saveConfig();
+    }
+
+    public void RunUpdater(final boolean download)
+    {
+        GitHubUpdater updater = new GitHubUpdater(this, this.repository, this.getFile(), download?GitHubUpdater.UpdateType.DEFAULT:GitHubUpdater.UpdateType.NO_DOWNLOAD, true);
+    }
+
+
+    private void RunMetrics()
+    {
+        try
+        {
+            MetricsLite metrics = new MetricsLite(this);
+            if(metrics.start())
+                getLogger().info("Succesfully started Metrics, see http://mcstats.org for more information.");
+            else
+                getLogger().info("Could not start Metrics, see http://mcstats.org for more information.");
+        } catch (IOException e)
+        {
+            // Failed to submit the stats :-(
+        }
     }
 
     /**
