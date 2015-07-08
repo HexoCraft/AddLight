@@ -15,6 +15,6 @@ AddLight depend on [LightAPI](https://www.spigotmc.org/resources/lightapi.4510/)
 
 ####Permissions:
 * AddLight.admin : Admin permission
-* 
+
 ####Config:
-The plugin use metrics and an integrted updater.<br>Both can be disable in config.yml
+The plugin use metrics and an integrated updater.<br>Both can be disable in config.yml
