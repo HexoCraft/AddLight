@@ -1,7 +1,7 @@
 # AddLight
 This plugin allow server admin to add invisible light sources.
 
-Enable the plugin using the command **/AddLight enable** then left click any item with glowstone dust to add invisible light source.
+Enable the plugin using the command **/AddLight enable** then left click any item or inside a WorldEdit selection with glowstone dust to add invisible light source.
 You can also remove the light source by right clicking.
 
 ####Depedency:
