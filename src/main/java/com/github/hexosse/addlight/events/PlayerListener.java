@@ -17,6 +17,10 @@ package com.github.hexosse.addlight.events;
  */
 
 import com.github.hexosse.addlight.AddLight;
+import com.github.hexosse.addlight.utils.WorldEditUtil;
+import com.sk89q.worldedit.BlockVector;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,6 +29,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import ru.BeYkeRYkt.LightAPI.LightAPI;
+
+import java.util.Iterator;
 
 /**
  * This file is part AddGlow
@@ -35,6 +41,7 @@ import ru.BeYkeRYkt.LightAPI.LightAPI;
 public class PlayerListener implements Listener
 {
     private final static AddLight plugin = AddLight.getPlugin();
+    private final static WorldEditPlugin worldEditPlugin = AddLight.getWorldEditPlugin();
 
     @EventHandler(priority=EventPriority.HIGH)
     public void onPlayerInteract(PlayerInteractEvent event)
@@ -46,21 +53,61 @@ public class PlayerListener implements Listener
         //
         if(event.getAction().equals(Action.LEFT_CLICK_BLOCK))
         {
+            // Material in hand must be glowstone dust
             if(player.getItemInHand().getType() != Material.GLOWSTONE_DUST)
                 return;
 
+            // Clicked location
+            Location clickedLoc = event.getClickedBlock().getLocation();
+
+            // Création de la lumière sur une selection WorldEdit
+            if(worldEditPlugin!=null)
+            {
+                if(WorldEditUtil.IsLocationInSelection(player, clickedLoc))
+                {
+                    Iterator<BlockVector> blocks = WorldEditUtil.getBlockVector(player, clickedLoc);
+
+                    while(blocks.hasNext())
+                    {
+                        BlockVector block = blocks.next();
+                        Location blockLocation = new Location(clickedLoc.getWorld(), block.getBlockX(), block.getBlockY(), block.getBlockZ());
+                        LightAPI.createLight(blockLocation, plugin.lightlevel);
+                    }
+                }
+            }
             // Création de la lumière
-            LightAPI.createLight(event.getClickedBlock().getLocation(),plugin.lightlevel);
+            else
+                LightAPI.createLight(clickedLoc,plugin.lightlevel);
         }
 
         //
         if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
         {
+            // Material in hand must be glowstone dust
             if(player.getItemInHand().getType() != Material.GLOWSTONE_DUST)
                 return;
 
-            // Création de la lumière
-            LightAPI.deleteLight(event.getClickedBlock().getLocation());
+            // Clicked location
+            Location clickedLoc = event.getClickedBlock().getLocation();
+
+            // Suppression de la lumière sur une selection WorldEdit
+            if(worldEditPlugin!=null)
+            {
+                if(WorldEditUtil.IsLocationInSelection(player, clickedLoc))
+                {
+                    Iterator<BlockVector> blocks = WorldEditUtil.getBlockVector(player, clickedLoc);
+
+                    while (blocks.hasNext())
+                    {
+                        BlockVector block = blocks.next();
+                        Location blockLocation = new Location(clickedLoc.getWorld(), block.getBlockX(), block.getBlockY(), block.getBlockZ());
+                        LightAPI.deleteLight(blockLocation);
+                    }
+                }
+            }
+            // Suppression de la lumière
+            else
+                LightAPI.deleteLight(event.getClickedBlock().getLocation());
         }
     }
 }

@@ -20,8 +20,11 @@ import com.github.hexosse.addlight.commands.Commands;
 import com.github.hexosse.addlight.events.BlockListener;
 import com.github.hexosse.addlight.events.PlayerListener;
 import com.github.hexosse.addlight.utils.MetricsLite;
+import com.github.hexosse.addlight.utils.WorldEditUtil;
 import com.github.hexosse.githubupdater.GitHubUpdater;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -131,6 +134,21 @@ public class AddLight extends JavaPlugin
      */
     public static AddLight getPlugin() {
         return plugin;
+    }
+
+    /**
+     * @return Plugin instance
+     */
+    public static WorldEditPlugin getWorldEditPlugin()
+    {
+        PluginManager pm = Bukkit.getServer().getPluginManager();
+        WorldEditPlugin worldEditPlugin = (WorldEditPlugin)pm.getPlugin("WorldEdit");
+        if(worldEditPlugin instanceof WorldEditPlugin && pm.isPluginEnabled(worldEditPlugin))
+        {
+            WorldEditUtil.setPlugin(worldEditPlugin);
+            return worldEditPlugin;
+        }
+        else return null;
     }
 
 }

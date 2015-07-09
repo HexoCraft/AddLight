@@ -7,7 +7,7 @@ author: hexosse
 website: www.github.hexosse
 
 depend: [LightAPI]
-softdepend: []
+softdepend: [WorldEdit]
 
 commands:
   AddLight:

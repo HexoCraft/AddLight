@@ -244,7 +244,7 @@ public class MetricsLite
     /**
      * Enables metrics for the server by setting "opt-out" to false in the config file and starting the metrics task.
      *
-     * @throws java.io.IOException
+     * @throws java.io.IOException Exception
      */
     public void enable() throws IOException
     {
@@ -269,7 +269,7 @@ public class MetricsLite
     /**
      * Disables metrics for the server by setting "opt-out" to true in the config file and canceling the metrics task.
      *
-     * @throws java.io.IOException
+     * @throws java.io.IOException Exception
      */
     public void disable() throws IOException
     {
@@ -457,8 +457,6 @@ public class MetricsLite
     /**
      * GZip compress a string of bytes
      *
-     * @param input
-     * @return
      */
     public static byte[] gzip(String input)
     {
@@ -505,10 +503,6 @@ public class MetricsLite
     /**
      * Appends a json encoded key/value pair to the given string builder.
      *
-     * @param json
-     * @param key
-     * @param value
-     * @throws UnsupportedEncodingException
      */
     private static void appendJSONPair(StringBuilder json, String key, String value) throws UnsupportedEncodingException
     {

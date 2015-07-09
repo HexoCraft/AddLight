@@ -23,7 +23,7 @@
 
     <groupId>com.github.hexosse</groupId>
     <artifactId>AddLight</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
     <name>AddLight</name>
     <description>This plugin allow server admin to add invisible light sources.</description>
@@ -82,6 +82,15 @@
                 <updatePolicy>always</updatePolicy>
             </snapshots>
         </repository>
+        <!-- sk89q repository -->
+        <repository>
+            <id>sk89q-repo</id>
+            <url>http://maven.sk89q.com/artifactory/repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
     </repositories>
 
 
@@ -113,6 +122,13 @@
             <groupId>3rdParty</groupId>
             <artifactId>LightAPI</artifactId>
             <version>1.3.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--WorldEdit-->
+        <dependency>
+            <groupId>com.sk89q</groupId>
+            <artifactId>worldedit</artifactId>
+            <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -154,7 +170,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <compilerId></compilerId>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
                     <optimize>true</optimize>
@@ -200,9 +215,6 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
-                        <configuration>
-                            <attach></attach>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
