@@ -74,6 +74,8 @@ public class PlayerListener implements Listener
                         LightAPI.createLight(blockLocation, plugin.lightlevel);
                     }
                 }
+                else
+                    LightAPI.createLight(clickedLoc,plugin.lightlevel);
             }
             // Création de la lumière
             else

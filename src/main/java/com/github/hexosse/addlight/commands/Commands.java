@@ -16,6 +16,7 @@ package com.github.hexosse.addlight.commands;
  *    limitations under the License.
  */
 
+import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
 import com.github.hexosse.addlight.utils.NumberUtil;
 import org.bukkit.ChatColor;
@@ -31,6 +32,8 @@ import org.bukkit.entity.Player;
  */
 public class Commands implements CommandExecutor
 {
+    private final static AddLight plugin = AddLight.getPlugin();
+
     @Override
     public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args)
     {
@@ -39,7 +42,7 @@ public class Commands implements CommandExecutor
 
         if (!Permissions.has(sender, Permissions.ADMIN))
         {
-            sender.sendMessage(ChatColor.GREEN + "[AddLight] " + ChatColor.WHITE + "You don't have permission to create or delete light!");
+            plugin.log("You don't have permission to create or delete light!");
             return true;
         }
 

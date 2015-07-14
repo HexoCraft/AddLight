@@ -37,11 +37,11 @@ public class CommandDisable
     {
         if (!Permissions.has(sender, Permissions.ADMIN))
         {
-            sender.sendMessage(ChatColor.GREEN + "[AddLight] " + ChatColor.WHITE + "You don't have permission to create or delete light!");
+            plugin.log("You don't have permission to create or delete light!");
             return;
         }
 
         plugin.setEnable(false);
-        sender.sendMessage(ChatColor.GREEN + "[AddLight] " + ChatColor.WHITE + "is disable!");
+        plugin.log("is disable!");
     }
 }

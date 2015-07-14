@@ -24,10 +24,14 @@ import com.github.hexosse.addlight.utils.WorldEditUtil;
 import com.github.hexosse.githubupdater.GitHubUpdater;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This file is part AddLight
@@ -106,9 +110,9 @@ public class AddLight extends JavaPlugin
         {
             MetricsLite metrics = new MetricsLite(this);
             if(metrics.start())
-                getLogger().info("Succesfully started Metrics, see http://mcstats.org for more information.");
+                log("Succesfully started Metrics, see http://mcstats.org for more information.");
             else
-                getLogger().info("Could not start Metrics, see http://mcstats.org for more information.");
+                log("Could not start Metrics, see http://mcstats.org for more information.");
         } catch (IOException e)
         {
             // Failed to submit the stats :-(
@@ -151,4 +155,22 @@ public class AddLight extends JavaPlugin
         else return null;
     }
 
+    public void log(String msg) {
+        this.log(Level.INFO, msg);
+    }
+
+    public void log(Level level, String msg)
+    {
+        String logPrefixColored = ChatColor.GREEN + "[AddLight] " + ChatColor.WHITE;
+        String logPrefixPlain = ChatColor.stripColor(logPrefixColored);
+
+        ConsoleCommandSender sender = Bukkit.getConsoleSender();
+        if (level == Level.INFO && sender != null)
+        {
+            Bukkit.getConsoleSender().sendMessage(logPrefixColored + msg);
+        } else
+        {
+            Logger.getLogger("Minecraft").log(level, logPrefixPlain + msg);
+        }
+    }
 }

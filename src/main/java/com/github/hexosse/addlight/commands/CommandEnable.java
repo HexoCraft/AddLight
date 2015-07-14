@@ -38,13 +38,13 @@ public class CommandEnable
     {
         if (!Permissions.has(sender, Permissions.ADMIN))
         {
-            sender.sendMessage(ChatColor.GREEN + "[AddLight] " + ChatColor.WHITE + "You don't have permission to create or delete light!");
+            plugin.log("You don't have permission to create or delete light!");
             return;
         }
 
         plugin.setEnable(true);
-        sender.sendMessage(ChatColor.GREEN + "[AddLight] " + ChatColor.WHITE + "is enable!");
-        sender.sendMessage(ChatColor.GREEN + "[AddLight] " + ChatColor.WHITE + "left click an item with glowstone dust to add light!");
-        sender.sendMessage(ChatColor.GREEN + "[AddLight] " + ChatColor.WHITE + "right click an item with glowstone dust to remove light!");
+        plugin.log("is enable!");
+        plugin.log("left click an item with glowstone dust to add light!");
+        plugin.log("right click an item with glowstone dust to remove light!");
     }
 }
