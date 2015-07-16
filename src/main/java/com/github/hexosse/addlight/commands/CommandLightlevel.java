@@ -39,7 +39,7 @@ public class CommandLightlevel
     {
         if (!Permissions.has(sender, Permissions.ADMIN))
         {
-            plugin.log("You don't have permission to create or delete light!");
+            plugin.log("You don't have permission to create or delete light!",sender);
             return;
         }
 
@@ -47,11 +47,11 @@ public class CommandLightlevel
 
         if(lightlevel<=0 || lightlevel>15)
         {
-            plugin.log("Light intensity must be between 0 and 15");
+            plugin.log("Light intensity must be between 0 and 15",sender);
             return ;
         }
 
         plugin.lightlevel = lightlevel;
-        plugin.log("Light intensity : " + args[0]);
+        plugin.log("Light intensity : " + args[0],sender);
     }
 }

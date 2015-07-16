@@ -25,7 +25,9 @@ import com.github.hexosse.githubupdater.GitHubUpdater;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -156,21 +158,39 @@ public class AddLight extends JavaPlugin
     }
 
     public void log(String msg) {
-        this.log(Level.INFO, msg);
+        this.log(Level.INFO, msg, null);
     }
 
-    public void log(Level level, String msg)
+    public void log(String msg, CommandSender sender) {
+        if(sender instanceof Player)
+            this.log(Level.INFO, msg, (Player)sender);
+        else
+            this.log(Level.INFO, msg, null);
+    }
+
+    public void log(String msg, Player player) {
+        this.log(Level.INFO, msg, player);
+    }
+
+    public void log(Level level, String msg, Player player)
     {
         String logPrefixColored = ChatColor.GREEN + "[AddLight] " + ChatColor.WHITE;
         String logPrefixPlain = ChatColor.stripColor(logPrefixColored);
 
-        ConsoleCommandSender sender = Bukkit.getConsoleSender();
-        if (level == Level.INFO && sender != null)
+        if(player != null)
         {
-            Bukkit.getConsoleSender().sendMessage(logPrefixColored + msg);
-        } else
+            player.sendMessage(logPrefixColored + msg);
+        }
+        else
         {
-            Logger.getLogger("Minecraft").log(level, logPrefixPlain + msg);
+            ConsoleCommandSender sender = Bukkit.getConsoleSender();
+            if (level == Level.INFO && sender != null)
+            {
+                Bukkit.getConsoleSender().sendMessage(logPrefixColored + msg);
+            } else
+            {
+                Logger.getLogger("Minecraft").log(level, logPrefixPlain + msg);
+            }
         }
     }
 }

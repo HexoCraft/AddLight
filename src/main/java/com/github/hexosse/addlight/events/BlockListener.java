@@ -33,7 +33,7 @@ public class BlockListener implements Listener
 {
     private final static AddLight plugin = AddLight.getPlugin();
 
-    @EventHandler(priority= EventPriority.HIGH)
+    @EventHandler(priority= EventPriority.MONITOR)
     public void onBlockBreak(BlockBreakEvent event)
     {
         if(plugin.isEnable() && event.getPlayer().getItemInHand().getType() == Material.GLOWSTONE_DUST)

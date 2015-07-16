@@ -38,13 +38,13 @@ public class CommandEnable
     {
         if (!Permissions.has(sender, Permissions.ADMIN))
         {
-            plugin.log("You don't have permission to create or delete light!");
+            plugin.log("You don't have permission to create or delete light!",sender);
             return;
         }
 
         plugin.setEnable(true);
-        plugin.log("is enable!");
-        plugin.log("left click an item with glowstone dust to add light!");
-        plugin.log("right click an item with glowstone dust to remove light!");
+        plugin.log("is enable!",sender);
+        plugin.log("left click an item with glowstone dust to add light!",sender);
+        plugin.log("right click an item with glowstone dust to remove light!",sender);
     }
 }

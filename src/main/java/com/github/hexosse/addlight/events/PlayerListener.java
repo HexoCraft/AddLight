@@ -106,6 +106,8 @@ public class PlayerListener implements Listener
                         LightAPI.deleteLight(blockLocation);
                     }
                 }
+                else
+                    LightAPI.deleteLight(clickedLoc);
             }
             // Suppression de la lumière
             else

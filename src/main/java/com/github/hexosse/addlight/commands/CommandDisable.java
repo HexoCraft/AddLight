@@ -37,11 +37,11 @@ public class CommandDisable
     {
         if (!Permissions.has(sender, Permissions.ADMIN))
         {
-            plugin.log("You don't have permission to create or delete light!");
+            plugin.log("You don't have permission to create or delete light!",sender);
             return;
         }
 
         plugin.setEnable(false);
-        plugin.log("is disable!");
+        plugin.log("is disable!",sender);
     }
 }

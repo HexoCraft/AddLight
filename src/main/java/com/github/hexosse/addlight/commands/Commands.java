@@ -42,7 +42,7 @@ public class Commands implements CommandExecutor
 
         if (!Permissions.has(sender, Permissions.ADMIN))
         {
-            plugin.log("You don't have permission to create or delete light!");
+            plugin.log("You don't have permission to create or delete light!",sender);
             return true;
         }
 
