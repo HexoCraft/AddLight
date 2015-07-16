@@ -23,7 +23,7 @@
 
     <groupId>com.github.hexosse</groupId>
     <artifactId>AddLight</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <packaging>jar</packaging>
     <name>AddLight</name>
     <description>This plugin allow server admin to add invisible light sources.</description>
@@ -114,7 +114,7 @@
         <dependency>
             <groupId>com.github.hexosse</groupId>
             <artifactId>GitHubUpdater</artifactId>
-            <version>1.0.1</version>
+            <version>LATEST</version>
             <scope>compile</scope>
         </dependency>
         <!--LightAPI-->
