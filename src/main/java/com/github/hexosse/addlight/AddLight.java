@@ -46,6 +46,7 @@ public class AddLight extends JavaPlugin
     private static String repository;
 
     public boolean enable;
+    public boolean connected;
     public int lightlevel;
 
 
@@ -58,7 +59,8 @@ public class AddLight extends JavaPlugin
         repository = "hexosse/AddLight";
 
         enable = false;
-        lightlevel = 10;
+        connected = false;
+        lightlevel = 12;
     }
 
     /**
@@ -82,8 +84,7 @@ public class AddLight extends JavaPlugin
 
         /* Metrics */
         if(this.getConfig().getBoolean("plugin.useMetrics"))
-            RunMetrics();
-    }
+            RunMetrics();    }
 
     /**
      * Désactivation du plugin

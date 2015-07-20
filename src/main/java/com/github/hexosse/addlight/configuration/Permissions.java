@@ -25,8 +25,13 @@ import org.bukkit.command.CommandSender;
  */
 public enum Permissions
 {
-    ADMIN("AddLight.admin");
+    ADMIN("AddLight.admin"),
+    USER("AddLight.user"),
 
+    USE("AddLight.use"),
+    WORLDEDIT("AddLight.worldedit"),
+    CONNECTED("AddLight.connected"),
+    INTENSITY("AddLight.intensity");
 
     private final String permission;
 

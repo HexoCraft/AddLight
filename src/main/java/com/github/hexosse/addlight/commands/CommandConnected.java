@@ -18,40 +18,31 @@ package com.github.hexosse.addlight.commands;
 
 import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
-import com.github.hexosse.addlight.utils.NumberUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 /**
- * This file is part AddLight
+ * This file is part of AddLight
  *
- * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
+ * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
+ * @date 20/07/2015
  */
-public class CommandLightlevel
+public class CommandConnected
 {
     private final static AddLight plugin = AddLight.getPlugin();
 
     /**
      * @param sender The sender (should be a player)
-     * @param args light level
      */
-    public static void execute(CommandSender sender, String[] args)
+    public static void execute(CommandSender sender)
     {
-        if (!Permissions.has(sender, Permissions.INTENSITY))
+        if (!Permissions.has(sender, Permissions.CONNECTED))
         {
-            plugin.log("You don't have permission to change light intensity!",sender);
+            plugin.log("You don't have permission to use connected blocks!",sender);
             return;
         }
 
-        int lightlevel = NumberUtil.ToInt(args[0]);
-
-        if(lightlevel<=0 || lightlevel>15)
-        {
-            plugin.log("Light intensity must be between 1 and 15",sender);
-            return ;
-        }
-
-        plugin.lightlevel = lightlevel;
-        plugin.log("Light intensity : " + args[0],sender);
+        plugin.connected = !plugin.connected;
+        plugin.log("Connected blocks : " + ChatColor.AQUA + (plugin.connected?"on":"off"),sender);
     }
 }

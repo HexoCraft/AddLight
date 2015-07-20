@@ -1,4 +1,4 @@
-package com.github.hexosse.addlight.commands;
+package com.github.hexosse.addlight.utils;
 
 /*
  * Copyright 2015 hexosse
@@ -16,32 +16,33 @@ package com.github.hexosse.addlight.commands;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.addlight.configuration.Permissions;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.material.MaterialData;
 
 /**
  * This file is part AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
+ * @date 20/07/2015
  */
-public class CommandDisable
+public class BlockUtil
 {
-    private final static AddLight plugin = AddLight.getPlugin();
-
-    /**
-     * @param sender The sender (should be a player)
-     */
-    public static void execute(CommandSender sender)
+    public static Material getMaterial(Block block)
     {
-        if (!Permissions.has(sender, Permissions.USE))
-        {
-            plugin.log("You don't have permission to use AddLight plugin!",sender);
-            return;
-        }
+        return block.getType();
+    }
 
-        plugin.setEnable(false);
-        plugin.log("is disable!",sender);
+    public static short getDurability(Block block)
+    {
+        MaterialData md = block.getState().getData();
+
+        return md.toItemStack().getDurability();
+
+    }
+
+    public static boolean compare(Block b1, Block b2)
+    {
+        return ( getMaterial(b1)==getMaterial(b2) && getDurability(b1)==getDurability(b2) );
     }
 }

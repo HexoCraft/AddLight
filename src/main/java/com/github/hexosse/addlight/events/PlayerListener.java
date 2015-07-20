@@ -17,9 +17,12 @@ package com.github.hexosse.addlight.events;
  */
 
 import com.github.hexosse.addlight.AddLight;
+import com.github.hexosse.addlight.configuration.Permissions;
+import com.github.hexosse.addlight.utils.ConnectedBlocksLight;
 import com.github.hexosse.addlight.utils.WorldEditUtil;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -28,6 +31,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import ru.BeYkeRYkt.LightAPI.LightAPI;
 
 import java.util.Iterator;
@@ -60,26 +64,17 @@ public class PlayerListener implements Listener
             // Clicked location
             Location clickedLoc = event.getClickedBlock().getLocation();
 
-            // Création de la lumière sur une selection WorldEdit
-            if(worldEditPlugin!=null)
-            {
-                if(WorldEditUtil.IsLocationInSelection(player, clickedLoc))
-                {
-                    Iterator<BlockVector> blocks = WorldEditUtil.getBlockVector(player, clickedLoc);
+            // Création de la lumière pour des block connectés
+            if(plugin.connected && Permissions.has(player, Permissions.CONNECTED))
+                ConnectedCreateLight(player,clickedLoc,plugin.lightlevel);
 
-                    while(blocks.hasNext())
-                    {
-                        BlockVector block = blocks.next();
-                        Location blockLocation = new Location(clickedLoc.getWorld(), block.getBlockX(), block.getBlockY(), block.getBlockZ());
-                        LightAPI.createLight(blockLocation, plugin.lightlevel);
-                    }
-                }
-                else
-                    LightAPI.createLight(clickedLoc,plugin.lightlevel);
-            }
-            // Création de la lumière
+            // Création de la lumière sur une selection WorldEdit
+            else if(worldEditPlugin!=null && Permissions.has(player, Permissions.WORLDEDIT))
+                WorldEditCreateLight(player, clickedLoc,plugin.lightlevel);
+
+                // Création de la lumière
             else
-                LightAPI.createLight(clickedLoc,plugin.lightlevel);
+                CreateLight(clickedLoc, plugin.lightlevel);
         }
 
         //
@@ -92,26 +87,94 @@ public class PlayerListener implements Listener
             // Clicked location
             Location clickedLoc = event.getClickedBlock().getLocation();
 
-            // Suppression de la lumière sur une selection WorldEdit
-            if(worldEditPlugin!=null)
-            {
-                if(WorldEditUtil.IsLocationInSelection(player, clickedLoc))
-                {
-                    Iterator<BlockVector> blocks = WorldEditUtil.getBlockVector(player, clickedLoc);
+            // Suppression de la lumière pour des block connectés
+            if(plugin.connected && Permissions.has(player, Permissions.CONNECTED))
+                ConnectedDeleteLight(player, clickedLoc);
 
-                    while (blocks.hasNext())
-                    {
-                        BlockVector block = blocks.next();
-                        Location blockLocation = new Location(clickedLoc.getWorld(), block.getBlockX(), block.getBlockY(), block.getBlockZ());
-                        LightAPI.deleteLight(blockLocation);
-                    }
-                }
-                else
-                    LightAPI.deleteLight(clickedLoc);
-            }
+            // Suppression de la lumière sur une selection WorldEdit
+            else if(worldEditPlugin!=null && Permissions.has(player, Permissions.WORLDEDIT))
+                WorldEditDeleteLight(player, clickedLoc);
+
             // Suppression de la lumière
             else
-                LightAPI.deleteLight(event.getClickedBlock().getLocation());
+                DeleteLight(clickedLoc);
         }
+    }
+
+
+
+
+    public void CreateLight(Location location, int lightLevel)
+    {
+        LightAPI.createLight(location, lightLevel);
+    }
+
+    public void WorldEditCreateLight(Player player, Location location, int lightLevel)
+    {
+        if(WorldEditUtil.IsLocationInSelection(player, location))
+        {
+            Iterator<BlockVector> blocks = WorldEditUtil.getBlockVector(player, location);
+
+            while (blocks.hasNext())
+            {
+                BlockVector block = blocks.next();
+                Location blockLocation = new Location(location.getWorld(), block.getBlockX(), block.getBlockY(), block.getBlockZ());
+                LightAPI.createLight(blockLocation,lightLevel);
+            }
+        }
+        else
+            LightAPI.createLight(location,lightLevel);
+    }
+
+    public void ConnectedCreateLight(final Player player, final Location location, final int lightLevel)
+    {
+        // Create the lights anonymously
+        new BukkitRunnable()
+        {
+            @Override
+            public void run()
+            {
+                int count = ConnectedBlocksLight.createConnectedBlocksLight(location, lightLevel);
+                plugin.log("" + count + " lights created",player);
+            }
+
+        }.runTaskAsynchronously(plugin);
+    }
+
+    public void DeleteLight(Location location)
+    {
+        LightAPI.deleteLight(location);
+    }
+
+    public void WorldEditDeleteLight(Player player, Location location)
+    {
+        if(WorldEditUtil.IsLocationInSelection(player, location))
+        {
+            Iterator<BlockVector> blocks = WorldEditUtil.getBlockVector(player, location);
+
+            while (blocks.hasNext())
+            {
+                BlockVector block = blocks.next();
+                Location blockLocation = new Location(location.getWorld(), block.getBlockX(), block.getBlockY(), block.getBlockZ());
+                LightAPI.deleteLight(blockLocation);
+            }
+        }
+        else
+            LightAPI.deleteLight(location);
+    }
+
+    public void ConnectedDeleteLight(final Player player, final Location location)
+    {
+        // Create the lights anonymously
+        new BukkitRunnable()
+        {
+            @Override
+            public void run()
+            {
+                int count = ConnectedBlocksLight.deleteConnectedBlocksLight(location);
+                plugin.log("" + count + " lights deleted",player);
+            }
+
+        }.runTaskAsynchronously(plugin);
     }
 }

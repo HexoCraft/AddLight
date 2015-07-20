@@ -17,9 +17,7 @@ package com.github.hexosse.addlight.commands;
  */
 
 import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.addlight.configuration.Permissions;
 import com.github.hexosse.addlight.utils.NumberUtil;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -40,12 +38,6 @@ public class Commands implements CommandExecutor
         if (!(sender instanceof Player))
             return false;
 
-        if (!Permissions.has(sender, Permissions.ADMIN))
-        {
-            plugin.log("You don't have permission to create or delete light!",sender);
-            return true;
-        }
-
         if(args.length == 0 || args[0].equalsIgnoreCase("help"))
             CommandHelp.execute(sender);
 
@@ -54,6 +46,9 @@ public class Commands implements CommandExecutor
 
         else if(args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("off"))
             CommandDisable.execute(sender);
+
+        else if(args[0].equalsIgnoreCase("connectedblock") || args[0].equalsIgnoreCase("cb"))
+            CommandConnected.execute(sender);
 
         else if(NumberUtil.isInteger(args[0]))
             CommandLightlevel.execute(sender,args);

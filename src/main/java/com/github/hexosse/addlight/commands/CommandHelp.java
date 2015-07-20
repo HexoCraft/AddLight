@@ -17,6 +17,7 @@ package com.github.hexosse.addlight.commands;
  */
 
 import com.github.hexosse.addlight.AddLight;
+import com.github.hexosse.addlight.configuration.Permissions;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -34,11 +35,22 @@ public class CommandHelp
      */
     public static void execute(CommandSender sender)
     {
+        if (!Permissions.has(sender, Permissions.USE))
+        {
+            plugin.log("You don't have permission to use AddLight plugin!",sender);
+            return;
+        }
+
         sender.sendMessage("-----------------------------------------------------");
         sender.sendMessage(ChatColor.RED + plugin.getDescription().getName() + " help");
         sender.sendMessage(ChatColor.AQUA + "/AddLight [enable|on] :" + ChatColor.WHITE + " Enable light creation");
         sender.sendMessage(ChatColor.AQUA + "/AddLight [disable|off] :" + ChatColor.WHITE + " Disable light creation");
-        sender.sendMessage(ChatColor.AQUA + "/AddLight <number> :" + ChatColor.WHITE + " Define light intensity");
+        sender.sendMessage(ChatColor.AQUA + "/AddLight [ConnectedBlock|cb] :" + ChatColor.WHITE + " Toggle connected blocks");
+        sender.sendMessage(ChatColor.AQUA + "/AddLight <number> :" + ChatColor.WHITE + " Define light intensity (1 - 15)");
+        sender.sendMessage("-----------------------------------------------------");
+        plugin.log("Plugin : " + ChatColor.AQUA + (plugin.enable ? "on" : "off"),sender);
+        plugin.log("Connected blocks : " + ChatColor.AQUA + (plugin.connected?"on":"off"),sender);
+        plugin.log("Light intensity : " + ChatColor.AQUA + plugin.lightlevel,sender);
         sender.sendMessage("-----------------------------------------------------");
     }
 }

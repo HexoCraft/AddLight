@@ -18,7 +18,6 @@ package com.github.hexosse.addlight.commands;
 
 import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 
@@ -36,9 +35,9 @@ public class CommandEnable
      */
     public static void execute(CommandSender sender)
     {
-        if (!Permissions.has(sender, Permissions.ADMIN))
+        if (!Permissions.has(sender, Permissions.USE))
         {
-            plugin.log("You don't have permission to create or delete light!",sender);
+            plugin.log("You don't have permission to use AddLight plugin!",sender);
             return;
         }
 
