@@ -25,7 +25,6 @@ import org.bukkit.command.CommandSender;
  * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
- * @date 20/07/2015
  */
 public class CommandConnected
 {

@@ -47,7 +47,7 @@ public class Commands implements CommandExecutor
         else if(args[0].equalsIgnoreCase("disable") || args[0].equalsIgnoreCase("off"))
             CommandDisable.execute(sender);
 
-        else if(args[0].equalsIgnoreCase("connectedblock") || args[0].equalsIgnoreCase("cb"))
+        else if(args[0].equalsIgnoreCase("ConnectedBlocks") || args[0].equalsIgnoreCase("cb"))
             CommandConnected.execute(sender);
 
         else if(NumberUtil.isInteger(args[0]))

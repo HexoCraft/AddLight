@@ -45,7 +45,7 @@ public class CommandHelp
         sender.sendMessage(ChatColor.RED + plugin.getDescription().getName() + " help");
         sender.sendMessage(ChatColor.AQUA + "/AddLight [enable|on] :" + ChatColor.WHITE + " Enable light creation");
         sender.sendMessage(ChatColor.AQUA + "/AddLight [disable|off] :" + ChatColor.WHITE + " Disable light creation");
-        sender.sendMessage(ChatColor.AQUA + "/AddLight [ConnectedBlock|cb] :" + ChatColor.WHITE + " Toggle connected blocks");
+        sender.sendMessage(ChatColor.AQUA + "/AddLight [ConnectedBlocks|cb] :" + ChatColor.WHITE + " Toggle connected blocks mode");
         sender.sendMessage(ChatColor.AQUA + "/AddLight <number> :" + ChatColor.WHITE + " Define light intensity (1 - 15)");
         sender.sendMessage("-----------------------------------------------------");
         plugin.log("Plugin : " + ChatColor.AQUA + (plugin.enable ? "on" : "off"),sender);

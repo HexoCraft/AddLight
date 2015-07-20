@@ -24,7 +24,6 @@ import org.bukkit.material.MaterialData;
  * This file is part AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
- * @date 20/07/2015
  */
 public class BlockUtil
 {
