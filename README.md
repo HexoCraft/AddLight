@@ -1,4 +1,4 @@
-# AddLight
+# AddLight [![Build Status](https://drone.io/github.com/hexosse/AddLight/status.png)](https://drone.io/github.com/hexosse/AddLight/latest)
 This plugin allow server admin to add invisible light sources.
 
 Enable the plugin using the command **/AddLight enable** then left click any item or inside a WorldEdit selection with glowstone dust to add invisible light source.
@@ -36,3 +36,7 @@ AddLight depend on [LightAPI](https://www.spigotmc.org/resources/lightapi.4510/)
 
 ####Config:
 The plugin use metrics and an integrated updater.<br>Both can be disable in config.yml
+
+####Ressources:
+Releases : https://github.com/hexosse/AddLight/releases<br>
+Latest build :  https://drone.io/github.com/hexosse/AddLight/files
