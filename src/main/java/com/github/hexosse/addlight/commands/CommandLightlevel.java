@@ -19,7 +19,6 @@ package com.github.hexosse.addlight.commands;
 import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
 import com.github.hexosse.addlight.utils.NumberUtil;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 /**

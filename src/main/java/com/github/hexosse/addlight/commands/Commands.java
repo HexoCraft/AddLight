@@ -16,7 +16,6 @@ package com.github.hexosse.addlight.commands;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.utils.NumberUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -30,8 +29,6 @@ import org.bukkit.entity.Player;
  */
 public class Commands implements CommandExecutor
 {
-    private final static AddLight plugin = AddLight.getPlugin();
-
     @Override
     public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args)
     {

@@ -44,6 +44,7 @@ public class AddLight extends JavaPlugin
 {
     private static AddLight plugin;
     private static String repository;
+    private static Light light;
 
     public boolean enable;
     public boolean connected;
@@ -57,6 +58,7 @@ public class AddLight extends JavaPlugin
     {
         plugin = this;
         repository = "hexosse/AddLight";
+        light = null;
 
         enable = false;
         connected = false;
@@ -84,7 +86,11 @@ public class AddLight extends JavaPlugin
 
         /* Metrics */
         if(this.getConfig().getBoolean("plugin.useMetrics"))
-            RunMetrics();    }
+            RunMetrics();
+
+        /**/
+        light = new Light(this);
+    }
 
     /**
      * Désactivation du plugin
@@ -92,6 +98,7 @@ public class AddLight extends JavaPlugin
     @Override
     public void onDisable()
     {
+        setEnable(false);
         super.onDisable();
     }
 
@@ -105,7 +112,6 @@ public class AddLight extends JavaPlugin
     {
         GitHubUpdater updater = new GitHubUpdater(this, this.repository, this.getFile(), download?GitHubUpdater.UpdateType.DEFAULT:GitHubUpdater.UpdateType.NO_DOWNLOAD, true);
     }
-
 
     private void RunMetrics()
     {
@@ -132,8 +138,14 @@ public class AddLight extends JavaPlugin
     /**
      * @param enable Enable the plugin
      */
-    public void setEnable(boolean enable) {
+    public void setEnable(boolean enable)
+    {
         this.enable = enable;
+
+        if(enable)
+            light.Start();
+        else
+            light.Stop();
     }
 
     /**
@@ -150,12 +162,20 @@ public class AddLight extends JavaPlugin
     {
         PluginManager pm = Bukkit.getServer().getPluginManager();
         WorldEditPlugin worldEditPlugin = (WorldEditPlugin)pm.getPlugin("WorldEdit");
-        if(worldEditPlugin instanceof WorldEditPlugin && pm.isPluginEnabled(worldEditPlugin))
+        if(worldEditPlugin != null && pm.isPluginEnabled(worldEditPlugin))
         {
             WorldEditUtil.setPlugin(worldEditPlugin);
             return worldEditPlugin;
         }
         else return null;
+    }
+
+    /**
+     * @return Light instance
+     */
+    public static Light getLight()
+    {
+        return light;
     }
 
     public void log(String msg) {

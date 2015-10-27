@@ -16,11 +16,10 @@ package com.github.hexosse.addlight.utils;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.utils.BlockUtil;
+import com.github.hexosse.addlight.AddLight;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import ru.BeYkeRYkt.LightAPI.LightAPI;
 
 import java.util.ArrayList;
 
@@ -31,6 +30,8 @@ import java.util.ArrayList;
  */
 public class ConnectedBlocksLight
 {
+    private final static AddLight plugin = AddLight.getPlugin();
+
     private static BlockFace[] FACES;
 
     private static ArrayList<Location> unchecked = new ArrayList<>();
@@ -38,21 +39,13 @@ public class ConnectedBlocksLight
 
     static { FACES = new BlockFace[]{BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST}; }
 
-    public static int createConnectedBlocksLight(Location location, int lightLevel)
+    public static ArrayList<Location> getConnectedBlocks(Location location)
     {
-        int count = getConnectedBlocks(location.getBlock());
-        LightAPI.createLight(confirmed, lightLevel);
-        return count;
+        findConnectedBlocks(location.getBlock());
+        return confirmed;
     }
 
-    public static int deleteConnectedBlocksLight(Location location)
-    {
-        int count = getConnectedBlocks(location.getBlock());
-        LightAPI.deleteLight(confirmed);
-        return count;
-    }
-
-    protected static int getConnectedBlocks(Block block)
+    private static int findConnectedBlocks(Block block)
     {
         unchecked.clear();
         confirmed.clear();
