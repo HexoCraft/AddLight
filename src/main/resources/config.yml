@@ -1,5 +1,16 @@
+############################################################
+# | AddLight by hexosse                                  | #
+############################################################
+
+
 # *---------------- Plugin configuration --------------------*
 plugin:
-  useMetrics: true
-  useUpdater: true
+  # Enable metrics
+  useMetrics : true
+  # Enable updater
+  useUpdater : true
+  # Download update
   downloadUpdate: true
+
+
+############################################################

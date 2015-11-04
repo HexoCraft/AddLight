@@ -38,6 +38,10 @@ public class NumberUtil
         }
     }
 
+    /**
+     * @param string string to convert
+     * @return integer representation of the string
+     */
     public static int ToInt(String string) {
         try {
             return Integer.parseInt(string);

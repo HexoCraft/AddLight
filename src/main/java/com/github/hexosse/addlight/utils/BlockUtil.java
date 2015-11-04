@@ -37,7 +37,6 @@ public class BlockUtil
         MaterialData md = block.getState().getData();
 
         return md.toItemStack().getDurability();
-
     }
 
     public static boolean compare(Block b1, Block b2)

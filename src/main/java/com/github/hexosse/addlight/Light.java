@@ -16,8 +16,8 @@ package com.github.hexosse.addlight;
  *    limitations under the License.
  */
 
+import com.github.hexosse.baseplugin.BaseObject;
 import org.bukkit.Location;
-import org.bukkit.plugin.Plugin;
 import ru.BeYkeRYkt.LightAPI.ChunkInfo;
 import ru.BeYkeRYkt.LightAPI.LightAPI;
 import ru.BeYkeRYkt.LightAPI.LightRegistry;
@@ -29,13 +29,14 @@ import java.util.List;
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class Light
+public class Light extends BaseObject<AddLight>
 {
     private LightRegistry registry;
     private int ticks = 40;
 
-    public Light(Plugin plugin)
+    public Light(AddLight plugin)
     {
+        super(plugin);
         registry = LightAPI.getRegistry(plugin);
     }
 

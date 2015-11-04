@@ -83,6 +83,7 @@ public class WorldEditUtil
      * @param player Player
      * @return player region
      */
+    @SuppressWarnings("deprecation")
     protected static Region getRegion(Player player)
     {
         if(!HasWorldEdit()) return null;

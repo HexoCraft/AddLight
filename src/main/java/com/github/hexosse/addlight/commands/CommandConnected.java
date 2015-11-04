@@ -18,30 +18,39 @@ package com.github.hexosse.addlight.commands;
 
 import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
+import com.github.hexosse.baseplugin.command.BaseCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class CommandConnected
+public class CommandConnected extends BaseCommand<AddLight>
 {
-    private final static AddLight plugin = AddLight.getPlugin();
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public CommandConnected(AddLight plugin) {
+        super(plugin);
+    }
 
     /**
      * @param sender The sender (should be a player)
      */
-    public static void execute(CommandSender sender)
+    public void execute(CommandSender sender)
     {
-        if (!Permissions.has(sender, Permissions.CONNECTED))
+        final Player player = (sender instanceof Player) ? (Player)sender : null;
+
+        if(!Permissions.has(sender, Permissions.CONNECTED))
         {
-            plugin.log("You don't have permission to use connected blocks!",sender);
+            pluginLogger.help(ChatColor.RED + plugin.messages.useConnected, player);
             return;
         }
 
         plugin.connected = !plugin.connected;
-        plugin.log("Connected blocks : " + ChatColor.AQUA + (plugin.connected?"on":"off"),sender);
+        pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.connectedblocks + ChatColor.AQUA + (plugin.connected?"on":"off"), player);
     }
 }

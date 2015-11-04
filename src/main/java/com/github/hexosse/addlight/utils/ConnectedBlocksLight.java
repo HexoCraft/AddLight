@@ -16,7 +16,6 @@ package com.github.hexosse.addlight.utils;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.AddLight;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -30,8 +29,6 @@ import java.util.ArrayList;
  */
 public class ConnectedBlocksLight
 {
-    private final static AddLight plugin = AddLight.getPlugin();
-
     private static BlockFace[] FACES;
 
     private static ArrayList<Location> unchecked = new ArrayList<>();

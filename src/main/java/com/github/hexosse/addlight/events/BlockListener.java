@@ -17,10 +17,10 @@ package com.github.hexosse.addlight.events;
  */
 
 import com.github.hexosse.addlight.AddLight;
+import com.github.hexosse.baseplugin.event.BaseListener;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
 /**
@@ -29,10 +29,20 @@ import org.bukkit.event.block.BlockBreakEvent;
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
 @SuppressWarnings("unused")
-public class BlockListener implements Listener
+public class BlockListener extends BaseListener<AddLight>
 {
-    private final static AddLight plugin = AddLight.getPlugin();
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public BlockListener(AddLight plugin)
+    {
+        super(plugin);
+    }
 
+
+    /**
+     * @param event BlockBreakEvent
+     */
     @EventHandler(priority= EventPriority.MONITOR)
     public void onBlockBreak(BlockBreakEvent event)
     {

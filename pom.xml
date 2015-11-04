@@ -23,13 +23,14 @@
 
     <groupId>com.github.hexosse</groupId>
     <artifactId>AddLight</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <packaging>jar</packaging>
     <name>AddLight</name>
     <description>This plugin allow server admin to add invisible light sources.</description>
     <url>https://github.com/hexosse/AddLight</url>
 
 
+    <!-- License -->
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -39,6 +40,7 @@
     </licenses>
 
 
+    <!-- Propriétés du projet -->
     <properties>
         <plugin.name>${project.name}</plugin.name>
         <plugin.version>${project.version}</plugin.version>
@@ -49,6 +51,7 @@
     </properties>
 
 
+    <!-- Développeurs -->
     <developers>
         <developer>
             <id>hexosse</id>
@@ -56,6 +59,7 @@
             <url>https://github.com/hexosse</url>
         </developer>
     </developers>
+
 
     <!-- Création d'un repository temporaire -->
     <distributionManagement>
@@ -66,12 +70,17 @@
         </repository>
     </distributionManagement>
 
+
     <!-- Mettre ici la liste des repositories permettant de récupérer les dépendances du projet-->
     <repositories>
         <!-- Spigot -->
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
         </repository>
         <!-- hexosse repository -->
         <repository>
@@ -79,16 +88,16 @@
             <url>https://raw.github.com/hexosse/maven-repo/master/</url>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
+                <updatePolicy>daily</updatePolicy>
             </snapshots>
         </repository>
         <!-- sk89q repository -->
         <repository>
             <id>sk89q-repo</id>
-            <url>http://maven.sk89q.com/artifactory/repo/</url>
+            <url>http://maven.sk89q.com/repo</url>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
+                <updatePolicy>daily</updatePolicy>
             </snapshots>
         </repository>
     </repositories>
@@ -110,6 +119,13 @@
             <version>${spigot.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!--hexosse BasePlugin-->
+        <dependency>
+            <groupId>com.github.hexosse</groupId>
+            <artifactId>BasePlugin</artifactId>
+            <version>LATEST</version>
+            <scope>compile</scope>
+        </dependency>
         <!--hexosse GitHubUpdater-->
         <dependency>
             <groupId>com.github.hexosse</groupId>
@@ -126,9 +142,9 @@
         </dependency>
         <!--WorldEdit-->
         <dependency>
-            <groupId>com.sk89q</groupId>
-            <artifactId>worldedit</artifactId>
-            <version>LATEST</version>
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>6.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -138,6 +154,8 @@
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <finalName>${plugin.name}</finalName>
+
+        <!-- Ressources -->
         <resources>
             <resource>
                 <targetPath>.</targetPath>
@@ -148,23 +166,19 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+
         <!-- Liste des plugins -->
+        <!-- http://mvnrepository.com/artifact/org.apache.maven.plugins -->
         <plugins>
-            <!-- Liste des plugin maven -->
-            <!-- http://mvnrepository.com/artifact/org.apache.maven.plugins -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <finalName>${plugin.name}</finalName>
-                </configuration>
-            </plugin>
+
+            <!-- maven-clean-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>2.6.1</version>
             </plugin>
+
+            <!-- maven-compiler-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -175,36 +189,8 @@
                     <optimize>true</optimize>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <!-- Force GitHubUpdater à être compris dans le .jar-->
-                                    <include>com.github.hexosse:GitHubUpdater</include>
-                                </includes>
-                            </artifactSet>
-                            <!-- utterly useless artifact from shade 2.x -->
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <!-- Le fichier jar d'origine est renommé en original-XXXX.jar -->
-                            <shadedArtifactAttached>false</shadedArtifactAttached>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
+            <!-- maven-source-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -218,6 +204,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- maven-javadoc-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -231,6 +219,61 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- maven-shade-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <!-- Force BasePlugin à être compris dans le .jar-->
+                                    <include>com.github.hexosse:BasePlugin</include>
+                                    <!-- Force GitHubUpdater à être compris dans le .jar-->
+                                    <include>com.github.hexosse:GitHubUpdater</include>
+                                </includes>
+                            </artifactSet>
+                            <!-- utterly useless artifact from shade 2.x -->
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <!-- Le fichier jar d'origine est renommé en original-XXXX.jar -->
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- maven-jar-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <finalName>${plugin.name}</finalName>
+                    <archive>
+                        <addMavenDescriptor>false</addMavenDescriptor>
+                        <manifestEntries>
+                            <Name>${project.name}</Name>
+                            <Version>${project.version}</Version>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- maven-install-plugin -->
+             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+            </plugin>
+
+            <!-- maven-deploy-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -240,6 +283,8 @@
                     </altDeploymentRepository>
                 </configuration>
             </plugin>
+
+            <!-- site-maven-plugin (GitHub) -->
             <plugin>
                 <groupId>com.github.github</groupId>
                 <artifactId>site-maven-plugin</artifactId>
@@ -274,6 +319,7 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
 

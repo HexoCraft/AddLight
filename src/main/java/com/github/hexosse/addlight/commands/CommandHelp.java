@@ -18,39 +18,54 @@ package com.github.hexosse.addlight.commands;
 
 import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
+import com.github.hexosse.baseplugin.command.BaseCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class CommandHelp
+public class CommandHelp extends BaseCommand<AddLight>
 {
-    private final static AddLight plugin = AddLight.getPlugin();
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public CommandHelp(AddLight plugin) {
+        super(plugin);
+    }
 
     /**
      * @param sender The sender (should be a player)
      */
-    public static void execute(CommandSender sender)
+    public void execute(CommandSender sender)
     {
-        if (!Permissions.has(sender, Permissions.USE))
+        final Player player = (sender instanceof Player) ? (Player)sender : null;
+
+        if(!Permissions.has(sender, Permissions.USE))
         {
-            plugin.log("You don't have permission to use AddLight plugin!",sender);
+            pluginLogger.help(ChatColor.RED + plugin.messages.usePlugin, player);
             return;
         }
 
-        sender.sendMessage("-----------------------------------------------------");
-        sender.sendMessage(ChatColor.RED + plugin.getDescription().getName() + " help");
-        sender.sendMessage(ChatColor.AQUA + "/AddLight [enable|on] :" + ChatColor.WHITE + " Enable light creation");
-        sender.sendMessage(ChatColor.AQUA + "/AddLight [disable|off] :" + ChatColor.WHITE + " Disable light creation");
-        sender.sendMessage(ChatColor.AQUA + "/AddLight [ConnectedBlocks|cb] :" + ChatColor.WHITE + " Toggle connected blocks mode");
-        sender.sendMessage(ChatColor.AQUA + "/AddLight <number> :" + ChatColor.WHITE + " Define light intensity (1 - 15)");
-        sender.sendMessage("-----------------------------------------------------");
-        plugin.log("Plugin : " + ChatColor.AQUA + (plugin.enable ? "on" : "off"),sender);
-        plugin.log("Connected blocks : " + ChatColor.AQUA + (plugin.connected?"on":"off"),sender);
-        plugin.log("Light intensity : " + ChatColor.AQUA + plugin.lightlevel,sender);
-        sender.sendMessage("-----------------------------------------------------");
+
+        pluginLogger.help(ChatColor.YELLOW + "-----------------------------------------------", player);
+        pluginLogger.help(ChatColor.YELLOW + plugin.getDescription().getName() + " help", player);
+        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[enable|on] :" + ChatColor.WHITE + plugin.messages.helpEnable, player);
+        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[disable|off] :" + ChatColor.WHITE + plugin.messages.helpDisable, player);
+        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[ConnectedBlocks|cb] :" + ChatColor.WHITE + plugin.messages.helpCb, player);
+        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "<number> :" + ChatColor.WHITE + plugin.messages.helpNumber, player);
+        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[reload] :" + ChatColor.WHITE + plugin.messages.helpReload, player);
+        pluginLogger.help(ChatColor.YELLOW + "-----------------------------------------------", player);
+        pluginLogger.help("Plugin : " + ChatColor.AQUA + (plugin.enable ? "on" : "off"), player);
+        pluginLogger.help("Connected blocks : " + ChatColor.AQUA + (plugin.connected ? "on" : "off"), player);
+        pluginLogger.help("Light intensity : " + ChatColor.AQUA + plugin.lightlevel, player);
+        pluginLogger.help(ChatColor.YELLOW + "-----------------------------------------------", player);
+
+        pluginLogger.info("Plugin : " + ChatColor.AQUA + (plugin.enable ? "on" : "off"));
+        pluginLogger.info("Connected blocks : " + ChatColor.AQUA + (plugin.connected ? "on" : "off"));
+        pluginLogger.info("Light intensity : " + ChatColor.AQUA + plugin.lightlevel);
     }
 }

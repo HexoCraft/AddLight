@@ -18,7 +18,10 @@ package com.github.hexosse.addlight.commands;
 
 import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
+import com.github.hexosse.baseplugin.command.BaseCommand;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 
 /**
@@ -26,24 +29,32 @@ import org.bukkit.command.CommandSender;
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class CommandEnable
+public class CommandEnable extends BaseCommand<AddLight>
 {
-    private final static AddLight plugin = AddLight.getPlugin();
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public CommandEnable(AddLight plugin) {
+        super(plugin);
+    }
 
     /**
      * @param sender The sender (should be a player)
      */
-    public static void execute(CommandSender sender)
+    public void execute(CommandSender sender)
     {
-        if (!Permissions.has(sender, Permissions.USE))
+        final Player player = (sender instanceof Player) ? (Player)sender : null;
+
+        if(!Permissions.has(sender, Permissions.USE))
         {
-            plugin.log("You don't have permission to use AddLight plugin!",sender);
+            pluginLogger.help(ChatColor.RED + plugin.messages.usePlugin, player);
             return;
         }
 
         plugin.setEnable(true);
-        plugin.log("is enable!",sender);
-        plugin.log("left click an item with glowstone dust to add light!",sender);
-        plugin.log("right click an item with glowstone dust to remove light!",sender);
+        pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.isEnable, player);
+        pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.helpLeftClick, player);
+        pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.helpRightClick, player);
+
     }
 }

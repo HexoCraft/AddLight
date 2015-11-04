@@ -17,18 +17,18 @@ package com.github.hexosse.addlight.events;
  */
 
 import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.addlight.Light;
 import com.github.hexosse.addlight.configuration.Permissions;
 import com.github.hexosse.addlight.utils.ConnectedBlocksLight;
 import com.github.hexosse.addlight.utils.WorldEditUtil;
+import com.github.hexosse.baseplugin.event.BaseListener;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -42,10 +42,18 @@ import java.util.Iterator;
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
 @SuppressWarnings("unused")
-public class PlayerListener implements Listener
+public class PlayerListener extends BaseListener<AddLight>
 {
-    private final static AddLight plugin = AddLight.getPlugin();
     private final static WorldEditPlugin worldEditPlugin = AddLight.getWorldEditPlugin();
+
+
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public PlayerListener(AddLight plugin)
+    {
+        super(plugin);
+    }
 
 
     @EventHandler(priority=EventPriority.HIGH)
@@ -131,7 +139,7 @@ public class PlayerListener implements Listener
             {
                 ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location);
                 plugin.getLight().Create(locations, lightLevel);
-                plugin.log("" + locations.size() + " lights created",player);
+                pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.lightsCreated, player);
             }
 
         }.runTaskAsynchronously(plugin);
@@ -165,7 +173,7 @@ public class PlayerListener implements Listener
             {
                 ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location);
                 plugin.getLight().Delete(locations);
-                plugin.log("" + locations.size() + " lights deleted",player);
+                pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.lightsDeleted, player);
             }
 
         }.runTaskAsynchronously(plugin);

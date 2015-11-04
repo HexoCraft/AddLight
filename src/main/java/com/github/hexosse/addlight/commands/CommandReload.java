@@ -22,35 +22,51 @@ import com.github.hexosse.baseplugin.command.BaseCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * This file is part AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class CommandDisable extends BaseCommand<AddLight>
+public class CommandReload extends BaseCommand<AddLight>
 {
     /**
      * @param plugin The plugin that this object belong to.
      */
-    public CommandDisable(AddLight plugin) {
+    public CommandReload(AddLight plugin)
+    {
         super(plugin);
     }
 
     /**
-     * @param sender The sender (should be a player)
+     * Abstarct metode
      */
+    @Override
     public void execute(CommandSender sender)
     {
         final Player player = (sender instanceof Player) ? (Player)sender : null;
 
-        if(!Permissions.has(sender, Permissions.USE))
+        if(!Permissions.has(sender, Permissions.ADMIN))
         {
-            pluginLogger.help(ChatColor.RED + plugin.messages.usePlugin, player);
+            pluginLogger.help(ChatColor.RED +plugin.messages.AccesDenied, player);
             return;
         }
 
-        plugin.setEnable(false);
-        pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.isDisable, player);
+        new BukkitRunnable()
+        {
+            @Override
+            public void run()
+            {
+
+                plugin.config.reloadConfig();
+                plugin.messages.reloadConfig();
+
+                pluginLogger.info(plugin.messages.reloaded);
+                pluginLogger.help(ChatColor.RED + plugin.messages.reloaded, player);
+
+            }
+
+        }.runTask(plugin);
     }
 }

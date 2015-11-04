@@ -19,26 +19,46 @@ package com.github.hexosse.addlight.commands;
 import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
 import com.github.hexosse.addlight.utils.NumberUtil;
+import com.github.hexosse.baseplugin.command.BaseCommand;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * This file is part AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class CommandLightlevel
+public class CommandLightlevel extends BaseCommand<AddLight>
 {
-    private final static AddLight plugin = AddLight.getPlugin();
+    /**
+     * @param plugin The plugin that this object belong to.
+     */
+    public CommandLightlevel(AddLight plugin) {
+        super(plugin);
+    }
+
+    /**
+     * Abstarct metode
+     *
+     * @param sender Sender executing the command.
+     */
+    @Override
+    public void execute(CommandSender sender) {
+        return;
+    }
 
     /**
      * @param sender The sender (should be a player)
      * @param args light level
      */
-    public static void execute(CommandSender sender, String[] args)
+    public void execute(CommandSender sender, String[] args)
     {
-        if (!Permissions.has(sender, Permissions.INTENSITY))
+        final Player player = (sender instanceof Player) ? (Player)sender : null;
+
+        if(!Permissions.has(sender, Permissions.INTENSITY))
         {
-            plugin.log("You don't have permission to change light intensity!",sender);
+            pluginLogger.help(ChatColor.RED + plugin.messages.useIntensity, player);
             return;
         }
 
@@ -46,11 +66,11 @@ public class CommandLightlevel
 
         if(lightlevel<=0 || lightlevel>15)
         {
-            plugin.log("Light intensity must be between 1 and 15",sender);
+            pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE + " " +  plugin.messages.intensityNumber, player);
             return ;
         }
 
         plugin.lightlevel = lightlevel;
-        plugin.log("Light intensity : " + args[0],sender);
+        pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE + " " +  plugin.messages.lightsIntensity + " : " + args[0], player);
     }
 }

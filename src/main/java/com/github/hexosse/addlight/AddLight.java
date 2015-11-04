@@ -17,75 +17,61 @@ package com.github.hexosse.addlight;
  */
 
 import com.github.hexosse.addlight.commands.Commands;
+import com.github.hexosse.addlight.configuration.Config;
+import com.github.hexosse.addlight.configuration.Messages;
 import com.github.hexosse.addlight.events.BlockListener;
 import com.github.hexosse.addlight.events.PlayerListener;
-import com.github.hexosse.addlight.utils.MetricsLite;
 import com.github.hexosse.addlight.utils.WorldEditUtil;
+import com.github.hexosse.baseplugin.BasePlugin;
+import com.github.hexosse.baseplugin.metric.MetricsLite;
 import com.github.hexosse.githubupdater.GitHubUpdater;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This file is part AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class AddLight extends JavaPlugin
+public class AddLight extends BasePlugin
 {
-    private static AddLight plugin;
-    private static String repository;
-    private static Light light;
+    public Config config = new Config(getDataFolder(), "config.yml");
+    public Messages messages = new Messages(getDataFolder(), "message.yml");
+    private String repository = "hexosse/ChestPreview";
+    private static Light light = null;
 
-    public boolean enable;
-    public boolean connected;
-    public int lightlevel;
+    public boolean enable = false;
+    public boolean connected = false;
+    public int lightlevel = 12;
 
 
     /**
      * Activation du plugin
      */
-    public AddLight()
-    {
-        plugin = this;
-        repository = "hexosse/AddLight";
-        light = null;
-
-        enable = false;
-        connected = false;
-        lightlevel = 12;
-    }
-
-    /**
-     *
-     */
     @Override
     public void onEnable()
     {
-        loadConfig();
+        /* Chargement de la config */
+        config.load();
+        messages.load();
 
         /* Enregistrement des listeners */
-        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
-        Bukkit.getPluginManager().registerEvents(new BlockListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new BlockListener(this), this);
 
         /* Enregistrement du gestionnaire de commandes */
-        this.getCommand("al").setExecutor(new Commands());
+        this.getCommand("al").setExecutor(new Commands(this));
+        this.getCommand("al").setTabCompleter(new Commands(this));
 
         /* Updater */
-        if(this.getConfig().getBoolean("plugin.useUpdater"))
-            RunUpdater(this.getConfig().getBoolean("plugin.downloadUpdate"));
+        if(config.useUpdater)
+            RunUpdater(config.downloadUpdate);
 
         /* Metrics */
-        if(this.getConfig().getBoolean("plugin.useMetrics"))
+        if(config.useMetrics)
             RunMetrics();
 
         /**/
@@ -102,12 +88,6 @@ public class AddLight extends JavaPlugin
         super.onDisable();
     }
 
-    public void loadConfig()
-    {
-        this.getConfig().options().copyDefaults(true);
-        this.saveConfig();
-    }
-
     public void RunUpdater(final boolean download)
     {
         GitHubUpdater updater = new GitHubUpdater(this, this.repository, this.getFile(), download?GitHubUpdater.UpdateType.DEFAULT:GitHubUpdater.UpdateType.NO_DOWNLOAD, true);
@@ -119,9 +99,9 @@ public class AddLight extends JavaPlugin
         {
             MetricsLite metrics = new MetricsLite(this);
             if(metrics.start())
-                log("Succesfully started Metrics, see http://mcstats.org for more information.");
+                pluginLogger.info("Succesfully started Metrics, see http://mcstats.org for more information.");
             else
-                log("Could not start Metrics, see http://mcstats.org for more information.");
+                pluginLogger.info("Could not start Metrics, see http://mcstats.org for more information.");
         } catch (IOException e)
         {
             // Failed to submit the stats :-(
@@ -151,13 +131,6 @@ public class AddLight extends JavaPlugin
     /**
      * @return Plugin instance
      */
-    public static AddLight getPlugin() {
-        return plugin;
-    }
-
-    /**
-     * @return Plugin instance
-     */
     public static WorldEditPlugin getWorldEditPlugin()
     {
         PluginManager pm = Bukkit.getServer().getPluginManager();
@@ -176,42 +149,5 @@ public class AddLight extends JavaPlugin
     public static Light getLight()
     {
         return light;
-    }
-
-    public void log(String msg) {
-        this.log(Level.INFO, msg, null);
-    }
-
-    public void log(String msg, CommandSender sender) {
-        if(sender instanceof Player)
-            this.log(Level.INFO, msg, (Player)sender);
-        else
-            this.log(Level.INFO, msg, null);
-    }
-
-    public void log(String msg, Player player) {
-        this.log(Level.INFO, msg, player);
-    }
-
-    public void log(Level level, String msg, Player player)
-    {
-        String logPrefixColored = ChatColor.GREEN + "[AddLight] " + ChatColor.WHITE;
-        String logPrefixPlain = ChatColor.stripColor(logPrefixColored);
-
-        if(player != null)
-        {
-            player.sendMessage(logPrefixColored + msg);
-        }
-        else
-        {
-            ConsoleCommandSender sender = Bukkit.getConsoleSender();
-            if (level == Level.INFO && sender != null)
-            {
-                Bukkit.getConsoleSender().sendMessage(logPrefixColored + msg);
-            } else
-            {
-                Logger.getLogger("Minecraft").log(level, logPrefixPlain + msg);
-            }
-        }
     }
 }
