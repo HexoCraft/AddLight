@@ -52,9 +52,9 @@ public class CommandEnable extends BaseCommand<AddLight>
         }
 
         plugin.setEnable(true);
-        pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.isEnable, player);
-        pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.helpLeftClick, player);
-        pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.helpRightClick, player);
+        pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.isEnable, player);
+        pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.helpLeftClick, player);
+        pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.helpRightClick, player);
 
     }
 }

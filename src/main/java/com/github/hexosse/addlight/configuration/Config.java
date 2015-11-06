@@ -16,6 +16,7 @@ package com.github.hexosse.addlight.configuration;
  *    limitations under the License.
  */
 
+import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.baseplugin.config.BaseConfig;
 
 import java.io.File;
@@ -47,9 +48,9 @@ public class Config extends BaseConfig
      * @param dataFolder Folder that contains the config file
      * @param filename   Name of the config file
      */
-    public Config(File dataFolder, String filename)
+    public Config(AddLight plugin, File dataFolder, String filename)
     {
-        super(new File(dataFolder, filename), filename);
+        super(plugin, new File(dataFolder, filename), filename);
     }
 
     public void reloadConfig() {

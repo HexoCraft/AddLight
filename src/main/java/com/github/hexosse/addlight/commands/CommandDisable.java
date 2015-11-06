@@ -51,6 +51,6 @@ public class CommandDisable extends BaseCommand<AddLight>
         }
 
         plugin.setEnable(false);
-        pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.isDisable, player);
+        pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.isDisable, player);
     }
 }

@@ -21,7 +21,7 @@ import com.github.hexosse.addlight.configuration.Config;
 import com.github.hexosse.addlight.configuration.Messages;
 import com.github.hexosse.addlight.events.BlockListener;
 import com.github.hexosse.addlight.events.PlayerListener;
-import com.github.hexosse.addlight.utils.WorldEditUtil;
+import com.github.hexosse.addlight.utils.plugins.WorldEditUtil;
 import com.github.hexosse.baseplugin.BasePlugin;
 import com.github.hexosse.baseplugin.metric.MetricsLite;
 import com.github.hexosse.githubupdater.GitHubUpdater;
@@ -38,8 +38,8 @@ import java.io.IOException;
  */
 public class AddLight extends BasePlugin
 {
-    public Config config = new Config(getDataFolder(), "config.yml");
-    public Messages messages = new Messages(getDataFolder(), "message.yml");
+    public Config config = null;
+    public Messages messages = null;
     private String repository = "hexosse/ChestPreview";
     private static Light light = null;
 
@@ -55,8 +55,8 @@ public class AddLight extends BasePlugin
     public void onEnable()
     {
         /* Chargement de la config */
-        config.load();
-        messages.load();
+        config = new Config(this, this.getDataFolder(), "config.yml");         config.load();
+        messages = new Messages(this, this.getDataFolder(), "message.yml");    messages.load();
 
         /* Enregistrement des listeners */
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);

@@ -1,5 +1,6 @@
 package com.github.hexosse.addlight.utils;
 
+
 /*
  * Copyright 2015 hexosse
  *
@@ -16,6 +17,8 @@ package com.github.hexosse.addlight.utils;
  *    limitations under the License.
  */
 
+import com.github.hexosse.addlight.AddLight;
+import com.github.hexosse.baseplugin.utils.BlockUtil;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -79,7 +82,7 @@ public class ConnectedBlocksLight
     // and must have one face exposed to transparent block
     protected static boolean isValid(Block toCheck, Block block)
     {
-        if(!BlockUtil.compare(toCheck,block))
+        if(!BlockUtil.compare(toCheck, block))
             return false;
 
         for(BlockFace face : FACES)

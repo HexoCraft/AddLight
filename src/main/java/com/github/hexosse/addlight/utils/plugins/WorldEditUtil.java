@@ -1,4 +1,4 @@
-package com.github.hexosse.addlight.utils;
+package com.github.hexosse.addlight.utils.plugins;
 
 /*
  * Copyright 2015 hexosse
@@ -24,8 +24,10 @@ import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 import com.sk89q.worldedit.regions.*;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 
 import java.util.Iterator;
 
@@ -38,9 +40,38 @@ public class WorldEditUtil
 {
     private static WorldEditPlugin worldEdit = null;
 
+    /**
+     * @return WorldEdit plugin instance
+     */
+    public static WorldEditPlugin getWorldEditPlugin()
+    {
+        if(WorldEditUtil.getPlugin()!=null)
+            return WorldEditUtil.getPlugin();
+
+        PluginManager pm = Bukkit.getServer().getPluginManager();
+        WorldEditPlugin worldEdit = (WorldEditPlugin)pm.getPlugin("WorldEdit");
+        if(worldEdit != null && pm.isPluginEnabled(worldEdit))
+        {
+            WorldEditUtil.setPlugin(worldEdit);
+            return worldEdit;
+        }
+        else return null;
+    }
+
+    /**
+     *
+     */
     public static void setPlugin(WorldEditPlugin plugin)
     {
         worldEdit = plugin;
+    }
+
+    /**
+     *
+     */
+    public static WorldEditPlugin getPlugin()
+    {
+        return worldEdit;
     }
 
     /**
@@ -48,9 +79,9 @@ public class WorldEditUtil
      *
      * @return true if WorldEdit is installed
      */
-    private static boolean HasWorldEdit()
+    private static boolean hasWorldEdit()
     {
-        return worldEdit!=null;
+        return WorldEditUtil.getWorldEditPlugin()!=null;
     }
 
     /**
@@ -59,7 +90,7 @@ public class WorldEditUtil
      */
     public static Selection getSelection(Player player)
     {
-        if (!HasWorldEdit()) return null;
+        if (!hasWorldEdit()) return null;
 
         return worldEdit.getSelection(player);
     }
@@ -71,7 +102,7 @@ public class WorldEditUtil
      */
     public static boolean IsLocationInSelection(Player player, Location location)
     {
-        if (!HasWorldEdit()) return false;
+        if (!hasWorldEdit()) return false;
 
         Selection selection = getSelection(player);
         return selection != null && selection.contains(location);
@@ -86,7 +117,7 @@ public class WorldEditUtil
     @SuppressWarnings("deprecation")
     protected static Region getRegion(Player player)
     {
-        if(!HasWorldEdit()) return null;
+        if(!hasWorldEdit()) return null;
 
         if (player == null) {
             throw new IllegalArgumentException("Null player not allowed");

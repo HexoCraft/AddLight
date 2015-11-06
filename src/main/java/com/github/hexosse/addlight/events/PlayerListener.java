@@ -19,11 +19,10 @@ package com.github.hexosse.addlight.events;
 import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
 import com.github.hexosse.addlight.utils.ConnectedBlocksLight;
-import com.github.hexosse.addlight.utils.WorldEditUtil;
+import com.github.hexosse.addlight.utils.plugins.WorldEditUtil;
 import com.github.hexosse.baseplugin.event.BaseListener;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -139,7 +138,7 @@ public class PlayerListener extends BaseListener<AddLight>
             {
                 ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location);
                 plugin.getLight().Create(locations, lightLevel);
-                pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.lightsCreated, player);
+                pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.lightsCreated, player);
             }
 
         }.runTaskAsynchronously(plugin);
@@ -173,7 +172,7 @@ public class PlayerListener extends BaseListener<AddLight>
             {
                 ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location);
                 plugin.getLight().Delete(locations);
-                pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE +" " +  plugin.messages.lightsDeleted, player);
+                pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.lightsDeleted, player);
             }
 
         }.runTaskAsynchronously(plugin);

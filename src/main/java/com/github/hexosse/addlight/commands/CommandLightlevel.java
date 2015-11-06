@@ -18,8 +18,8 @@ package com.github.hexosse.addlight.commands;
 
 import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
-import com.github.hexosse.addlight.utils.NumberUtil;
 import com.github.hexosse.baseplugin.command.BaseCommand;
+import com.github.hexosse.baseplugin.utils.NumberUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -66,11 +66,11 @@ public class CommandLightlevel extends BaseCommand<AddLight>
 
         if(lightlevel<=0 || lightlevel>15)
         {
-            pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE + " " +  plugin.messages.intensityNumber, player);
+            pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.intensityNumber, player);
             return ;
         }
 
         plugin.lightlevel = lightlevel;
-        pluginLogger.help(ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE + " " +  plugin.messages.lightsIntensity + " : " + args[0], player);
+        pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.lightsIntensity + " : " + args[0], player);
     }
 }

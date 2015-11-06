@@ -17,8 +17,8 @@ package com.github.hexosse.addlight.commands;
  */
 
 import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.addlight.utils.NumberUtil;
 import com.github.hexosse.baseplugin.BaseObject;
+import com.github.hexosse.baseplugin.utils.NumberUtil;
 import com.google.common.collect.Lists;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

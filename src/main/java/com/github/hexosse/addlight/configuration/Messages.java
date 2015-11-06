@@ -16,7 +16,9 @@ package com.github.hexosse.addlight.configuration;
  *    limitations under the License.
  */
 
+import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.baseplugin.config.BaseConfig;
+import org.bukkit.ChatColor;
 
 import java.io.File;
 
@@ -37,7 +39,7 @@ import java.io.File;
         "############################################################"
 })
 
-public class Messages extends BaseConfig
+public class Messages extends BaseConfig<AddLight>
 {
     /* Chat */
     @ConfigComment(path = "chat")
@@ -92,12 +94,17 @@ public class Messages extends BaseConfig
     public String reloaded;
 
 
-    public Messages(File dataFolder, String filename)
+    public Messages(AddLight plugin, File dataFolder, String filename)
     {
-        super(new File(dataFolder, filename), filename);
+        super(plugin, new File(dataFolder, filename), filename);
     }
 
     public void reloadConfig() {
         load();
+    }
+
+    public String prefix()
+    {
+        return ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE;
     }
 }
