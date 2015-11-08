@@ -32,7 +32,7 @@ import java.io.File;
         "############################################################"
 })
 
-public class Config extends BaseConfig
+public class Config extends BaseConfig<AddLight>
 {
     /* Plugin */
     @ConfigComment(path = "plugin")
@@ -45,6 +45,7 @@ public class Config extends BaseConfig
 
 
     /**
+     * @param plugin The plugin that this object belong to.
      * @param dataFolder Folder that contains the config file
      * @param filename   Name of the config file
      */

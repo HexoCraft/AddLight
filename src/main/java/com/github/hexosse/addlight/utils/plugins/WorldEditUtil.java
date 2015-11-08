@@ -58,17 +58,11 @@ public class WorldEditUtil
         else return null;
     }
 
-    /**
-     *
-     */
     public static void setPlugin(WorldEditPlugin plugin)
     {
         worldEdit = plugin;
     }
 
-    /**
-     *
-     */
     public static WorldEditPlugin getPlugin()
     {
         return worldEdit;

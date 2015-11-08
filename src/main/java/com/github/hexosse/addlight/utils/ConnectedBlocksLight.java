@@ -18,7 +18,7 @@ package com.github.hexosse.addlight.utils;
  */
 
 import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.baseplugin.utils.BlockUtil;
+import com.github.hexosse.baseplugin.utils.block.BlockUtil;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;

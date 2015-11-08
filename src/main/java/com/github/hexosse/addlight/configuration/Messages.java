@@ -94,6 +94,11 @@ public class Messages extends BaseConfig<AddLight>
     public String reloaded;
 
 
+    /**
+     * @param plugin The plugin that this object belong to.
+     * @param dataFolder Folder that contains the config file
+     * @param filename   Name of the config file
+     */
     public Messages(AddLight plugin, File dataFolder, String filename)
     {
         super(plugin, new File(dataFolder, filename), filename);
