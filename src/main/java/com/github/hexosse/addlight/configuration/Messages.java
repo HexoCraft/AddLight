@@ -82,10 +82,10 @@ public class Messages extends BaseConfig<AddLight>
     public String lightsIntensity;
     @ConfigOptions(path = "messages.Connectedblocks")
     public String connectedblocks;
-    @ConfigOptions(path = "messages.IsDisable")
-    public String isDisable;
     @ConfigOptions(path = "messages.IsEnable")
     public String isEnable;
+    @ConfigOptions(path = "messages.IsDisable")
+    public String isDisable;
     @ConfigOptions(path = "messages.HelpLeftClick")
     public String helpLeftClick;
     @ConfigOptions(path = "messages.HelpRightClick")
