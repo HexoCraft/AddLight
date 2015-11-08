@@ -17,7 +17,6 @@ package com.github.hexosse.addlight.utils;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.baseplugin.utils.block.BlockUtil;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
