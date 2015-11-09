@@ -123,14 +123,14 @@
         <dependency>
             <groupId>com.github.hexosse</groupId>
             <artifactId>BasePlugin</artifactId>
-            <version>LATEST</version>
+            <version>0.3.5-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <!--hexosse GitHubUpdater-->
         <dependency>
             <groupId>com.github.hexosse</groupId>
             <artifactId>GitHubUpdater</artifactId>
-            <version>LATEST</version>
+            <version>1.0.2</version>
             <scope>compile</scope>
         </dependency>
         <!--LightAPI-->
