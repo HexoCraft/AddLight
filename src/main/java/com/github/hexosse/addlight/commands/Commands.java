@@ -20,10 +20,7 @@ import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.baseplugin.BaseObject;
 import com.github.hexosse.baseplugin.utils.NumberUtil;
 import com.google.common.collect.Lists;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -70,6 +67,9 @@ public class Commands extends BaseObject<AddLight> implements CommandExecutor, T
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
     {
+        if(sender instanceof ConsoleCommandSender && args[0].equalsIgnoreCase("reload"))
+            cmdReload.execute(sender);
+
         if (!(sender instanceof Player))
             return false;
 

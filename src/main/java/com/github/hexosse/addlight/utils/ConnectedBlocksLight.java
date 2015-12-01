@@ -38,19 +38,19 @@ public class ConnectedBlocksLight
 
     static { FACES = new BlockFace[]{BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST}; }
 
-    public static ArrayList<Location> getConnectedBlocks(Location location)
+    public static ArrayList<Location> getConnectedBlocks(Location location, int limit)
     {
-        findConnectedBlocks(location.getBlock());
+        findConnectedBlocks(location.getBlock(), limit);
         return confirmed;
     }
 
-    private static int findConnectedBlocks(Block block)
+    private static int findConnectedBlocks(Block block, int limit)
     {
         unchecked.clear();
         confirmed.clear();
         unchecked.add(block.getLocation());
 
-        while(unchecked.size() > 0)
+        while(unchecked.size() > 0 && confirmed.size()<=(limit>0?limit:unchecked.size()))
         {
             Location uncheckedLocation = unchecked.get(0);
             Block uncheckedBlock = unchecked.get(0).getBlock();

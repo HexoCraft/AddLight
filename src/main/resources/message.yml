@@ -10,11 +10,11 @@ chat:
 
 #----------- Help messages ------------------
 help:
-  HelpEnable: Enable chest preview creation!
-  HelpDisable: Disable chest preview creation!
+  HelpEnable: Enable lights creation!
+  HelpDisable: Disable lights creation!
   HelpCb: Toggle connected blocks mode
   HelpNumber: Define light intensity (1 - 15)
-  HelpReload: Reload ChestPreview!
+  HelpReload: Reload AddLight!
 
 
 #----------- Error messages ------------------

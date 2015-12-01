@@ -53,11 +53,11 @@ public class CommandHelp extends BaseCommand<AddLight>
 
         pluginLogger.help(ChatColor.YELLOW + "-----------------------------------------------", player);
         pluginLogger.help(ChatColor.YELLOW + plugin.getDescription().getName() + " help", player);
-        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[enable|on] :" + ChatColor.WHITE + plugin.messages.helpEnable, player);
-        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[disable|off] :" + ChatColor.WHITE + plugin.messages.helpDisable, player);
-        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[ConnectedBlocks|cb] :" + ChatColor.WHITE + plugin.messages.helpCb, player);
-        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "<number> :" + ChatColor.WHITE + plugin.messages.helpNumber, player);
-        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[reload] :" + ChatColor.WHITE + plugin.messages.helpReload, player);
+        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[enable|on] : " + ChatColor.WHITE + plugin.messages.helpEnable, player);
+        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[disable|off] : " + ChatColor.WHITE + plugin.messages.helpDisable, player);
+        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[ConnectedBlocks|cb] : " + ChatColor.WHITE + plugin.messages.helpCb, player);
+        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "<number> : " + ChatColor.WHITE + plugin.messages.helpNumber, player);
+        pluginLogger.help(ChatColor.AQUA + "/AddLight " + ChatColor.GREEN + "[reload] : " + ChatColor.WHITE + plugin.messages.helpReload, player);
         pluginLogger.help(ChatColor.YELLOW + "-----------------------------------------------", player);
         pluginLogger.help("Plugin : " + ChatColor.AQUA + (plugin.enable ? "on" : "off"), player);
         pluginLogger.help("Connected blocks : " + ChatColor.AQUA + (plugin.connected ? "on" : "off"), player);

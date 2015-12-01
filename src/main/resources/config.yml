@@ -13,4 +13,10 @@ plugin:
   downloadUpdate: true
 
 
+# *-------------- ConnectedBlock configuration -----------------*
+connectedBlock:
+  # Limit the number of connected blocks
+  limit: 1024
+
+
 ############################################################

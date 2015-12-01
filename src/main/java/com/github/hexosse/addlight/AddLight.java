@@ -40,12 +40,12 @@ public class AddLight extends BasePlugin
 {
     public Config config = null;
     public Messages messages = null;
-    private String repository = "hexosse/ChestPreview";
+    private String repository = "hexosse/AddLight";
     private static Light light = null;
 
     public boolean enable = false;
     public boolean connected = false;
-    public int lightlevel = 12;
+    public int lightlevel = 15;
 
 
     /**

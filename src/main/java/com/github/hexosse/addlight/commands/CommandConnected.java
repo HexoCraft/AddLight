@@ -51,6 +51,6 @@ public class CommandConnected extends BaseCommand<AddLight>
         }
 
         plugin.connected = !plugin.connected;
-        pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.connectedblocks + ChatColor.AQUA + (plugin.connected?"on":"off"), player);
+        pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.connectedblocks + " " +  ChatColor.AQUA + (plugin.connected?"on":"off"), player);
     }
 }

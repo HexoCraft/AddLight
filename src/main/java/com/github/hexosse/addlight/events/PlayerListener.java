@@ -136,9 +136,9 @@ public class PlayerListener extends BaseListener<AddLight>
             @Override
             public void run()
             {
-                ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location);
+                ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location, plugin.config.cbLimit);
                 plugin.getLight().Create(locations, lightLevel);
-                pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.lightsCreated, player);
+                pluginLogger.help(plugin.messages.prefix() + " " +  Integer.toString(locations.size()) + " " + plugin.messages.lightsCreated, player);
             }
 
         }.runTaskAsynchronously(plugin);
@@ -170,9 +170,9 @@ public class PlayerListener extends BaseListener<AddLight>
             @Override
             public void run()
             {
-                ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location);
+                ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location, plugin.config.cbLimit);
                 plugin.getLight().Delete(locations);
-                pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.lightsDeleted, player);
+                pluginLogger.help(plugin.messages.prefix() + " " +  Integer.toString(locations.size()) + " " + plugin.messages.lightsDeleted, player);
             }
 
         }.runTaskAsynchronously(plugin);

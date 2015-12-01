@@ -43,6 +43,11 @@ public class Config extends BaseConfig<AddLight>
     @ConfigOptions(path = "plugin.downloadUpdate")
     public boolean downloadUpdate = (boolean) true;
 
+    /* ConnectedBlock */
+    @ConfigComment(path = "connectedBlock")
+    @ConfigOptions(path = "connectedBlock.limit")
+    public int cbLimit = 1024;
+
 
     /**
      * @param plugin The plugin that this object belong to.

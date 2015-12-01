@@ -23,14 +23,14 @@ import org.bukkit.ChatColor;
 import java.io.File;
 
 /**
- * This file is part of ChestPreview
+ * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
 
 @BaseConfig.ConfigHeader(comment = {
         "############################################################",
-        "# | ChestPreview by hexosse                              | #",
+        "# | AddLight by hexosse                                  | #",
         "############################################################"
 })
 @BaseConfig.ConfigFooter(comment = {
