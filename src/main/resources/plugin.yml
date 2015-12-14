@@ -13,12 +13,6 @@ commands:
   AddLight:
     aliases: [al]
     description: Add invisible light source to item when clicked with glowstone dust.
-    usage: |
-           /AddLight help : Display AddLight help
-           /AddLight [enable|on] : Enable light creation
-           /AddLight [disable|off] : Disable light creation
-           /AddLight <number> : Define light intensity (1-15)
-           /AddLight ConnectedBlocks : Create lights to all connected blocks (be very carreful)
 
 permissions:
   AddLight.admin: {description: Allows creation of light to admin users, default: false}

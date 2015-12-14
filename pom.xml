@@ -23,7 +23,7 @@
 
     <groupId>com.github.hexosse</groupId>
     <artifactId>AddLight</artifactId>
-    <version>1.2.5</version>
+    <version>1.2.6</version>
     <packaging>jar</packaging>
     <name>AddLight</name>
     <description>This plugin allow server admin to add invisible light sources.</description>
@@ -153,7 +153,7 @@
     <!-- Options de build -->
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
-        <finalName>${plugin.name}</finalName>
+        <finalName>${plugin.name}-${plugin.version}</finalName>
 
         <!-- Ressources -->
         <resources>
@@ -255,7 +255,6 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <finalName>${plugin.name}</finalName>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifestEntries>
