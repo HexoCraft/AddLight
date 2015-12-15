@@ -20,10 +20,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-
     <groupId>com.github.hexosse</groupId>
     <artifactId>AddLight</artifactId>
-    <version>1.2.6</version>
+    <version>1.2.7</version>
     <packaging>jar</packaging>
     <name>AddLight</name>
     <description>This plugin allow server admin to add invisible light sources.</description>
@@ -235,11 +234,21 @@
                             <artifactSet>
                                 <includes>
                                     <!-- Force BasePlugin à être compris dans le .jar-->
-                                    <include>com.github.hexosse:BasePlugin</include>
+                                    <!-- <include>com.github.hexosse:BasePlugin</include>-->
                                     <!-- Force GitHubUpdater à être compris dans le .jar-->
-                                    <include>com.github.hexosse:GitHubUpdater</include>
+                                    <!-- <include>com.github.hexosse:GitHubUpdater</include>-->
                                 </includes>
                             </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.github.hexosse.baseplugin</pattern>
+                                    <shadedPattern>com.github.hexosse.${project.artifactId}.baseplugin</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.github.hexosse.githubupdater</pattern>
+                                    <shadedPattern>com.github.hexosse.${project.artifactId}.githubupdater</shadedPattern>
+                                </relocation>
+                            </relocations>
                             <!-- utterly useless artifact from shade 2.x -->
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <!-- Le fichier jar d'origine est renommé en original-XXXX.jar -->
@@ -262,6 +271,7 @@
                             <Version>${project.version}</Version>
                         </manifestEntries>
                     </archive>
+                    <outputDirectory>../../Server/plugins</outputDirectory>
                 </configuration>
             </plugin>
 
