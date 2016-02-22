@@ -1,7 +1,7 @@
 package com.github.hexosse.addlight.commands;
 
 /*
- * Copyright 2015 hexosse
+ * Copyright 2016 hexosse
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -18,39 +18,38 @@ package com.github.hexosse.addlight.commands;
 
 import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
-import com.github.hexosse.baseplugin.command.BaseCommand;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import com.github.hexosse.pluginframework.pluginapi.command.CommandInfo;
+import com.github.hexosse.pluginframework.pluginapi.command.predifined.CommandHelp;
 
 /**
  * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class CommandConnected extends BaseCommand<AddLight>
+public class AlCommandHelp extends CommandHelp<AddLight>
 {
     /**
      * @param plugin The plugin that this object belong to.
      */
-    public CommandConnected(AddLight plugin) {
-        super(plugin);
-    }
-
-    /**
-     * @param sender The sender (should be a player)
-     */
-    public void execute(CommandSender sender)
+    public AlCommandHelp(AddLight plugin)
     {
-        final Player player = (sender instanceof Player) ? (Player)sender : null;
-
-        if(!Permissions.has(sender, Permissions.CONNECTED))
-        {
-            pluginLogger.help(ChatColor.RED + plugin.messages.useConnected, player);
-            return;
-        }
-
-        plugin.connected = !plugin.connected;
-        pluginLogger.help(plugin.messages.prefix() + " " +  plugin.messages.connectedblocks + " " +  ChatColor.AQUA + (plugin.connected?"on":"off"), player);
+        super(plugin);
+		this.removeArgument("page");
+        this.setPermission(Permissions.USE.toString());
     }
+
+	/**
+	 * Executes the given command, returning its success
+	 *
+	 * @param commandInfo Info about the command
+	 *
+	 * @return true if a valid command, otherwise false
+	 */
+	@Override
+	public boolean onCommand(CommandInfo commandInfo)
+	{
+		super.onCommand(commandInfo);
+
+		return true;
+	}
 }

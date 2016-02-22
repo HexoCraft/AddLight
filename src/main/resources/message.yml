@@ -5,7 +5,7 @@
 #----------- Chat Options ------------------
 chat:
   # Prefix used in the chat
-  prefix: '[AddLight]'
+  prefix: '&3[&bAddLight&3]&r'
 
 
 #----------- Help messages ------------------

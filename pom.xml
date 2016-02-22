@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2015 hexosse
+  ~ Copyright 2016 hexosse
   ~
   ~    Licensed under the Apache License, Version 2.0 (the "License");
   ~    you may not use this file except in compliance with the License.
@@ -22,9 +22,9 @@
 
     <groupId>com.github.hexosse</groupId>
     <artifactId>AddLight</artifactId>
-    <version>1.2.7</version>
-    <packaging>jar</packaging>
     <name>AddLight</name>
+    <version>1.2.8</version>
+    <packaging>jar</packaging>
     <description>This plugin allow server admin to add invisible light sources.</description>
     <url>https://github.com/hexosse/AddLight</url>
 
@@ -43,9 +43,12 @@
     <scm>
         <connection>scm:git:git://github.com/hexosse/AddLight.git</connection>
         <developerConnection>scm:git:git@github.com:hexosse/AddLight.git</developerConnection>
-        <url>https://github.com/hexosse/AddLight</url>
+        <url>git@github.com:hexosse/AddLight.git</url>
     </scm>
-
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/hexosse/AddLight/issues</url>
+    </issueManagement>
 
     <!-- Propriétés du projet -->
     <properties>
@@ -84,28 +87,20 @@
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
         </repository>
         <!-- hexosse repository -->
         <repository>
-            <id>kexosse-repo</id>
+            <id>hexosse-repo</id>
             <url>https://raw.github.com/hexosse/maven-repo/master/</url>
-            <snapshots>
+			<snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
+                <updatePolicy>always</updatePolicy>
             </snapshots>
-        </repository>
+		</repository>
         <!-- sk89q repository -->
         <repository>
             <id>sk89q-repo</id>
             <url>http://maven.sk89q.com/repo</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
         </repository>
     </repositories>
 
@@ -119,18 +114,18 @@
             <version>${spigot.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!--Bukkit API-->
-        <dependency>
+        <!-- Bukkit API -->
+        <!--<dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>${spigot.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <!--hexosse BasePlugin-->
+        </dependency>-->
+        <!-- hexosse PluginFramework -->
         <dependency>
             <groupId>com.github.hexosse</groupId>
-            <artifactId>BasePlugin</artifactId>
-            <version>0.3.5-SNAPSHOT</version>
+            <artifactId>pluginframework</artifactId>
+            <version>0.4.0</version>
             <scope>compile</scope>
         </dependency>
         <!--hexosse GitHubUpdater-->
@@ -166,11 +161,11 @@
         <resources>
             <resource>
                 <targetPath>.</targetPath>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>*.yml</include>
-                </includes>
+                <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
             </resource>
         </resources>
 
@@ -189,7 +184,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
@@ -198,7 +193,7 @@
             </plugin>
 
             <!-- maven-source-plugin -->
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.4</version>
@@ -210,10 +205,10 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
 
             <!-- maven-javadoc-plugin -->
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.3</version>
@@ -225,7 +220,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
 
             <!-- maven-shade-plugin -->
             <plugin>
@@ -239,24 +234,18 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <!-- Force BasePlugin à être compris dans le .jar-->
-                                    <!-- <include>com.github.hexosse:BasePlugin</include>-->
-                                    <!-- Force GitHubUpdater à être compris dans le .jar-->
-                                    <!-- <include>com.github.hexosse:GitHubUpdater</include>-->
-                                </includes>
-                            </artifactSet>
                             <relocations>
                                 <relocation>
-                                    <pattern>com.github.hexosse.baseplugin</pattern>
-                                    <shadedPattern>com.github.hexosse.${project.artifactId}.baseplugin</shadedPattern>
+                                    <pattern>com.github.hexosse.pluginframework</pattern>
+                                    <shadedPattern>com.github.hexosse.${project.artifactId}.framework</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>com.github.hexosse.githubupdater</pattern>
-                                    <shadedPattern>com.github.hexosse.${project.artifactId}.githubupdater</shadedPattern>
+                                    <shadedPattern>com.github.hexosse.${project.artifactId}.updater</shadedPattern>
                                 </relocation>
                             </relocations>
+                            <!-- remove unnecessary stuff -->
+                            <minimizeJar>true</minimizeJar>
                             <!-- utterly useless artifact from shade 2.x -->
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <!-- Le fichier jar d'origine est renommé en original-XXXX.jar -->
@@ -272,6 +261,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
+                    <finalName>${project.build.finalName}</finalName>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifestEntries>
@@ -279,12 +269,12 @@
                             <Version>${project.version}</Version>
                         </manifestEntries>
                     </archive>
-                    <outputDirectory>../../Server/plugins</outputDirectory>
+                    <!--<outputDirectory>../../Server/plugins</outputDirectory>-->
                 </configuration>
             </plugin>
 
             <!-- maven-install-plugin -->
-             <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
                 <version>2.5.2</version>
@@ -296,8 +286,7 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.2</version>
                 <configuration>
-                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/maven-repo
-                    </altDeploymentRepository>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/maven-repo</altDeploymentRepository>
                 </configuration>
             </plugin>
 
@@ -336,7 +325,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 

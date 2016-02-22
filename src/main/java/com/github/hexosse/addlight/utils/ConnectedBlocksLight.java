@@ -2,7 +2,7 @@ package com.github.hexosse.addlight.utils;
 
 
 /*
- * Copyright 2015 hexosse
+ * Copyright 2016 hexosse
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package com.github.hexosse.addlight.utils;
  *    limitations under the License.
  */
 
-import com.github.hexosse.baseplugin.utils.block.BlockUtil;
+import com.github.hexosse.pluginframework.utilapi.BlockUtil;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;

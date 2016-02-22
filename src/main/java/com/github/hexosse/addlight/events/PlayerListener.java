@@ -1,7 +1,7 @@
 package com.github.hexosse.addlight.events;
 
 /*
- * Copyright 2015 hexosse
+ * Copyright 2016 hexosse
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -20,7 +20,8 @@ import com.github.hexosse.addlight.AddLight;
 import com.github.hexosse.addlight.configuration.Permissions;
 import com.github.hexosse.addlight.utils.ConnectedBlocksLight;
 import com.github.hexosse.addlight.utils.plugins.WorldEditUtil;
-import com.github.hexosse.baseplugin.event.BaseListener;
+import com.github.hexosse.pluginframework.pluginapi.PluginListener;
+import com.github.hexosse.pluginframework.pluginapi.message.Message;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import org.bukkit.Location;
@@ -41,7 +42,7 @@ import java.util.Iterator;
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
 @SuppressWarnings("unused")
-public class PlayerListener extends BaseListener<AddLight>
+public class PlayerListener extends PluginListener<AddLight>
 {
     private final static WorldEditPlugin worldEditPlugin = AddLight.getWorldEditPlugin();
 
@@ -138,8 +139,13 @@ public class PlayerListener extends BaseListener<AddLight>
             {
                 ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location, plugin.config.cbLimit);
                 plugin.getLight().Create(locations, lightLevel);
-                pluginLogger.help(plugin.messages.prefix() + " " +  Integer.toString(locations.size()) + " " + plugin.messages.lightsCreated, player);
-            }
+
+                // Message
+                Message message = new Message();
+                message.setPrefix(plugin.messages.chatPrefix);
+                message.add(Integer.toString(locations.size()) + " " + plugin.messages.lightsCreated);
+                messageManager.send(player, message);
+        }
 
         }.runTaskAsynchronously(plugin);
     }
@@ -172,7 +178,12 @@ public class PlayerListener extends BaseListener<AddLight>
             {
                 ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location, plugin.config.cbLimit);
                 plugin.getLight().Delete(locations);
-                pluginLogger.help(plugin.messages.prefix() + " " +  Integer.toString(locations.size()) + " " + plugin.messages.lightsDeleted, player);
+
+                // Message
+                Message message = new Message();
+                message.setPrefix(plugin.messages.chatPrefix);
+                message.add(Integer.toString(locations.size()) + " " + plugin.messages.lightsDeleted);
+                messageManager.send(player, message);
             }
 
         }.runTaskAsynchronously(plugin);

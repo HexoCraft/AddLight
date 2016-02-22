@@ -1,7 +1,7 @@
 package com.github.hexosse.addlight.configuration;
 
 /*
- * Copyright 2015 hexosse
+ * Copyright 2016 hexosse
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,8 +17,7 @@ package com.github.hexosse.addlight.configuration;
  */
 
 import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.baseplugin.config.BaseConfig;
-import org.bukkit.ChatColor;
+import com.github.hexosse.pluginframework.pluginapi.config.PluginConfig;
 
 import java.io.File;
 
@@ -28,18 +27,18 @@ import java.io.File;
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
 
-@BaseConfig.ConfigHeader(comment = {
+@PluginConfig.ConfigHeader(comment = {
         "############################################################",
         "# | AddLight by hexosse                                  | #",
         "############################################################"
 })
-@BaseConfig.ConfigFooter(comment = {
+@PluginConfig.ConfigFooter(comment = {
         " ",
         " ",
         "############################################################"
 })
 
-public class Messages extends BaseConfig<AddLight>
+public class Messages extends PluginConfig<AddLight>
 {
     /* Chat */
     @ConfigComment(path = "chat")
@@ -106,10 +105,5 @@ public class Messages extends BaseConfig<AddLight>
 
     public void reloadConfig() {
         load();
-    }
-
-    public String prefix()
-    {
-        return ChatColor.AQUA + plugin.messages.chatPrefix + ChatColor.WHITE;
     }
 }

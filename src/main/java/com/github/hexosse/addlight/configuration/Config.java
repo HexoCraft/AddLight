@@ -1,7 +1,7 @@
 package com.github.hexosse.addlight.configuration;
 
 /*
- * Copyright 2015 hexosse
+ * Copyright 2016 hexosse
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,22 +17,22 @@ package com.github.hexosse.addlight.configuration;
  */
 
 import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.baseplugin.config.BaseConfig;
+import com.github.hexosse.pluginframework.pluginapi.config.PluginConfig;
 
 import java.io.File;
 
-@BaseConfig.ConfigHeader(comment = {
+@PluginConfig.ConfigHeader(comment = {
         "############################################################",
         "# | AddLight by hexosse                                  | #",
         "############################################################"
 })
-@BaseConfig.ConfigFooter(comment = {
+@PluginConfig.ConfigFooter(comment = {
         " ",
         " ",
         "############################################################"
 })
 
-public class Config extends BaseConfig<AddLight>
+public class Config extends PluginConfig<AddLight>
 {
     /* Plugin */
     @ConfigComment(path = "plugin")

@@ -9,11 +9,6 @@ website: www.github.hexosse
 depend: [LightAPI]
 softdepend: [WorldEdit]
 
-commands:
-  AddLight:
-    aliases: [al]
-    description: Add invisible light source to item when clicked with glowstone dust.
-
 permissions:
   AddLight.admin: {description: Allows creation of light to admin users, default: false}
   AddLight.user: {description: Allows creation of light to any users, default: false}

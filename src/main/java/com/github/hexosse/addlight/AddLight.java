@@ -1,7 +1,7 @@
 package com.github.hexosse.addlight;
 
 /*
- * Copyright 2015 hexosse
+ * Copyright 2016 hexosse
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,16 +16,18 @@ package com.github.hexosse.addlight;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.commands.Commands;
+import com.github.hexosse.addlight.commands.AlCommands;
 import com.github.hexosse.addlight.configuration.Config;
 import com.github.hexosse.addlight.configuration.Messages;
 import com.github.hexosse.addlight.events.BlockListener;
 import com.github.hexosse.addlight.events.PlayerListener;
 import com.github.hexosse.addlight.utils.plugins.WorldEditUtil;
-import com.github.hexosse.baseplugin.BasePlugin;
-import com.github.hexosse.baseplugin.metric.MetricsLite;
 import com.github.hexosse.githubupdater.GitHubUpdater;
+import com.github.hexosse.pluginframework.pluginapi.Plugin;
+import com.github.hexosse.pluginframework.pluginapi.message.Message;
+import com.github.hexosse.pluginframework.pluginapi.metric.MetricsLite;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 
@@ -36,7 +38,7 @@ import java.io.IOException;
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class AddLight extends BasePlugin
+public class AddLight extends Plugin
 {
     public Config config = null;
     public Messages messages = null;
@@ -63,8 +65,7 @@ public class AddLight extends BasePlugin
         Bukkit.getPluginManager().registerEvents(new BlockListener(this), this);
 
         /* Enregistrement du gestionnaire de commandes */
-        this.getCommand("al").setExecutor(new Commands(this));
-        this.getCommand("al").setTabCompleter(new Commands(this));
+        registerCommands(new AlCommands(this));
 
         /* Updater */
         if(config.useUpdater)
@@ -76,6 +77,12 @@ public class AddLight extends BasePlugin
 
         /**/
         light = new Light(this);
+
+		/* Console message */
+        Message message = new Message();
+        message.setPrefix("§3[§b" + this.getDescription().getName() + " " + this.getDescription().getVersion() + "§3]§r");
+        message.add(new Message(ChatColor.YELLOW, "Enable"));
+        messageManager.send(Bukkit.getConsoleSender(), message);
     }
 
     /**
@@ -86,6 +93,12 @@ public class AddLight extends BasePlugin
     {
         setEnable(false);
         super.onDisable();
+
+		/* Console message */
+        Message message = new Message();
+        message.setPrefix("§3[§b" + this.getDescription().getName() + " " + this.getDescription().getVersion() + "§3]§r");
+        message.add(new Message(ChatColor.YELLOW, "Disabled"));
+        messageManager.send(Bukkit.getConsoleSender(), message);
     }
 
     public void RunUpdater(final boolean download)

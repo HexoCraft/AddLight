@@ -1,7 +1,7 @@
 package com.github.hexosse.addlight;
 
 /*
- * Copyright 2015 hexosse
+ * Copyright 2016 hexosse
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@ package com.github.hexosse.addlight;
  *    limitations under the License.
  */
 
-import com.github.hexosse.baseplugin.BaseObject;
+import com.github.hexosse.pluginframework.pluginapi.PluginObject;
 import org.bukkit.Location;
 import ru.BeYkeRYkt.LightAPI.ChunkInfo;
 import ru.BeYkeRYkt.LightAPI.LightAPI;
@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class Light extends BaseObject<AddLight>
+public class Light extends PluginObject<AddLight>
 {
     private LightRegistry registry;
     private int ticks = 40;

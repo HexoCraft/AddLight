@@ -1,7 +1,7 @@
 package com.github.hexosse.addlight.events;
 
 /*
- * Copyright 2015 hexosse
+ * Copyright 2016 hexosse
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package com.github.hexosse.addlight.events;
  */
 
 import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.baseplugin.event.BaseListener;
+import com.github.hexosse.pluginframework.pluginapi.PluginListener;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -29,7 +29,7 @@ import org.bukkit.event.block.BlockBreakEvent;
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
 @SuppressWarnings("unused")
-public class BlockListener extends BaseListener<AddLight>
+public class BlockListener extends PluginListener<AddLight>
 {
     /**
      * @param plugin The plugin that this object belong to.
