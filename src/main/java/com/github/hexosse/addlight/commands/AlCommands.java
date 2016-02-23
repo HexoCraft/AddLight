@@ -40,6 +40,7 @@ public class AlCommands extends PluginCommand<AddLight>
     {
         super("AddLight", plugin);
         this.setAliases(Lists.newArrayList("al"));
+		this.setDescription("(Help)");
 
         this.addSubCommand(new AlCommandHelp(plugin));
         this.addSubCommand(new AlCommandEnable(plugin));

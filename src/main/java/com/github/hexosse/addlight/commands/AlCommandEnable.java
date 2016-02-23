@@ -34,7 +34,8 @@ public class AlCommandEnable extends PluginCommand<AddLight>
     /**
      * @param plugin The plugin that this object belong to.
      */
-    public AlCommandEnable(AddLight plugin) {
+    public AlCommandEnable(AddLight plugin)
+    {
         super("enable", plugin);
         this.setAliases(Lists.newArrayList("on"));
         this.setDescription(plugin.messages.helpEnable);

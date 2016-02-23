@@ -37,7 +37,8 @@ public class AlCommandLightlevel extends PluginCommand<AddLight>
     /**
      * @param plugin The plugin that this object belong to.
      */
-    public AlCommandLightlevel(AddLight plugin) {
+    public AlCommandLightlevel(AddLight plugin)
+    {
         super("LightLevel", plugin);
         this.setAliases(Lists.newArrayList("ll"));
         this.addArgument(new CommandArgument<Integer>("intensity", ArgTypeInteger.get(), 15, false,false, "Light intensity must be between 1 and 15."));
