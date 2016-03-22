@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="AddLight:jar">
+    <output-path>$PROJECT_DIR$/../../ServerTest/plugins</output-path>
+    <root id="archive" name="AddLight.jar">
+      <element id="module-output" name="AddLight" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/hexosse/GitHubUpdater/1.0.5/GitHubUpdater-1.0.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/hexosse/pluginframework/0.4.0/pluginframework-0.4.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

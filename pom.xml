@@ -23,7 +23,7 @@
     <groupId>com.github.hexosse</groupId>
     <artifactId>AddLight</artifactId>
     <name>AddLight</name>
-    <version>1.2.8</version>
+    <version>1.3.0</version>
     <packaging>jar</packaging>
     <description>This plugin allow server admin to add invisible light sources.</description>
     <url>https://github.com/hexosse/AddLight</url>
@@ -55,7 +55,7 @@
         <plugin.name>${project.name}</plugin.name>
         <plugin.version>${project.version}</plugin.version>
         <jdk.version>1.7</jdk.version>
-        <spigot.version>1.8.8-R0.1-SNAPSHOT</spigot.version>
+        <spigot.version>1.9-R0.1-SNAPSHOT</spigot.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <github.global.server>github</github.global.server>
     </properties>
@@ -104,7 +104,6 @@
         </repository>
     </repositories>
 
-
     <!-- Mettre ici la liste des dépendances du projet-->
     <dependencies>
         <!--Spigot-API-->
@@ -114,13 +113,20 @@
             <version>${spigot.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Bukkit API -->
-        <!--<dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>${spigot.version}</version>
-            <scope>provided</scope>
-        </dependency>-->
+        <dependency>
+            <groupId>lib</groupId>
+            <artifactId>craftbukkit_1.8.8</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/craftbukkit-1.8.8-R0.1-SNAPSHOT.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>lib</groupId>
+            <artifactId>craftbukkit_1.9</artifactId>
+            <version>1.9-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/craftbukkit-1.9-R0.1-SNAPSHOT.jar</systemPath>
+        </dependency>
         <!-- hexosse PluginFramework -->
         <dependency>
             <groupId>com.github.hexosse</groupId>
@@ -135,19 +141,18 @@
             <version>1.0.5</version>
             <scope>compile</scope>
         </dependency>
-        <!--LightAPI-->
-        <dependency>
-            <groupId>3rdParty</groupId>
-            <artifactId>LightAPI</artifactId>
-            <version>1.4.2</version>
-            <scope>provided</scope>
-        </dependency>
         <!--WorldEdit-->
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
             <version>6.1.1-SNAPSHOT</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

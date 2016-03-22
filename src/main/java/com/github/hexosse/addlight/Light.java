@@ -18,7 +18,7 @@ package com.github.hexosse.addlight;
 
 import com.github.hexosse.pluginframework.pluginapi.PluginObject;
 import org.bukkit.Location;
-import ru.BeYkeRYkt.LightAPI.ChunkInfo;
+import ru.BeYkeRYkt.LightAPI.chunks.ChunkInfo;
 import ru.BeYkeRYkt.LightAPI.LightAPI;
 import ru.BeYkeRYkt.LightAPI.LightRegistry;
 
