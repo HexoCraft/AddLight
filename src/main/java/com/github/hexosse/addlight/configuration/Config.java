@@ -17,22 +17,22 @@ package com.github.hexosse.addlight.configuration;
  */
 
 import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.pluginframework.pluginapi.config.PluginConfig;
+import com.github.hexosse.pluginframework.pluginapi.config.ConfigFile;
 
 import java.io.File;
 
-@PluginConfig.ConfigHeader(comment = {
+@ConfigFile.ConfigHeader(comment = {
         "############################################################",
         "# | AddLight by hexosse                                  | #",
         "############################################################"
 })
-@PluginConfig.ConfigFooter(comment = {
+@ConfigFile.ConfigFooter(comment = {
         " ",
         " ",
         "############################################################"
 })
 
-public class Config extends PluginConfig<AddLight>
+public class Config extends ConfigFile<AddLight>
 {
     /* Plugin */
     @ConfigComment(path = "plugin")

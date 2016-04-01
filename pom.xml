@@ -131,7 +131,7 @@
         <dependency>
             <groupId>com.github.hexosse</groupId>
             <artifactId>pluginframework</artifactId>
-            <version>0.4.0</version>
+            <version>0.5.0</version>
             <scope>compile</scope>
         </dependency>
         <!--hexosse GitHubUpdater-->

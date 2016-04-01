@@ -17,7 +17,7 @@ package com.github.hexosse.addlight.configuration;
  */
 
 import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.pluginframework.pluginapi.config.PluginConfig;
+import com.github.hexosse.pluginframework.pluginapi.config.ConfigFile;
 
 import java.io.File;
 
@@ -27,18 +27,18 @@ import java.io.File;
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
 
-@PluginConfig.ConfigHeader(comment = {
+@ConfigFile.ConfigHeader(comment = {
         "############################################################",
         "# | AddLight by hexosse                                  | #",
         "############################################################"
 })
-@PluginConfig.ConfigFooter(comment = {
+@ConfigFile.ConfigFooter(comment = {
         " ",
         " ",
         "############################################################"
 })
 
-public class Messages extends PluginConfig<AddLight>
+public class Messages extends ConfigFile<AddLight>
 {
     /* Chat */
     @ConfigComment(path = "chat")

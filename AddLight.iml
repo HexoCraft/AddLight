@@ -40,7 +40,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Maven: com.github.hexosse:pluginframework:0.4.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.hexosse:pluginframework:0.5.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.hexosse:GitHubUpdater:1.0.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q.worldedit:worldedit-bukkit:6.1.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q:dummypermscompat:1.8" level="project" />
