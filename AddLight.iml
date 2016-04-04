@@ -22,26 +22,9 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.persistence:persistence-api:1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.yaml:snakeyaml:1.15" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.md-5:bungeecord-chat:1.9-SNAPSHOT" level="project" />
-    <orderEntry type="module-library">
-      <library name="Maven: lib:craftbukkit_1.8.8:1.8.8-R0.1-SNAPSHOT">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/craftbukkit-1.8.8-R0.1-SNAPSHOT.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Maven: lib:craftbukkit_1.9:1.9-R0.1-SNAPSHOT">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/craftbukkit-1.9-R0.1-SNAPSHOT.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="Maven: com.github.hexosse:pluginframework:0.5.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.hexosse:GitHubUpdater:1.0.5" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: 3rdParty:LightAPI:2.0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q.worldedit:worldedit-bukkit:6.1.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q:dummypermscompat:1.8" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q.worldedit:worldedit-core:6.1.1-SNAPSHOT" level="project" />

@@ -30,7 +30,7 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
-import ru.BeYkeRYkt.LightAPI.LightAPI;
+import ru.beykerykt.lightapi.LightAPI;
 
 import java.io.IOException;
 
@@ -44,7 +44,6 @@ public class AddLight extends Plugin
     public Config config = null;
     public Messages messages = null;
     private String repository = "hexosse/AddLight";
-    private LightAPI lightAPI = null;
     private static Light light = null;
 
     public boolean enable = false;
@@ -78,8 +77,6 @@ public class AddLight extends Plugin
             RunMetrics();
 
         /**/
-        lightAPI = new LightAPI();
-        lightAPI.onEnable();
         light = new Light(this);
 
 		/* Console message */
@@ -95,8 +92,6 @@ public class AddLight extends Plugin
     @Override
     public void onDisable()
     {
-        lightAPI.onDisable();
-
         setEnable(false);
         super.onDisable();
 
@@ -140,11 +135,6 @@ public class AddLight extends Plugin
     public void setEnable(boolean enable)
     {
         this.enable = enable;
-
-        if(enable)
-            light.Start();
-        else
-            light.Stop();
     }
 
     /**

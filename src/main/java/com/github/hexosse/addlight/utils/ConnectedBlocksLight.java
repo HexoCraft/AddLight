@@ -23,6 +23,8 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This file is part of AddLight
@@ -32,13 +34,12 @@ import java.util.ArrayList;
 public class ConnectedBlocksLight
 {
     private static BlockFace[] FACES;
-
-    private static ArrayList<Location> unchecked = new ArrayList<>();
-    private static ArrayList<Location> confirmed = new ArrayList<>();
+	private static List<Location> unchecked = null;
+	private static List<Location> confirmed = null;
 
     static { FACES = new BlockFace[]{BlockFace.UP, BlockFace.DOWN, BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST}; }
 
-    public static ArrayList<Location> getConnectedBlocks(Location location, int limit)
+    public synchronized static List<Location> getConnectedBlocks(Location location, int limit)
     {
         findConnectedBlocks(location.getBlock(), limit);
         return confirmed;
@@ -46,8 +47,8 @@ public class ConnectedBlocksLight
 
     private static int findConnectedBlocks(Block block, int limit)
     {
-        unchecked.clear();
-        confirmed.clear();
+		unchecked = Collections.synchronizedList(new ArrayList<Location>());
+		confirmed = Collections.synchronizedList(new ArrayList<Location>());
         unchecked.add(block.getLocation());
 
         while(unchecked.size() > 0 && confirmed.size()<=(limit>0?limit:unchecked.size()))
@@ -77,7 +78,7 @@ public class ConnectedBlocksLight
         return confirmed.size();
     }
 
-    // the block to check must be of the same material
+    // the block toCheck must be of the same material as block
     // and must have one face exposed to transparent block
     protected static boolean isValid(Block toCheck, Block block)
     {
@@ -86,7 +87,7 @@ public class ConnectedBlocksLight
 
         for(BlockFace face : FACES)
         {
-            Block relative = block.getRelative(face);
+            Block relative = toCheck.getRelative(face);
             if (relative.getType().isTransparent() || !relative.getType().isOccluding()) {
                 return true;
             }

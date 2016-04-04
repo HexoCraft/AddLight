@@ -31,10 +31,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * This file is part AddGlow
@@ -64,7 +66,7 @@ public class PlayerListener extends PluginListener<AddLight>
         if(!plugin.isEnable()) return;
 
         //
-        if(event.getAction().equals(Action.LEFT_CLICK_BLOCK))
+        if(event.getAction().equals(Action.LEFT_CLICK_BLOCK) && event.getHand().equals(EquipmentSlot.HAND))
         {
             // Material in hand must be glowstone dust
             if(player.getItemInHand().getType() != Material.GLOWSTONE_DUST)
@@ -89,7 +91,7 @@ public class PlayerListener extends PluginListener<AddLight>
         }
 
         //
-        if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+        if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && event.getHand().equals(EquipmentSlot.HAND))
         {
             // Material in hand must be glowstone dust
             if(player.getItemInHand().getType() != Material.GLOWSTONE_DUST)
@@ -137,7 +139,7 @@ public class PlayerListener extends PluginListener<AddLight>
             @Override
             public void run()
             {
-                ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location, plugin.config.cbLimit);
+                List<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location, plugin.config.cbLimit);
                 plugin.getLight().Create(locations, lightLevel);
 
                 // Message
@@ -176,7 +178,7 @@ public class PlayerListener extends PluginListener<AddLight>
             @Override
             public void run()
             {
-                ArrayList<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location, plugin.config.cbLimit);
+                List<Location> locations = ConnectedBlocksLight.getConnectedBlocks(location, plugin.config.cbLimit);
                 plugin.getLight().Delete(locations);
 
                 // Message

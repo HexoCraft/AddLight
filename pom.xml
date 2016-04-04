@@ -23,7 +23,7 @@
     <groupId>com.github.hexosse</groupId>
     <artifactId>AddLight</artifactId>
     <name>AddLight</name>
-    <version>1.3.0</version>
+    <version>1.4.0</version>
     <packaging>jar</packaging>
     <description>This plugin allow server admin to add invisible light sources.</description>
     <url>https://github.com/hexosse/AddLight</url>
@@ -41,10 +41,11 @@
 
     <!-- scm -->
     <scm>
+        <url>http://github.com/hexosse/AddLight</url>
         <connection>scm:git:git://github.com/hexosse/AddLight.git</connection>
         <developerConnection>scm:git:git@github.com:hexosse/AddLight.git</developerConnection>
-        <url>git@github.com:hexosse/AddLight.git</url>
     </scm>
+
     <issueManagement>
         <system>GitHub</system>
         <url>https://github.com/hexosse/AddLight/issues</url>
@@ -113,20 +114,6 @@
             <version>${spigot.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>lib</groupId>
-            <artifactId>craftbukkit_1.8.8</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/craftbukkit-1.8.8-R0.1-SNAPSHOT.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>lib</groupId>
-            <artifactId>craftbukkit_1.9</artifactId>
-            <version>1.9-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/craftbukkit-1.9-R0.1-SNAPSHOT.jar</systemPath>
-        </dependency>
         <!-- hexosse PluginFramework -->
         <dependency>
             <groupId>com.github.hexosse</groupId>
@@ -140,6 +127,13 @@
             <artifactId>GitHubUpdater</artifactId>
             <version>1.0.5</version>
             <scope>compile</scope>
+        </dependency>
+        <!--LightAPI-->
+        <dependency>
+            <groupId>3rdParty</groupId>
+            <artifactId>LightAPI</artifactId>
+            <version>2.0.1</version>
+            <scope>provided</scope>
         </dependency>
         <!--WorldEdit-->
         <dependency>
@@ -274,7 +268,7 @@
                             <Version>${project.version}</Version>
                         </manifestEntries>
                     </archive>
-                    <!--<outputDirectory>../../Server/plugins</outputDirectory>-->
+                    <outputDirectory>../../ServerTest/plugins</outputDirectory>
                 </configuration>
             </plugin>
 

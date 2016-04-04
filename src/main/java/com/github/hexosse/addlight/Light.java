@@ -18,9 +18,10 @@ package com.github.hexosse.addlight;
 
 import com.github.hexosse.pluginframework.pluginapi.PluginObject;
 import org.bukkit.Location;
-import ru.BeYkeRYkt.LightAPI.chunks.ChunkInfo;
-import ru.BeYkeRYkt.LightAPI.LightAPI;
-import ru.BeYkeRYkt.LightAPI.LightRegistry;
+import ru.beykerykt.lightapi.chunks.ChunkInfo;
+import ru.beykerykt.lightapi.chunks.Chunks;
+import ru.beykerykt.lightapi.light.LightDataRequest;
+import ru.beykerykt.lightapi.light.Lights;
 
 import java.util.List;
 
@@ -31,58 +32,48 @@ import java.util.List;
  */
 public class Light extends PluginObject<AddLight>
 {
-    private LightRegistry registry;
-    private int ticks = 40;
-
     public Light(AddLight plugin)
     {
         super(plugin);
-        registry = LightAPI.getRegistry(plugin);
-    }
-
-    public void Start()
-    {
-        registry.startAutoSend(ticks);
-    }
-
-    public void Stop()
-    {
-        registry.stopAutoSend();
     }
 
     public void Create(Location location, int lightLevel)
     {
-        registry.createLight(location, lightLevel);
-        List<ChunkInfo> list = registry.collectChunks(location);
-        if(!registry.isAutoSend())
-        {
-            registry.sendChunks(list);
+        LightDataRequest request = Lights.createLight(location, lightLevel, false);
+        if (request != null) {
+            Chunks.addChunkToQueue(request);
+        } else {
+            for (ChunkInfo info : Chunks.collectModifiedChunks(location)) {
+                Chunks.sendChunkUpdate(info);
+            }
         }
     }
 
     public void Create(List<Location> list, int lightlevel)
     {
-        for(Location location : list)
-        {
-            Create(location, lightlevel);
+        synchronized(list) {
+            for(Location location : list)
+                Create(location, lightlevel);
         }
     }
 
     public void Delete(Location location)
     {
-        registry.deleteLight(location);
-        List<ChunkInfo> list = registry.collectChunks(location);
-        if(!registry.isAutoSend())
-        {
-            registry.sendChunks(list);
+        LightDataRequest request = Lights.deleteLight(location, false);
+        if (request != null) {
+            Chunks.addChunkToQueue(request);
+        } else {
+            for (ChunkInfo info : Chunks.collectModifiedChunks(location)) {
+                Chunks.sendChunkUpdate(info);
+            }
         }
     }
 
     public void Delete(List<Location> list)
     {
-        for(Location location : list)
-        {
-            Delete(location);
+        synchronized(list) {
+            for(Location location : list)
+                Delete(location);
         }
     }
 }

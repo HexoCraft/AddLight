@@ -8,11 +8,12 @@ You can also remove the light source by right clicking.
 AddLight depend on [LightAPI](https://www.spigotmc.org/resources/lightapi.4510/) from BeYkeRYkt.
 
 ####Commands:
-* /AddLight &lt;help&gt; : Display AddLight help
+* /AddLight : Display the status of the plugin
+* /AddLight [help] : Display AddLight help
 * /AddLight [enable|on] : Enable light creation
 * /AddLight [disable|off] : Disable light creation
-* /AddLight [number] : Define light intensity (1-15)
-* /AddLight [ConnectedBlocks] : Create lights to all connected blocks (be very carreful)
+* /AddLight [LightLevel] <intensity> : Define light intensity (1-15)
+* /AddLight [ConnectedBlocks] : Toggle the connected block status (Max connected blocks can be configure in the config file)
 
 ####Permissions:
 * AddLight.admin : Allows creation of light to admin users

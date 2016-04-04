@@ -6,7 +6,7 @@ main: com.github.hexosse.addlight.AddLight
 author: hexosse
 website: www.github.hexosse
 
-depend: []
+depend: [LightAPI]
 softdepend: [WorldEdit]
 
 permissions:
