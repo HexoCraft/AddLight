@@ -6,6 +6,7 @@ You can also remove the light source by right clicking.
 
 ####Depedency:
 AddLight depend on [LightAPI](https://www.spigotmc.org/resources/lightapi.4510/) from BeYkeRYkt.
+(for minecraft 1.9.4 use this version [LightAPI 2.0.2](https://github.com/HexoCraft/LightAPI/releases/download/2.0.2/LightAPI-2.0.2.jar))
 
 ####Commands:
 * /AddLight : Display the status of the plugin
