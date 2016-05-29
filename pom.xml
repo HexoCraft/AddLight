@@ -258,9 +258,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.0.0</version>
                 <configuration>
-                    <finalName>${project.build.finalName}</finalName>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifestEntries>
@@ -268,7 +267,7 @@
                             <Version>${project.version}</Version>
                         </manifestEntries>
                     </archive>
-                    <outputDirectory>../../ServerTest/plugins</outputDirectory>
+                    <!-- <outputDirectory>../../ServerTest/plugins</outputDirectory> -->
                 </configuration>
             </plugin>
 
