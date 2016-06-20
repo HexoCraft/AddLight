@@ -18,10 +18,8 @@ package com.github.hexosse.addlight;
 
 import com.github.hexosse.pluginframework.pluginapi.PluginObject;
 import org.bukkit.Location;
+import ru.beykerykt.lightapi.LightAPI;
 import ru.beykerykt.lightapi.chunks.ChunkInfo;
-import ru.beykerykt.lightapi.chunks.Chunks;
-import ru.beykerykt.lightapi.light.LightDataRequest;
-import ru.beykerykt.lightapi.light.Lights;
 
 import java.util.List;
 
@@ -39,12 +37,12 @@ public class Light extends PluginObject<AddLight>
 
     public void Create(Location location, int lightLevel)
     {
-        LightDataRequest request = Lights.createLight(location, lightLevel, false);
-        if (request != null) {
-            Chunks.addChunkToQueue(request);
-        } else {
-            for (ChunkInfo info : Chunks.collectModifiedChunks(location)) {
-                Chunks.sendChunkUpdate(info);
+        LightAPI.createLight(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ(), 15, false);
+
+        List<ChunkInfo> chunks = LightAPI.collectChunks(location);
+        if (chunks != null) {
+            for (ChunkInfo info : chunks) {
+                LightAPI.updateChunks(info);
             }
         }
     }
@@ -59,12 +57,12 @@ public class Light extends PluginObject<AddLight>
 
     public void Delete(Location location)
     {
-        LightDataRequest request = Lights.deleteLight(location, false);
-        if (request != null) {
-            Chunks.addChunkToQueue(request);
-        } else {
-            for (ChunkInfo info : Chunks.collectModifiedChunks(location)) {
-                Chunks.sendChunkUpdate(info);
+        LightAPI.deleteLight(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ(), false);
+
+        List<ChunkInfo> chunks = LightAPI.collectChunks(location);
+        if (chunks != null) {
+            for (ChunkInfo info : chunks) {
+                LightAPI.updateChunks(info);
             }
         }
     }
