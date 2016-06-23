@@ -22,9 +22,9 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.persistence:persistence-api:1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.yaml:snakeyaml:1.15" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.md-5:bungeecord-chat:1.9-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com.github.hexosse:pluginframework:0.5.0" level="project" />
+    <orderEntry type="library" name="Maven: com.github.hexosse:pluginframework:0.5.1" level="project" />
     <orderEntry type="library" name="Maven: com.github.hexosse:GitHubUpdater:1.0.5" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: 3rdParty:LightAPI:3.0.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: 3rdParty:LightAPI:3.1.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q.worldedit:worldedit-bukkit:6.1.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q:dummypermscompat:1.8" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q.worldedit:worldedit-core:6.1.1-SNAPSHOT" level="project" />

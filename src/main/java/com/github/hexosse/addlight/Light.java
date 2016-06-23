@@ -17,6 +17,7 @@ package com.github.hexosse.addlight;
  */
 
 import com.github.hexosse.pluginframework.pluginapi.PluginObject;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import ru.beykerykt.lightapi.LightAPI;
 import ru.beykerykt.lightapi.chunks.ChunkInfo;
@@ -39,12 +40,7 @@ public class Light extends PluginObject<AddLight>
     {
         LightAPI.createLight(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ(), 15, false);
 
-        List<ChunkInfo> chunks = LightAPI.collectChunks(location);
-        if (chunks != null) {
-            for (ChunkInfo info : chunks) {
-                LightAPI.updateChunks(info);
-            }
-        }
+        LightAPI.updateChunks(location, Bukkit.getOnlinePlayers());
     }
 
     public void Create(List<Location> list, int lightlevel)
@@ -59,12 +55,7 @@ public class Light extends PluginObject<AddLight>
     {
         LightAPI.deleteLight(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ(), false);
 
-        List<ChunkInfo> chunks = LightAPI.collectChunks(location);
-        if (chunks != null) {
-            for (ChunkInfo info : chunks) {
-                LightAPI.updateChunks(info);
-            }
-        }
+        LightAPI.updateChunks(location, Bukkit.getOnlinePlayers());
     }
 
     public void Delete(List<Location> list)
