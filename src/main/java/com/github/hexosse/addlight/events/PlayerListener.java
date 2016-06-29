@@ -66,7 +66,7 @@ public class PlayerListener extends PluginListener<AddLight>
         if(!plugin.isEnable()) return;
 
         //
-        if(event.getAction().equals(Action.LEFT_CLICK_BLOCK) && event.getHand().equals(EquipmentSlot.HAND))
+        if(event.getAction().equals(Action.LEFT_CLICK_BLOCK) /*&& event.getHand().equals(EquipmentSlot.HAND)*/) // Removed for 1.8 compatibility
         {
             // Material in hand must be glowstone dust
             if(player.getItemInHand().getType() != Material.GLOWSTONE_DUST)
@@ -91,7 +91,7 @@ public class PlayerListener extends PluginListener<AddLight>
         }
 
         //
-        if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && event.getHand().equals(EquipmentSlot.HAND))
+        if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK) /*&& event.getHand().equals(EquipmentSlot.HAND)*/) // Removed for 1.8 compatibility
         {
             // Material in hand must be glowstone dust
             if(player.getItemInHand().getType() != Material.GLOWSTONE_DUST)
