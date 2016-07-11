@@ -38,7 +38,7 @@ public class Light extends PluginObject<AddLight>
 
     public void Create(Location location, int lightLevel)
     {
-        LightAPI.createLight(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ(), 15, false);
+        LightAPI.createLight(location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ(), lightLevel, false);
 
         LightAPI.updateChunks(location, Bukkit.getOnlinePlayers());
     }
