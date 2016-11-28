@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AddLight.iml" filepath="$PROJECT_DIR$/AddLight.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Api/Lights/Lights.iml" filepath="$PROJECT_DIR$/../Api/Lights/Lights.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Api/Plugin/Plugin.iml" filepath="$PROJECT_DIR$/../Api/Plugin/Plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Api/nms/nms.iml" filepath="$PROJECT_DIR$/../Api/nms/nms.iml" />
     </modules>
   </component>
 </project>

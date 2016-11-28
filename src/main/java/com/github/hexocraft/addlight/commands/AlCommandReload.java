@@ -1,4 +1,4 @@
-package com.github.hexosse.addlight.commands;
+package com.github.hexocraft.addlight.commands;
 
 /*
  * Copyright 2016 hexosse
@@ -16,28 +16,33 @@ package com.github.hexosse.addlight.commands;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.addlight.configuration.Permissions;
-import com.github.hexosse.pluginframework.pluginapi.command.CommandInfo;
-import com.github.hexosse.pluginframework.pluginapi.command.predifined.CommandReload;
-import com.github.hexosse.pluginframework.pluginapi.message.Message;
+import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraft.addlight.configuration.Permissions;
+import com.github.hexocraftapi.command.CommandInfo;
+import com.github.hexocraftapi.command.predifined.CommandReload;
+import com.github.hexocraftapi.message.predifined.message.PluginMessage;
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import static com.github.hexocraft.addlight.AddLightPlugin.config;
+import static com.github.hexocraft.addlight.AddLightPlugin.messages;
+
 /**
- * This file is part AddLight
+ * This file is part AddLightPlugin
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class AlCommandReload extends CommandReload<AddLight>
+public class AlCommandReload extends CommandReload<AddLightPlugin>
 {
     /**
      * @param plugin The plugin that this object belong to.
      */
-    public AlCommandReload(AddLight plugin)
+    public AlCommandReload(AddLightPlugin plugin)
     {
         super(plugin, Permissions.ADMIN.toString());
-        this.setDescription(plugin.messages.helpReload);
+        this.setDescription(StringUtils.join(messages.cReload,"\n"));
     }
 
     /**
@@ -48,7 +53,7 @@ public class AlCommandReload extends CommandReload<AddLight>
      * @return true if a valid command, otherwise false
      */
     @Override
-    public boolean onCommand(CommandInfo commandInfo)
+    public boolean onCommand(final CommandInfo commandInfo)
     {
         final Player player = commandInfo.getPlayer();
 
@@ -59,17 +64,13 @@ public class AlCommandReload extends CommandReload<AddLight>
             @Override
             public void run()
             {
-                plugin.config.reloadConfig();
-                plugin.messages.reloadConfig();
+                // Reload config file
+                config.load();
+                // Reload message file
+                messages.load();
 
-                // Log
-                pluginLogger.info(plugin.messages.reloaded);
-
-                // Message
-                Message message = new Message();
-                message.setPrefix(plugin.messages.chatPrefix);
-                message.add(plugin.messages.reloaded);
-                messageManager.send(player, message);
+                // Send message
+                PluginMessage.toSenders(commandInfo.getSenders(),plugin, plugin.messages.sReload, ChatColor.YELLOW);
             }
 
         }.runTask(plugin);

@@ -1,4 +1,4 @@
-package com.github.hexosse.addlight.events;
+package com.github.hexocraft.addlight.listeners;
 
 /*
  * Copyright 2016 hexosse
@@ -16,29 +16,28 @@ package com.github.hexosse.addlight.events;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.pluginframework.pluginapi.PluginListener;
+import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraftapi.util.PlayerUtil;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
+import static com.github.hexocraft.addlight.AddLightPlugin.isEnable;
+
 /**
- * This file is part AddLight
+ * This file is part AddLightPlugin
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
 @SuppressWarnings("unused")
-public class BlockListener extends PluginListener<AddLight>
+public class BlockListener implements Listener
 {
-    /**
-     * @param plugin The plugin that this object belong to.
-     */
-    public BlockListener(AddLight plugin)
+    public BlockListener(AddLightPlugin plugin)
     {
-        super(plugin);
+        super();
     }
-
 
     /**
      * @param event BlockBreakEvent
@@ -46,7 +45,7 @@ public class BlockListener extends PluginListener<AddLight>
     @EventHandler(priority= EventPriority.MONITOR)
     public void onBlockBreak(BlockBreakEvent event)
     {
-        if(plugin.isEnable() && event.getPlayer().getItemInHand().getType() == Material.GLOWSTONE_DUST)
+        if(isEnable && PlayerUtil.getItemInHand(event.getPlayer()).getType() == Material.GLOWSTONE_DUST)
             event.setCancelled(true);
     }
 }

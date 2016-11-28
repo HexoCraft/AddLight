@@ -1,4 +1,4 @@
-package com.github.hexosse.addlight.commands;
+package com.github.hexocraft.addlight.commands;
 
 /*
  * Copyright 2016 hexosse
@@ -16,31 +16,33 @@ package com.github.hexosse.addlight.commands;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.pluginframework.pluginapi.PluginCommand;
-import com.github.hexosse.pluginframework.pluginapi.command.CommandInfo;
-import com.github.hexosse.pluginframework.pluginapi.message.Message;
-import com.github.hexosse.pluginframework.pluginapi.message.MessageColor;
-import com.github.hexosse.pluginframework.pluginapi.message.MessagePart;
+import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraftapi.command.Command;
+import com.github.hexocraftapi.command.CommandInfo;
+import com.github.hexocraftapi.message.Prefix;
+import com.github.hexocraftapi.message.predifined.message.EmptyMessage;
+import com.github.hexocraftapi.message.predifined.message.PluginTitleMessage;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 
+import static com.github.hexocraft.addlight.AddLightPlugin.messages;
+
 /**
- * This file is part AddLight
+ * This file is part AddLightPlugin
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class AlCommands extends PluginCommand<AddLight>
+public class AlCommands extends Command<AddLightPlugin>
 {
-    /**
+	public static Prefix prefix = new Prefix(messages.chatPrefix);
+
+	/**
      * @param plugin The plugin that this object belong to.
      */
-    public AlCommands(AddLight plugin)
+    public AlCommands(AddLightPlugin plugin)
     {
-        super("AddLight", plugin);
+        super("AddLightPlugin", plugin);
         this.setAliases(Lists.newArrayList("al"));
-		this.setDescription("(Help)");
 
         this.addSubCommand(new AlCommandHelp(plugin));
         this.addSubCommand(new AlCommandEnable(plugin));
@@ -60,17 +62,12 @@ public class AlCommands extends PluginCommand<AddLight>
 	@Override
 	public boolean onCommand(CommandInfo commandInfo)
 	{
-		//plugin.getServer().dispatchCommand(commandInfo.getSender(), "AddLight help");
+		EmptyMessage.toSender(commandInfo.getPlayer());
 
-		MessagePart dash = new MessagePart(ChatColor.STRIKETHROUGH + StringUtils.leftPad("", 51, "-")).color(MessageColor.DESCRIPTION);
-
-		Message message = new Message();
-		message.add(dash);
-		message.add("Plugin : " + ChatColor.AQUA + (plugin.enable ? "on" : "off"));
-		message.add("Connected blocks : " + ChatColor.AQUA + (plugin.connected ? "on" : "off"));
-		message.add("Light intensity : " + ChatColor.AQUA + plugin.lightlevel);
-		message.add(dash);
-		messageManager.send(commandInfo.getSender(), message);
+		PluginTitleMessage titleMessage = new PluginTitleMessage(plugin, "AddLight : " + ChatColor.AQUA + (plugin.isEnable ? "on" : "off"));
+		titleMessage.add("Connected blocks : " + ChatColor.AQUA + (plugin.useConnectedBlocks ? "on" : "off"));
+		titleMessage.add("LightsApi intensity : " + ChatColor.AQUA + plugin.lightlevel);
+		titleMessage.send(commandInfo.getSenders());
 
 		return true;
 	}

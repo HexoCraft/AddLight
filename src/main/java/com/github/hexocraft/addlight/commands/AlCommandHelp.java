@@ -1,4 +1,4 @@
-package com.github.hexosse.addlight.commands;
+package com.github.hexocraft.addlight.commands;
 
 /*
  * Copyright 2016 hexosse
@@ -16,40 +16,27 @@ package com.github.hexosse.addlight.commands;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.addlight.configuration.Permissions;
-import com.github.hexosse.pluginframework.pluginapi.command.CommandInfo;
-import com.github.hexosse.pluginframework.pluginapi.command.predifined.CommandHelp;
+import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraft.addlight.configuration.Permissions;
+import com.github.hexocraftapi.command.predifined.CommandHelp;
+import org.apache.commons.lang.StringUtils;
 
 /**
- * This file is part of AddLight
+ * This file is part of AddLightPlugin
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class AlCommandHelp extends CommandHelp<AddLight>
+public class AlCommandHelp extends CommandHelp<AddLightPlugin>
 {
     /**
      * @param plugin The plugin that this object belong to.
      */
-    public AlCommandHelp(AddLight plugin)
+    public AlCommandHelp(AddLightPlugin plugin)
     {
         super(plugin);
-		this.removeArgument("page");
-        this.setPermission(Permissions.USE.toString());
+	    this.setDescription(StringUtils.join(plugin.messages.cHelp,"\n"));
+	    this.setPermission(Permissions.USE.toString());
+	    this.setDisplayInlineDescription(true);
+	    this.removeArgument("page");
     }
-
-	/**
-	 * Executes the given command, returning its success
-	 *
-	 * @param commandInfo Info about the command
-	 *
-	 * @return true if a valid command, otherwise false
-	 */
-	@Override
-	public boolean onCommand(CommandInfo commandInfo)
-	{
-		super.onCommand(commandInfo);
-
-		return true;
-	}
 }

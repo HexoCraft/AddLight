@@ -25,6 +25,9 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../Api/Lights/pom.xml" />
+        <option value="$PROJECT_DIR$/../Api/nms/pom.xml" />
+        <option value="$PROJECT_DIR$/../Api/Plugin/pom.xml" />
       </list>
     </option>
   </component>

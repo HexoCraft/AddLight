@@ -24,10 +24,20 @@
         <processorPath useClasspath="true" />
         <module name="AddGlow" />
         <module name="AddLight" />
+        <module name="lights" />
+        <module name="Lights" />
+        <module name="nms" />
+        <module name="plugin" />
+        <module name="Plugin" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel target="1.7">
       <module name="AddLight" target="1.7" />
+      <module name="Lights" target="1.7" />
+      <module name="lights" target="1.7" />
+      <module name="nms" target="1.7" />
+      <module name="plugin" target="1.5" />
+      <module name="Plugin" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -20,13 +20,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.hexosse</groupId>
-    <artifactId>AddLight</artifactId>
+    <groupId>com.github.hexocraft</groupId>
+    <artifactId>addlight</artifactId>
     <name>AddLight</name>
-    <version>3.1.2</version>
+    <version>4.0.0</version>
     <packaging>jar</packaging>
     <description>This plugin allow server admin to add invisible light sources.</description>
-    <url>https://github.com/hexosse/AddLight</url>
+    <url>https://github.com/hexocraft/AddLight</url>
 
 
     <!-- License -->
@@ -41,22 +41,20 @@
 
     <!-- scm -->
     <scm>
-        <url>http://github.com/hexosse/AddLight</url>
-        <connection>scm:git:git://github.com/hexosse/AddLight.git</connection>
-        <developerConnection>scm:git:git@github.com:hexosse/AddLight.git</developerConnection>
+        <url>http://github.com/hexocraft/AddLight</url>
+        <connection>scm:git:git://github.com/hexocraft/AddLight.git</connection>
+        <developerConnection>scm:git:git@github.com:hexocraft/AddLight.git</developerConnection>
     </scm>
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/hexosse/AddLight/issues</url>
+        <url>https://github.com/hexocraft/AddLight/issues</url>
     </issueManagement>
 
     <!-- Propriétés du projet -->
     <properties>
-        <plugin.name>${project.name}</plugin.name>
-        <plugin.version>${project.version}</plugin.version>
         <jdk.version>1.7</jdk.version>
-        <spigot.version>1.10-R0.1-SNAPSHOT</spigot.version>
+        <bukkit.version>1.11-R0.1-SNAPSHOT</bukkit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <github.global.server>github</github.global.server>
     </properties>
@@ -107,39 +105,83 @@
 
     <!-- Mettre ici la liste des dépendances du projet-->
     <dependencies>
-        <!--Spigot-API-->
-        <dependency>
+        <!-- Spigot-API -->
+        <!-- <dependency>
+             <groupId>org.spigotmc</groupId>
+             <artifactId>spigot-api</artifactId>
+             <version>${bukkit.version}</version>
+             <scope>provided</scope>
+         </dependency> -->
+        <!-- Spigot -->
+        <!-- <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>${spigot.version}</version>
+            <artifactId>spigot</artifactId>
+            <version>${bukkit.version}</version>
+            <scope>provided</scope>
+        </dependency> -->
+        <!-- bukkit -->
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>${bukkit.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- hexosse PluginFramework -->
+        <!-- Craftbukkit -->
+        <!-- <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit</artifactId>
+            <version>${bukkit.version}</version>
+            <scope>provided</scope>
+        </dependency> -->
+        <!-- HexoCraftApi Plugin -->
         <dependency>
-            <groupId>com.github.hexosse</groupId>
-            <artifactId>pluginframework</artifactId>
-            <version>0.5.1</version>
+            <groupId>com.github.hexocraftapi</groupId>
+            <artifactId>plugin</artifactId>
+            <version>[1.0.0, )</version>
             <scope>compile</scope>
         </dependency>
-        <!--hexosse GitHubUpdater-->
+        <!-- HexoCraftApi Nms -->
         <dependency>
-            <groupId>com.github.hexosse</groupId>
-            <artifactId>GitHubUpdater</artifactId>
-            <version>1.0.5</version>
+            <groupId>com.github.hexocraftapi</groupId>
+            <artifactId>nms</artifactId>
+            <version>[1.0.0, )</version>
             <scope>compile</scope>
         </dependency>
-        <!--LightAPI-->
+        <!-- HexoCraftApi Lights -->
+        <dependency>
+            <groupId>com.github.hexocraftapi</groupId>
+            <artifactId>lights</artifactId>
+            <version>[1.0.0, )</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.hexocraftapi</groupId>
+                    <artifactId>nms</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- HexoCraftApi Plugin -->
+        <dependency>
+            <groupId>com.github.hexocraftapi</groupId>
+            <artifactId>plugin</artifactId>
+            <version>[1.0.0, )</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.hexocraftapi</groupId>
+                    <artifactId>nms</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.github.hexocraftapi</groupId>
+                    <artifactId>lights</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- WorldEdit -->
         <dependency>
             <groupId>3rdParty</groupId>
-            <artifactId>LightAPI</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <!--WorldEdit-->
-        <dependency>
-            <groupId>com.sk89q.worldedit</groupId>
-            <artifactId>worldedit-bukkit</artifactId>
-            <version>6.1.1-SNAPSHOT</version>
+            <artifactId>WorldEdit</artifactId>
+            <version>6.1.3</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -153,8 +195,9 @@
 
     <!-- Options de build -->
     <build>
+        <defaultGoal>clean install</defaultGoal>
         <sourceDirectory>src/main/java</sourceDirectory>
-        <finalName>${plugin.name}-${plugin.version}</finalName>
+        <finalName>${project.name}-${project.version}</finalName>
 
         <!-- Ressources -->
         <resources>
@@ -191,36 +234,6 @@
                 </configuration>
             </plugin>
 
-            <!-- maven-source-plugin -->
-            <!-- <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.4</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin> -->
-
-            <!-- maven-javadoc-plugin -->
-            <!-- <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin> -->
-
             <!-- maven-shade-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -235,20 +248,12 @@
                         <configuration>
                             <relocations>
                                 <relocation>
-                                    <pattern>com.github.hexosse.pluginframework</pattern>
-                                    <shadedPattern>com.github.hexosse.${project.artifactId}.framework</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>com.github.hexosse.githubupdater</pattern>
-                                    <shadedPattern>com.github.hexosse.${project.artifactId}.updater</shadedPattern>
+                                    <pattern>com.github.hexocraftapi</pattern>
+                                    <shadedPattern>${project.groupId}.${project.artifactId}.api</shadedPattern>
                                 </relocation>
                             </relocations>
-                            <!-- remove unnecessary stuff -->
-                            <minimizeJar>true</minimizeJar>
-                            <!-- utterly useless artifact from shade 2.x -->
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <!-- Le fichier jar d'origine est renommé en original-XXXX.jar -->
-                            <shadedArtifactAttached>false</shadedArtifactAttached>
+                            <minimizeJar>false</minimizeJar>
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
                         </configuration>
                     </execution>
                 </executions>
@@ -258,7 +263,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.0.2</version>
                 <configuration>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
@@ -313,6 +318,8 @@
                     <repositoryName>maven-repo</repositoryName>
                     <!-- github username -->
                     <repositoryOwner>hexosse</repositoryOwner>
+                    <!-- github OAuth Token -->
+                    <!-- <oauth2Token>${env.GITHUB_OAUTH_TOKEN}</oauth2Token> -->
                 </configuration>
                 <executions>
                     <execution>

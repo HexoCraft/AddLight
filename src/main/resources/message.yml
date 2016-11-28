@@ -1,5 +1,5 @@
 ############################################################
-# | AddLight by hexosse                                  | #
+# | AddLightPlugin by hexosse                                  | #
 ############################################################
 
 #----------- Chat Options ------------------
@@ -14,29 +14,29 @@ help:
   HelpDisable: Disable lights creation!
   HelpCb: Toggle connected blocks mode
   HelpNumber: Define light intensity (1 - 15)
-  HelpReload: Reload AddLight!
+  HelpReload: Reload AddLightPlugin!
 
 
 #----------- Error messages ------------------
 errors:
   AccesDenied: You don't have permission to do that!
   UseConnected: You don't have permission to use connected blocks!
-  UsePlugin: You don't have permission to use AddLight plugin!
-  UseIntensity: You don't have permission to use AddLight plugin!
-  IntensityNumber: Light intensity must be between 1 and 15
+  UsePlugin: You don't have permission to use AddLightPlugin plugin!
+  UseIntensity: You don't have permission to use AddLightPlugin plugin!
+  IntensityNumber: LightsApi intensity must be between 1 and 15
 
 
 #----------- Messages ------------------
 messages:
   LightsCreated: lights created
   LightsDeleted: lights deleted
-  LightsIntensity: Light intensity
+  LightsIntensity: LightsApi intensity
   Connectedblocks: Connected blocks
   IsEnable : is enable!
   IsDisable : is disable!
   HelpLeftClick : left click an item with glowstone dust to add light!
   HelpRightClick : right click an item with glowstone dust to remove light!
-  Reloaded: AddLight has been reloaded
+  Reloaded: AddLightPlugin has been reloaded
 
 
 ############################################################

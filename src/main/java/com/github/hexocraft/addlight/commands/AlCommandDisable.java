@@ -1,4 +1,4 @@
-package com.github.hexosse.addlight.commands;
+package com.github.hexocraft.addlight.commands;
 
 /*
  * Copyright 2016 hexosse
@@ -16,28 +16,30 @@ package com.github.hexosse.addlight.commands;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.addlight.configuration.Permissions;
-import com.github.hexosse.pluginframework.pluginapi.PluginCommand;
-import com.github.hexosse.pluginframework.pluginapi.command.CommandInfo;
-import com.github.hexosse.pluginframework.pluginapi.message.Message;
+import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraft.addlight.configuration.Permissions;
+import com.github.hexocraftapi.command.Command;
+import com.github.hexocraftapi.command.CommandInfo;
+import com.github.hexocraftapi.message.predifined.message.EmptyMessage;
+import com.github.hexocraftapi.message.predifined.message.PluginTitleMessage;
 import com.google.common.collect.Lists;
 
 /**
- * This file is part AddLight
+ * This file is part AddLightPlugin
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class AlCommandDisable extends PluginCommand<AddLight>
+public class AlCommandDisable extends Command<AddLightPlugin>
 {
     /**
      * @param plugin The plugin that this object belong to.
      */
-    public AlCommandDisable(AddLight plugin) {
+    public AlCommandDisable(AddLightPlugin plugin) {
         super("disable", plugin);
-        this.setAliases(Lists.newArrayList("off"));
-        this.setDescription(plugin.messages.helpDisable);
+        this.setAliases(Lists.newArrayList("off", "0"));
+        this.setDescription(plugin.messages.cDisable);
         this.setPermission(Permissions.USE.toString());
+        this.setPermissionMessage(plugin.messages.AccesDenied);
     }
 
     /**
@@ -53,10 +55,9 @@ public class AlCommandDisable extends PluginCommand<AddLight>
         plugin.setEnable(false);
 
         // Message
-        Message message = new Message();
-        message.setPrefix(plugin.messages.chatPrefix);
-        message.add(plugin.messages.isDisable);
-        messageManager.send(commandInfo.getSender(), message);
+        EmptyMessage.toSender(commandInfo.getPlayer());
+        PluginTitleMessage titleMessage = new PluginTitleMessage(plugin, "AddLight " + plugin.messages.disable);
+        titleMessage.send(commandInfo.getSenders());
 
         return true;
     }

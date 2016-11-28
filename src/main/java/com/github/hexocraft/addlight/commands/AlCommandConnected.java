@@ -1,4 +1,4 @@
-package com.github.hexosse.addlight.commands;
+package com.github.hexocraft.addlight.commands;
 
 /*
  * Copyright 2016 hexosse
@@ -16,30 +16,31 @@ package com.github.hexosse.addlight.commands;
  *    limitations under the License.
  */
 
-import com.github.hexosse.addlight.AddLight;
-import com.github.hexosse.addlight.configuration.Permissions;
-import com.github.hexosse.pluginframework.pluginapi.PluginCommand;
-import com.github.hexosse.pluginframework.pluginapi.command.CommandInfo;
-import com.github.hexosse.pluginframework.pluginapi.message.Message;
+import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraft.addlight.configuration.Permissions;
+import com.github.hexocraftapi.command.Command;
+import com.github.hexocraftapi.command.CommandInfo;
+import com.github.hexocraftapi.message.predifined.message.EmptyMessage;
+import com.github.hexocraftapi.message.predifined.message.PluginTitleMessage;
 import com.google.common.collect.Lists;
 import org.bukkit.ChatColor;
 
 /**
- * This file is part of AddLight
+ * This file is part of AddLightPlugin
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class AlCommandConnected extends PluginCommand<AddLight>
+public class AlCommandConnected extends Command<AddLightPlugin>
 {
     /**
      * @param plugin The plugin that this object belong to.
      */
-    public AlCommandConnected(AddLight plugin) {
+    public AlCommandConnected(AddLightPlugin plugin) {
         super("ConnectedBlocks", plugin);
         this.setAliases(Lists.newArrayList("cb"));
-        this.setDescription(plugin.messages.helpCb);
+        this.setDescription(plugin.messages.cConnectedBlock);
         this.setPermission(Permissions.CONNECTED.toString());
-        this.setPermissionMessage(plugin.messages.useConnected);
+        this.setPermissionMessage(plugin.messages.AccesDenied);
     }
 
     /**
@@ -52,13 +53,12 @@ public class AlCommandConnected extends PluginCommand<AddLight>
     @Override
     public boolean onCommand(CommandInfo commandInfo)
     {
-        plugin.connected = !plugin.connected;
+        plugin.useConnectedBlocks = !plugin.useConnectedBlocks;
 
         // Message
-        Message message = new Message();
-        message.setPrefix(plugin.messages.chatPrefix);
-        message.add(plugin.messages.connectedblocks + " " +  ChatColor.AQUA + (plugin.connected?"on":"off"));
-        messageManager.send(commandInfo.getSender(), message);
+        EmptyMessage.toSender(commandInfo.getPlayer());
+        PluginTitleMessage titleMessage = new PluginTitleMessage(plugin, plugin.messages.connectedblocks + " " +  ChatColor.AQUA + (plugin.useConnectedBlocks?"on":"off"));
+        titleMessage.send(commandInfo.getSenders());
 
         return true;
     }

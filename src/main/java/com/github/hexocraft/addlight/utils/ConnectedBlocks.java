@@ -1,4 +1,4 @@
-package com.github.hexosse.addlight.utils;
+package com.github.hexocraft.addlight.utils;
 
 
 /*
@@ -17,7 +17,7 @@ package com.github.hexosse.addlight.utils;
  *    limitations under the License.
  */
 
-import com.github.hexosse.pluginframework.utilapi.BlockUtil;
+import com.github.hexocraftapi.util.AreaUtil;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -27,11 +27,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This file is part of AddLight
+ * This file is part of AddLightPlugin
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
-public class ConnectedBlocksLight
+public class ConnectedBlocks
 {
     private static BlockFace[] FACES;
 	private static List<Location> unchecked = null;
@@ -41,38 +41,58 @@ public class ConnectedBlocksLight
 
     public synchronized static List<Location> getConnectedBlocks(Location location, int limit)
     {
-        findConnectedBlocks(location.getBlock(), limit);
+        return getConnectedBlocks(location, limit, null, null);
+    }
+
+    public synchronized static List<Location> getConnectedBlocks(Location location, int limit, Location corner1, Location corner2)
+    {
+        findConnectedBlocks(location.getBlock(), limit, corner1, corner2);
         return confirmed;
     }
 
-    private static int findConnectedBlocks(Block block, int limit)
+    public synchronized static List<Location> getAdjacentTransparentBlocks(Location location)
     {
-		unchecked = Collections.synchronizedList(new ArrayList<Location>());
-		confirmed = Collections.synchronizedList(new ArrayList<Location>());
+        List<Location> adjacents = new ArrayList<>(1);
+
+        Block block = location.getBlock();
+        for(BlockFace face : FACES)
+        {
+            Block relative = block.getRelative(face);
+            if(relative.getType().isTransparent() || !relative.getType().isOccluding())
+                adjacents.add(relative.getLocation());
+        }
+
+        return adjacents;
+    }
+
+    private static int findConnectedBlocks(Block block, int limit, Location corner1, Location corner2)
+    {
+        unchecked = Collections.synchronizedList(new ArrayList<Location>());
+        confirmed = Collections.synchronizedList(new ArrayList<Location>());
         unchecked.add(block.getLocation());
 
-        while(unchecked.size() > 0 && confirmed.size()<=(limit>0?limit:unchecked.size()))
+        while(unchecked.size() > 0 && confirmed.size() <= (limit > 0 ? limit : unchecked.size()))
         {
             Location uncheckedLocation = unchecked.get(0);
             Block uncheckedBlock = unchecked.get(0).getBlock();
 
-            if(!isValid(uncheckedBlock,block))
+            if(!isValid(uncheckedBlock, block, corner1, corner2))
             {
                 unchecked.remove(uncheckedLocation);
             }
             else
             {
+                unchecked.remove(uncheckedLocation);
                 confirmed.add(uncheckedLocation);
 
                 for (BlockFace face : FACES)
                 {
                     Block candidate = uncheckedBlock.getRelative(face);
 
-                    if (isValid(candidate, block) && !isUnchecked(candidate) && !isConfirmed(candidate))
+                    if(isValid(candidate, block, corner1, corner2) && !isUnchecked(candidate) && !isConfirmed(candidate))
                         unchecked.add(candidate.getLocation());
                 }
 
-                unchecked.remove(0);
             }
         }
         return confirmed.size();
@@ -80,15 +100,20 @@ public class ConnectedBlocksLight
 
     // the block toCheck must be of the same material as block
     // and must have one face exposed to transparent block
-    protected static boolean isValid(Block toCheck, Block block)
+    protected static boolean isValid(Block toCheck, Block block, Location corner1, Location corner2)
     {
-        if(!BlockUtil.compare(toCheck, block))
+        if(!toCheck.getState().getType().equals(block.getState().getType()))
+            return false;
+        if(!toCheck.getState().getData().equals(block.getState().getData()))
             return false;
 
         for(BlockFace face : FACES)
         {
             Block relative = toCheck.getRelative(face);
-            if (relative.getType().isTransparent() || !relative.getType().isOccluding()) {
+
+            if( (relative.getType().isTransparent() || !relative.getType().isOccluding())
+                && ( (corner1==null && corner2==null) || (AreaUtil.isInside(toCheck.getLocation(), corner1, corner2)) ) )
+            {
                 return true;
             }
         }

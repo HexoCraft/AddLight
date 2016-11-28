@@ -1,4 +1,4 @@
-package com.github.hexosse.addlight.configuration;
+package com.github.hexocraft.addlight.configuration;
 
 /*
  * Copyright 2016 hexosse
@@ -19,19 +19,19 @@ package com.github.hexosse.addlight.configuration;
 import org.bukkit.command.CommandSender;
 
 /**
- * This file is part AddLight
+ * This file is part AddLightPlugin
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
 public enum Permissions
 {
-    ADMIN("AddLight.admin"),
-    USER("AddLight.user"),
+    ADMIN("AddLightPlugin.admin"),
+    USER("AddLightPlugin.user"),
 
-    USE("AddLight.use"),
-    WORLDEDIT("AddLight.worldedit"),
-    CONNECTED("AddLight.connected"),
-    INTENSITY("AddLight.intensity");
+    USE("AddLightPlugin.use"),
+    WORLDEDIT("AddLightPlugin.worldedit"),
+    CONNECTED("AddLightPlugin.connected"),
+    INTENSITY("AddLightPlugin.intensity");
 
     private final String permission;
 

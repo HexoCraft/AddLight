@@ -1,0 +1,122 @@
+package com.github.hexocraft.addlight.integrations;
+
+/*
+ * Copyright 2016 hexosse
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+import com.github.hexocraft.addlight.AddLightPlugin;
+import com.sk89q.worldedit.BlockVector;
+import com.sk89q.worldedit.IncompleteRegionException;
+import com.sk89q.worldedit.LocalSession;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitPlayer;
+import com.sk89q.worldedit.bukkit.selections.Selection;
+import com.sk89q.worldedit.regions.CuboidRegion;
+import com.sk89q.worldedit.regions.CylinderRegion;
+import com.sk89q.worldedit.regions.Polygonal2DRegion;
+import com.sk89q.worldedit.regions.Region;
+import com.sk89q.worldedit.regions.RegionSelector;
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
+import java.util.Iterator;
+
+/**
+ * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
+ */
+public class WorldEditPlugin extends Integration<com.sk89q.worldedit.bukkit.WorldEditPlugin>
+{
+	public WorldEditPlugin(AddLightPlugin plugin)
+	{
+		super(plugin, "WorldEdit");
+	}
+
+	public Selection getSelection(Player player)
+	{
+		if(get() == null) return null;
+		if (player == null) throw new IllegalArgumentException("Null player not allowed");
+		if (!player.isOnline()) throw new IllegalArgumentException("Offline player not allowed");
+
+		return get().getSelection(player);
+	}
+
+	/**
+	 * this function is inspired from com.sk89q.worldedit.bukkit.WorldEditPlugin.getSelection
+	 *
+	 * @param player Player
+	 * @return player region
+	 */
+	@SuppressWarnings("deprecation")
+	public Region getRegion(Player player)
+	{
+		if(get() == null) return null;
+		if(player == null) throw new IllegalArgumentException("Null player not allowed");
+		if(!player.isOnline()) throw new IllegalArgumentException("Offline player not allowed");
+
+		BukkitPlayer worldEditPlayer = get().wrapPlayer(player);
+		LocalSession session = WorldEdit.getInstance().getSessionManager().get(worldEditPlayer);
+		RegionSelector selector = session.getRegionSelector(worldEditPlayer.getWorld());
+		try {
+			return selector.getRegion();
+		} catch (IncompleteRegionException e) {
+			return null;
+		}
+	}
+
+	/**
+	 * @param player Player
+	 * @param location Location
+	 * @return true if @location is in @player selection
+	 */
+	public boolean isLocationInSelection(Player player, Location location)
+	{
+		Selection selection = getSelection(player);
+		return selection != null && selection.contains(location);
+	}
+
+	/**
+	 * @param player Player
+	 * @param location Location in selection
+	 * @return Region
+	 */
+	public Iterator<BlockVector> getBlockVector(Player player, Location location)
+	{
+		if(!isLocationInSelection(player, location)) return null;
+
+		Region region = getRegion(player);
+
+		// CuboidRegion
+		if(region instanceof CuboidRegion)
+		{
+			CuboidRegion cuboid = (CuboidRegion)region;
+
+			return cuboid.iterator();
+		}
+		else if(region instanceof Polygonal2DRegion)
+		{
+			Polygonal2DRegion polygonal2D = (Polygonal2DRegion)region;
+
+			return polygonal2D.iterator();
+		}
+		else if(region instanceof CylinderRegion)
+		{
+			CylinderRegion cylinder = (CylinderRegion)region;
+
+			return cylinder.iterator();
+		}
+		else
+			return region != null ? region.iterator() : null;
+	}
+}
