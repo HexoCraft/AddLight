@@ -27,13 +27,11 @@
     <orderEntry type="library" name="Maven: com.github.hexocraftapi:util:1.1.0" level="project" />
     <orderEntry type="module" module-name="Plugin" />
     <orderEntry type="library" name="Maven: com.github.hexocraftapi:chat:1.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.github.hexocraftapi:sounds:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: com.github.hexocraftapi:message:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.hexocraftapi:command:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.hexocraftapi:configuration:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.hexocraftapi.checkargs:annotation:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.github.hexocraftapi:updater:1.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.github.hexocraftapi:weighted-selector:1.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: 3rdParty:WorldEdit:6.1.3" level="project" />
   </component>
 </module>
