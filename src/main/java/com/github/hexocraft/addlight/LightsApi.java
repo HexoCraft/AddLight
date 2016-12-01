@@ -32,7 +32,7 @@ import static com.github.hexocraft.addlight.AddLightPlugin.*;
 import static com.github.hexocraft.addlight.commands.AlCommands.prefix;
 
 /**
- * This file is part of AddLightPlugin
+ * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */

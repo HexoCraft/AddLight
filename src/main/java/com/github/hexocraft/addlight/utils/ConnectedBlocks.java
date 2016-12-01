@@ -27,7 +27,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This file is part of AddLightPlugin
+ * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */

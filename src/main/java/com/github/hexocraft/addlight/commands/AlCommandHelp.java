@@ -22,7 +22,7 @@ import com.github.hexocraftapi.command.predifined.CommandHelp;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * This file is part of AddLightPlugin
+ * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */
@@ -36,6 +36,7 @@ public class AlCommandHelp extends CommandHelp<AddLightPlugin>
         super(plugin);
 	    this.setDescription(StringUtils.join(plugin.messages.cHelp,"\n"));
 	    this.setPermission(Permissions.USE.toString());
+	    this.setPermissionMessage(plugin.messages.AccesDenied);
 	    this.setDisplayInlineDescription(true);
 	    this.removeArgument("page");
     }

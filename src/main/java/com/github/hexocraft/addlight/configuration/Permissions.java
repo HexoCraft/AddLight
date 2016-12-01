@@ -19,19 +19,21 @@ package com.github.hexocraft.addlight.configuration;
 import org.bukkit.command.CommandSender;
 
 /**
- * This file is part AddLightPlugin
+ * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
 public enum Permissions
 {
-    ADMIN("AddLightPlugin.admin"),
-    USER("AddLightPlugin.user"),
+    ADMIN("AddLight.admin"),
+    USER("AddLight.user"),
 
-    USE("AddLightPlugin.use"),
-    WORLDEDIT("AddLightPlugin.worldedit"),
-    CONNECTED("AddLightPlugin.connected"),
-    INTENSITY("AddLightPlugin.intensity");
+    USE("AddLight.use"),
+    WORLDEDIT("AddLight.worldedit"),
+    CONNECTED("AddLight.connected"),
+    INTENSITY("AddLight.intensity"),
+
+    DEBUG("AddLight.debug");
 
     private final String permission;
 

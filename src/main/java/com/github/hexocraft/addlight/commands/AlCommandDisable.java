@@ -25,7 +25,7 @@ import com.github.hexocraftapi.message.predifined.message.PluginTitleMessage;
 import com.google.common.collect.Lists;
 
 /**
- * This file is part AddLightPlugin
+ * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */

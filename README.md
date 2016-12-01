@@ -32,6 +32,7 @@ As BeYkeRYkt often change it's API, you'll find which version to use for any ver
 * AddLight.worldedit : AddLight can apply to a WorldEditSelection
 * AddLight.connected : AddLight can apply to any connected blocks
 * AddLight.intensity : user can change the light intensity
+* AddLight.debug : Display debug info
 
 * AddLight.* : given to op
   * AddLight.admin

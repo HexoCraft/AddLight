@@ -26,7 +26,7 @@ import com.google.common.collect.Lists;
 import org.bukkit.ChatColor;
 
 /**
- * This file is part of AddLightPlugin
+ * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.com/hexosse">hexosse on GitHub</a>).
  */

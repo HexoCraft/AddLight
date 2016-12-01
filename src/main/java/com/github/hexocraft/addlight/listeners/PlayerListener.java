@@ -18,6 +18,7 @@ package com.github.hexocraft.addlight.listeners;
 
 import com.github.hexocraft.addlight.AddLightPlugin;
 import com.github.hexocraft.addlight.LightsApi;
+import com.github.hexocraft.addlight.configuration.Permissions;
 import com.github.hexocraftapi.message.predifined.message.SimpleMessage;
 import com.github.hexocraftapi.nms.utils.NmsChunkUtil;
 import com.github.hexocraftapi.reflection.minecraft.Minecraft;
@@ -58,7 +59,8 @@ public class PlayerListener implements Listener
         //
         if(event.getAction().equals(Action.LEFT_CLICK_BLOCK)
            && PlayerUtil.getItemInHand(player) != null
-           && PlayerUtil.getItemInHand(player).getType() == Material.GLOWSTONE_DUST)
+           && PlayerUtil.getItemInHand(player).getType() == Material.GLOWSTONE_DUST
+           && Permissions.has(player, Permissions.USE))
         {
             // Clicked location
             Location clickedLoc = event.getClickedBlock().getLocation();
@@ -70,7 +72,8 @@ public class PlayerListener implements Listener
         //
         if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
            && PlayerUtil.getItemInHand(player) != null
-           && PlayerUtil.getItemInHand(player).getType() == Material.GLOWSTONE_DUST)
+           && PlayerUtil.getItemInHand(player).getType() == Material.GLOWSTONE_DUST
+           && Permissions.has(player, Permissions.USE))
         {
             if(Minecraft.Version.getVersion().newerThan(Minecraft.Version.v1_8_R4))
             {
@@ -89,7 +92,8 @@ public class PlayerListener implements Listener
         //
         if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
            && PlayerUtil.getItemInHand(player) != null
-           && PlayerUtil.getItemInHand(player).getType() == Material.AIR)
+           && PlayerUtil.getItemInHand(player).getType() == Material.AIR
+           && Permissions.has(player, Permissions.DEBUG))
         {
             if(Minecraft.Version.getVersion().newerThan(Minecraft.Version.v1_8_R4))
             {

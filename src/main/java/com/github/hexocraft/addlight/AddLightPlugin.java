@@ -32,7 +32,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 /**
- * This file is part AddLightPlugin
+ * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */

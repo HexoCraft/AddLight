@@ -32,7 +32,7 @@ import static com.github.hexocraft.addlight.commands.AlCommands.prefix;
 //import static com.github.hexocraft.addlight.commands.AlCommands.prefix;
 
 /**
- * This file is part AddLightPlugin
+ * This file is part of AddLight
  *
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
@@ -45,7 +45,7 @@ public class AlCommandLightlevel extends Command<AddLightPlugin>
     {
         super("LightLevel", plugin);
         this.setAliases(Lists.newArrayList("ll"));
-        this.setPermission(Permissions.USE.toString());
+        this.setPermission(Permissions.INTENSITY.toString());
 	    this.setPermissionMessage(plugin.messages.AccesDenied);
 
         this.addArgument(new CommandArgument<Integer>("intensity", ArgTypeInteger.get(), 15, false,false, plugin.messages.cLightLevel));
