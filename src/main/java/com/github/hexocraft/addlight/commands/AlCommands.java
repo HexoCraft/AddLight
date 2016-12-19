@@ -68,7 +68,7 @@ public class AlCommands extends Command<AddLightPlugin>
 
 		PluginTitleMessage titleMessage = new PluginTitleMessage(plugin, "AddLight : " + ChatColor.AQUA + (plugin.isEnable ? "on" : "off"));
 		titleMessage.add("Connected blocks : " + ChatColor.AQUA + (plugin.useConnectedBlocks ? "on" : "off"));
-		titleMessage.add("LightsApi intensity : " + ChatColor.AQUA + plugin.lightlevel);
+		titleMessage.add("Lights intensity : " + ChatColor.AQUA + plugin.lightlevel);
 		titleMessage.send(commandInfo.getSenders());
 
 		return true;

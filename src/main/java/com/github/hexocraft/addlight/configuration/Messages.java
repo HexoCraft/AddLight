@@ -49,7 +49,7 @@ public class Messages extends Configuration
     @ConfigValue(path = "commands.reload.cmd")					public List<String>   cReload  = Arrays.asList("Reload AddLigh");
     @ConfigValue(path = "commands.eanble.cmd")                  public String         cEnable  = "Enable lights creation!";
     @ConfigValue(path = "commands.disable.cmd")                 public String         cDisable = "Disable lights creation!";
-    @ConfigValue(path = "commands.light.level.cmd")             public String         cLightLevel = "LightsApi intensity must be between 1 and 15.";
+    @ConfigValue(path = "commands.light.level.cmd")             public String         cLightLevel = "Lights intensity must be between 1 and 15.";
     @ConfigValue(path = "commands.connectedblocks")             public String         cConnectedBlock = "Toggle connected blocks mode";
 
 
@@ -66,7 +66,7 @@ public class Messages extends Configuration
     @ConfigPath(path = "errors", 		comment = "List of error messages")
     @ConfigValue(path = "errors.AccesDenied")                   public String AccesDenied = "You don't have permission to do that!";
     @ConfigValue(path = "errors.UseConnected")                  public String eUseConnected = "You don't have permission to use connected blocks!";
-    @ConfigValue(path = "errors.intensity.number")              public String eIntensityNumber = "LightsApi intensity must be between 1 and 15";
+    @ConfigValue(path = "errors.intensity.number")              public String eIntensityNumber = "Lights intensity must be between 1 and 15";
 
     /* Messages */
     @ConfigPath(path = "messages")
@@ -74,7 +74,7 @@ public class Messages extends Configuration
     @ConfigValue(path = "messages.disable")                     public String disable    = "is disable!";
     @ConfigValue(path = "messages.leftClick")                   public String leftClick  = "left click an item with glowstone dust to add light!";
     @ConfigValue(path = "messages.rightClick")                  public String rightClick = "right click an item with glowstone dust to remove light!";
-    @ConfigValue(path = "messages.LightsIntensity")             public String lightsIntensity = "LightsApi intensity";
+    @ConfigValue(path = "messages.LightsIntensity")             public String lightsIntensity = "Lights intensity";
 
     @ConfigValue(path = "messages.LightsCreated")               public String lightsCreated = "lights created";
     @ConfigValue(path = "messages.LightsDeleted")               public String lightsDeleted = "lights deleted";
