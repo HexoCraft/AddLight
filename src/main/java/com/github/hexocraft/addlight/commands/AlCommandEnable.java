@@ -40,7 +40,7 @@ public class AlCommandEnable extends Command<AddLightPlugin>
         this.setAliases(Lists.newArrayList("on", "1"));
         this.setDescription(plugin.messages.cEnable);
         this.setPermission(Permissions.USE.toString());
-        this.setPermissionMessage(plugin.messages.eUseConnected);
+        this.setPermissionMessage(plugin.messages.AccesDenied);
     }
 
     /**

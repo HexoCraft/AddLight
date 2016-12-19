@@ -17,6 +17,7 @@ package com.github.hexocraft.addlight.commands;
  */
 
 import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraft.addlight.configuration.Permissions;
 import com.github.hexocraftapi.command.Command;
 import com.github.hexocraftapi.command.CommandInfo;
 import com.github.hexocraftapi.message.Prefix;
@@ -43,6 +44,7 @@ public class AlCommands extends Command<AddLightPlugin>
     {
         super("AddLight", plugin);
         this.setAliases(Lists.newArrayList("al"));
+		this.setPermission(Permissions.USE.toString());
 
         this.addSubCommand(new AlCommandHelp(plugin));
         this.addSubCommand(new AlCommandEnable(plugin));

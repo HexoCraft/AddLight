@@ -10,6 +10,7 @@ depend: []
 softdepend: [WorldEdit]
 
 permissions:
+  # All permissions
   AddLight.admin: {description: Allows creation of light to admin users, default: false}
   AddLight.user: {description: Allows creation of light to any users, default: false}
   AddLight.use: {description: Allows a user to use this plugin, default: false}
@@ -17,16 +18,16 @@ permissions:
   AddLight.connected: {description: AddLight can apply to any connected blocks, default: false}
   AddLight.intensity: {description: user can change the light intensity, default: false}
   AddLight.debug: {description: Display debug info, default: false}
-  AddLight.*:
+  # OP permissions
+  AddLight.admin:
     default: op
     children:
-        AddLight.admin: true
-  AddLight.admin:
-    children:
-        AddLight.use: true
-        AddLight.worldedit: true
-        AddLight.connected: true
-        AddLight.intensity: true
+      AddLight.use: true
+      AddLight.worldedit: true
+      AddLight.connected: true
+      AddLight.intensity: true
+  # Users permissions
   AddLight.user:
+    default: false
     children:
-        AddLight.use: true
+      AddLight.use: true
