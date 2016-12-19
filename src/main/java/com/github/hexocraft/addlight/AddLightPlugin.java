@@ -26,7 +26,7 @@ import com.github.hexocraftapi.message.Line;
 import com.github.hexocraftapi.message.predifined.message.PluginMessage;
 import com.github.hexocraftapi.message.predifined.message.PluginTitleMessage;
 import com.github.hexocraftapi.plugin.Plugin;
-import com.github.hexocraftapi.updater.GitHubUpdater;
+import com.github.hexocraftapi.updater.BukkitUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -102,7 +102,7 @@ public class AddLightPlugin extends Plugin
 
     public void runUpdater(final CommandSender sender, int delay)
     {
-	    super.runUpdater(new GitHubUpdater(this, "HexoCraft/AddLight"), sender, delay);
+	    super.runUpdater(new BukkitUpdater(this, "255160"), sender, delay);
     }
 
     private void runMetrics(int delay)

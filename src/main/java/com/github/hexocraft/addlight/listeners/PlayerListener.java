@@ -31,6 +31,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import static com.github.hexocraft.addlight.AddLightPlugin.isEnable;
@@ -47,6 +48,13 @@ public class PlayerListener implements Listener
     public PlayerListener(AddLightPlugin plugin)
     {
         super();
+    }
+
+    @EventHandler()
+    public void onPlayerInteract(PlayerJoinEvent event)
+    {
+        if(event.getPlayer().isOp())
+            AddLightPlugin.instance.runUpdater(event.getPlayer(), 20);
     }
 
     @EventHandler(priority=EventPriority.HIGH)
