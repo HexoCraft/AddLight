@@ -19,7 +19,8 @@ package com.github.hexocraft.addlight;
 import com.github.hexocraft.addlight.commands.AlCommands;
 import com.github.hexocraft.addlight.configuration.Config;
 import com.github.hexocraft.addlight.configuration.Messages;
-import com.github.hexocraft.addlight.integrations.WorldEditPlugin;
+import com.github.hexocraft.addlight.integrations.WorldEditHooker;
+import com.github.hexocraftapi.integration.Hook;
 import com.github.hexocraft.addlight.listeners.BlockListener;
 import com.github.hexocraft.addlight.listeners.PlayerListener;
 import com.github.hexocraftapi.message.Line;
@@ -43,7 +44,7 @@ public class AddLightPlugin extends Plugin
 	public static Messages       messages = null;
 
 	/* Plugins */
-	public static WorldEditPlugin          worldEdit = null;
+	public static WorldEditHooker worldEdit = null;
 
     public static boolean isEnable = false;
     public static boolean useConnectedBlocks = false;
@@ -71,11 +72,11 @@ public class AddLightPlugin extends Plugin
         Bukkit.getPluginManager().registerEvents(new BlockListener(this), this);
 
 		/* Plugins */
-	    worldEdit = new WorldEditPlugin(this);
+		worldEdit = (WorldEditHooker) new Hook(WorldEditHooker.class, "WorldEdit", "com.sk89q.worldedit.bukkit.WorldEditPlugin").get();
 
 		/* Enable message */
 	    PluginTitleMessage titleMessage = new PluginTitleMessage(this, "AddLight is enable ...", ChatColor.YELLOW);
-	    if(worldEdit.enabled()) titleMessage.add("Integration with " + ChatColor.YELLOW + worldEdit.getName());
+	    if(worldEdit != null) titleMessage.add("Integration with " + ChatColor.YELLOW + worldEdit.get().getName());
 	    titleMessage.send(Bukkit.getConsoleSender());
 
         /* Updater */

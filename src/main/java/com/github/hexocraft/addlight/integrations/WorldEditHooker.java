@@ -1,7 +1,7 @@
 package com.github.hexocraft.addlight.integrations;
 
 /*
- * Copyright 2016 hexosse
+ * Copyright 2017 hexosse
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@ package com.github.hexocraft.addlight.integrations;
  *    limitations under the License.
  */
 
-import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraftapi.integration.Hooker;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.LocalSession;
@@ -36,20 +36,17 @@ import java.util.Iterator;
 /**
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class WorldEditPlugin extends Integration<com.sk89q.worldedit.bukkit.WorldEditPlugin>
+public class WorldEditHooker extends Hooker<com.sk89q.worldedit.bukkit.WorldEditPlugin,WorldEditHooker>
 {
-	public WorldEditPlugin(AddLightPlugin plugin)
-	{
-		super(plugin, "WorldEdit");
+	public WorldEditHooker() {
+		super();
 	}
 
-	public Selection getSelection(Player player)
+	// Capture the plugin if exist
+	public WorldEditHooker capture(com.sk89q.worldedit.bukkit.WorldEditPlugin worldEditPlugin)
 	{
-		if(get() == null) return null;
-		if (player == null) throw new IllegalArgumentException("Null player not allowed");
-		if (!player.isOnline()) throw new IllegalArgumentException("Offline player not allowed");
-
-		return get().getSelection(player);
+		this.plugin = worldEditPlugin;
+		return this;
 	}
 
 	/**
@@ -61,11 +58,10 @@ public class WorldEditPlugin extends Integration<com.sk89q.worldedit.bukkit.Worl
 	@SuppressWarnings("deprecation")
 	public Region getRegion(Player player)
 	{
-		if(get() == null) return null;
 		if(player == null) throw new IllegalArgumentException("Null player not allowed");
 		if(!player.isOnline()) throw new IllegalArgumentException("Offline player not allowed");
 
-		BukkitPlayer worldEditPlayer = get().wrapPlayer(player);
+		BukkitPlayer worldEditPlayer = plugin.wrapPlayer(player);
 		LocalSession session = WorldEdit.getInstance().getSessionManager().get(worldEditPlayer);
 		RegionSelector selector = session.getRegionSelector(worldEditPlayer.getWorld());
 		try {
@@ -82,7 +78,7 @@ public class WorldEditPlugin extends Integration<com.sk89q.worldedit.bukkit.Worl
 	 */
 	public boolean isLocationInSelection(Player player, Location location)
 	{
-		Selection selection = getSelection(player);
+		Selection selection = plugin.getSelection(player);
 		return selection != null && selection.contains(location);
 	}
 

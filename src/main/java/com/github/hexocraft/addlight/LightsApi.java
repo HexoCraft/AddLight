@@ -52,10 +52,10 @@ public class LightsApi
 				{
 					Location corner1 = null;
 					Location corner2 = null;
-					if(worldEdit.enabled() && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
+					if(worldEdit != null && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
 					{
-						corner1 = worldEdit.getSelection(player).getMaximumPoint();
-						corner2 = worldEdit.getSelection(player).getMinimumPoint();
+						corner1 = worldEdit.get().getSelection(player).getMaximumPoint();
+						corner2 = worldEdit.get().getSelection(player).getMinimumPoint();
 					}
 
 					List<Location> locations = ConnectedBlocks.getConnectedBlocks(location, config.cbLimit, corner1, corner2);
@@ -67,7 +67,7 @@ public class LightsApi
 			}.runTaskLaterAsynchronously(instance, delay);
 		}
 		// Création de la lumière sur une selection WorldEditPlugin
-        else if(worldEdit.enabled() && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
+        else if(worldEdit != null && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
         {
 			new BukkitRunnable()
 			{
@@ -116,10 +116,10 @@ public class LightsApi
 				{
 					Location corner1 = null;
 					Location corner2 = null;
-					if(worldEdit.enabled() && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
+					if(worldEdit != null && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
 					{
-						corner1 = worldEdit.getSelection(player).getMaximumPoint();
-						corner2 = worldEdit.getSelection(player).getMinimumPoint();
+						corner1 = worldEdit.get().getSelection(player).getMaximumPoint();
+						corner2 = worldEdit.get().getSelection(player).getMinimumPoint();
 					}
 
 					List<Location> locations = ConnectedBlocks.getConnectedBlocks(location, config.cbLimit, corner1, corner2);
@@ -131,7 +131,7 @@ public class LightsApi
 			}.runTaskLaterAsynchronously(instance, delay);
 		}
 		// Suppression de la lumière sur une selection WorldEditPlugin
-        else if(worldEdit.enabled() && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
+        else if(worldEdit != null && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
         {
 			new BukkitRunnable()
 			{
