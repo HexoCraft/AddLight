@@ -20,6 +20,7 @@ import com.github.hexocraft.addlight.commands.AlCommands;
 import com.github.hexocraft.addlight.configuration.Config;
 import com.github.hexocraft.addlight.configuration.Messages;
 import com.github.hexocraft.addlight.integrations.WorldEditHooker;
+import com.github.hexocraft.addlight.listeners.UpdaterListener;
 import com.github.hexocraftapi.integration.Hook;
 import com.github.hexocraft.addlight.listeners.BlockListener;
 import com.github.hexocraft.addlight.listeners.PlayerListener;
@@ -69,7 +70,8 @@ public class AddLightPlugin extends Plugin
 
         /* Enregistrement des listeners */
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new BlockListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new BlockListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new UpdaterListener(this), this);
 
 		/* Plugins */
 		worldEdit = (WorldEditHooker) new Hook(WorldEditHooker.class, "WorldEdit", "com.sk89q.worldedit.bukkit.WorldEditPlugin").get();
