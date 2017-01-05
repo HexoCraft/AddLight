@@ -106,26 +106,26 @@
     <!-- Mettre ici la liste des dépendances du projet-->
     <dependencies>
         <!-- Spigot-API -->
-        <dependency>
+        <!-- <dependency>
              <groupId>org.spigotmc</groupId>
              <artifactId>spigot-api</artifactId>
              <version>${bukkit.version}</version>
              <scope>provided</scope>
-         </dependency>
+         </dependency> -->
         <!-- Spigot -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>${bukkit.version}</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency> -->
         <!-- bukkit -->
-        <!-- <dependency>
+        <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>${bukkit.version}</version>
             <scope>provided</scope>
-        </dependency> -->
+        </dependency>
         <!-- Craftbukkit -->
         <!-- <dependency>
             <groupId>org.bukkit</groupId>
@@ -133,26 +133,6 @@
             <version>${bukkit.version}</version>
             <scope>provided</scope>
         </dependency> -->
-        <!-- HexoCraftApi Nms -->
-        <dependency>
-            <groupId>com.github.hexocraftapi</groupId>
-            <artifactId>nms</artifactId>
-            <version>[1.0.0, )</version>
-            <scope>compile</scope>
-        </dependency>
-        <!-- HexoCraftApi Lights -->
-        <dependency>
-            <groupId>com.github.hexocraftapi</groupId>
-            <artifactId>lights</artifactId>
-            <version>[1.0.0, )</version>
-            <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.github.hexocraftapi</groupId>
-                    <artifactId>nms</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
         <!-- HexoCraftApi Plugin -->
         <dependency>
             <groupId>com.github.hexocraftapi</groupId>
@@ -160,14 +140,6 @@
             <version>[1.0.0, )</version>
             <scope>compile</scope>
             <exclusions>
-                <exclusion>
-                    <groupId>com.github.hexocraftapi</groupId>
-                    <artifactId>nms</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.github.hexocraftapi</groupId>
-                    <artifactId>lights</artifactId>
-                </exclusion>
                 <exclusion>
                     <groupId>com.github.hexocraftapi</groupId>
                     <artifactId>sounds</artifactId>
