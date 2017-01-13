@@ -45,8 +45,8 @@ public class Messages extends Configuration
 
     /* Commands */
     @ConfigPath(path = "commands", 		comment = "List of Messages used in commands")
-    @ConfigValue(path = "commands.help.cmd")					public List<String>   cHelp    = Arrays.asList("Display AddLigh help");
-    @ConfigValue(path = "commands.reload.cmd")					public List<String>   cReload  = Arrays.asList("Reload AddLigh");
+    @ConfigValue(path = "commands.help.cmd")					public List<String>   cHelp    = Arrays.asList("Display AddLight help");
+    @ConfigValue(path = "commands.reload.cmd")					public List<String>   cReload  = Arrays.asList("Reload AddLight");
     @ConfigValue(path = "commands.eanble.cmd")                  public String         cEnable  = "Enable lights creation!";
     @ConfigValue(path = "commands.disable.cmd")                 public String         cDisable = "Disable lights creation!";
     @ConfigValue(path = "commands.light.level.cmd")             public String         cLightLevel = "Lights intensity must be between 1 and 15.";
