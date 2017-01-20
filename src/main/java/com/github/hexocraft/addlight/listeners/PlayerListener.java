@@ -32,10 +32,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.EquipmentSlot;
-
-import static com.github.hexocraft.addlight.AddLightPlugin.isEnable;
-import static com.github.hexocraft.addlight.AddLightPlugin.lightlevel;
 
 /**
  * This file is part AddGlow
@@ -57,12 +55,24 @@ public class PlayerListener implements Listener
             AddLightPlugin.instance.runUpdater(event.getPlayer(), 20);
     }
 
+    @EventHandler()
+    public void onPlayerInteract(PlayerQuitEvent event)
+    {
+        LightsApi.remove(event.getPlayer());
+    }
+
+
     @EventHandler(priority=EventPriority.HIGH)
     public void onPlayerInteract(PlayerInteractEvent event)
     {
+        // Get the player
         final Player player = event.getPlayer();
 
-        if(!isEnable) return;
+        //
+        if(!LightsApi.isEnable(player)) return;
+
+        //
+        LightsApi.LigthPlayer lightPlayer = LightsApi.getPlayer(player);
 
         //
         if(event.getAction().equals(Action.LEFT_CLICK_BLOCK)
@@ -74,7 +84,7 @@ public class PlayerListener implements Listener
             Location clickedLoc = event.getClickedBlock().getLocation();
 
             // Création de la lumière
-            LightsApi.createLight(player, clickedLoc, lightlevel);
+            LightsApi.createLight(player, clickedLoc, lightPlayer.lightlevel, lightPlayer.connectedBlocks);
         }
 
         //
@@ -94,7 +104,7 @@ public class PlayerListener implements Listener
             Location clickedLoc = event.getClickedBlock().getLocation();
 
             // Suppression de la lumière
-            LightsApi.removeLight(player, clickedLoc);
+            LightsApi.removeLight(player, clickedLoc, lightPlayer.connectedBlocks);
         }
 
         //

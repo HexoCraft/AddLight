@@ -67,6 +67,7 @@ public class Messages extends Configuration
     @ConfigValue(path = "errors.AccesDenied")                   public String AccesDenied = "You don't have permission to do that!";
     @ConfigValue(path = "errors.UseConnected")                  public String eUseConnected = "You don't have permission to use connected blocks!";
     @ConfigValue(path = "errors.intensity.number")              public String eIntensityNumber = "Lights intensity must be between 1 and 15";
+    @ConfigValue(path = "errors.player")                        public String ePlayer = "this command can only be executed by a player";
 
     /* Messages */
     @ConfigPath(path = "messages")

@@ -17,6 +17,7 @@ package com.github.hexocraft.addlight.commands;
  */
 
 import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraft.addlight.LightsApi;
 import com.github.hexocraft.addlight.configuration.Permissions;
 import com.github.hexocraftapi.command.Command;
 import com.github.hexocraftapi.command.CommandInfo;
@@ -25,6 +26,7 @@ import com.github.hexocraftapi.message.predifined.message.EmptyMessage;
 import com.github.hexocraftapi.message.predifined.message.PluginTitleMessage;
 import com.google.common.collect.Lists;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import static com.github.hexocraft.addlight.AddLightPlugin.messages;
 
@@ -64,11 +66,14 @@ public class AlCommands extends Command<AddLightPlugin>
 	@Override
 	public boolean onCommand(CommandInfo commandInfo)
 	{
-		EmptyMessage.toSender(commandInfo.getPlayer());
+		// Get the player
+		final Player player = commandInfo.getPlayer();
 
-		PluginTitleMessage titleMessage = new PluginTitleMessage(plugin, "AddLight : " + ChatColor.AQUA + (plugin.isEnable ? "on" : "off"));
-		titleMessage.add("Connected blocks : " + ChatColor.AQUA + (plugin.useConnectedBlocks ? "on" : "off"));
-		titleMessage.add("Lights intensity : " + ChatColor.AQUA + plugin.lightlevel);
+		// Send info message
+		EmptyMessage.toSender(player);
+		PluginTitleMessage titleMessage = new PluginTitleMessage(plugin, "AddLight : " + ChatColor.AQUA + (LightsApi.isEnable(player) ? "on" : "off"));
+		titleMessage.add("Connected blocks : " + ChatColor.AQUA + (LightsApi.connectedBlocks(player) ? "on" : "off"));
+		titleMessage.add("Lights intensity : " + ChatColor.AQUA + LightsApi.ligthLevel(player));
 		titleMessage.send(commandInfo.getSenders());
 
 		return true;

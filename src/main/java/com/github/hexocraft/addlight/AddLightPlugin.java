@@ -47,10 +47,6 @@ public class AddLightPlugin extends Plugin
 	/* Plugins */
 	public static WorldEditHooker worldEdit = null;
 
-    public static boolean isEnable = false;
-    public static boolean useConnectedBlocks = false;
-    public static int lightlevel = 15;
-
 
     /**
      * Activation du plugin
@@ -96,7 +92,7 @@ public class AddLightPlugin extends Plugin
     @Override
     public void onDisable()
     {
-        setEnable(false);
+	    LightsApi.removeAll();
 
 	    super.onDisable();
 
@@ -111,20 +107,5 @@ public class AddLightPlugin extends Plugin
     private void runMetrics(int delay)
     {
 	    super.RunMetrics(delay);
-    }
-
-    /**
-     * @return Tell if plugin is enable
-     */
-    public boolean isEnable() {
-        return isEnable;
-    }
-
-    /**
-     * @param enable Enable the plugin
-     */
-    public void setEnable(boolean enable)
-    {
-	    isEnable = enable;
     }
 }

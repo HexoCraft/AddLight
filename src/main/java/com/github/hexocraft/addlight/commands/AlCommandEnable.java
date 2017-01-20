@@ -17,12 +17,15 @@ package com.github.hexocraft.addlight.commands;
  */
 
 import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraft.addlight.LightsApi;
 import com.github.hexocraft.addlight.configuration.Permissions;
 import com.github.hexocraftapi.command.Command;
 import com.github.hexocraftapi.command.CommandInfo;
 import com.github.hexocraftapi.message.predifined.message.EmptyMessage;
+import com.github.hexocraftapi.message.predifined.message.ErrorMessage;
 import com.github.hexocraftapi.message.predifined.message.PluginTitleMessage;
 import com.google.common.collect.Lists;
+import org.bukkit.entity.Player;
 
 /**
  * This file is part of AddLight
@@ -53,10 +56,17 @@ public class AlCommandEnable extends Command<AddLightPlugin>
     @Override
     public boolean onCommand(CommandInfo commandInfo)
     {
-        plugin.setEnable(true);
+        // Get the player
+        final Player player = commandInfo.getPlayer();
+
+        // Player is mandatory
+        if(player == null)  { ErrorMessage.toSender(commandInfo.getSender(), plugin.messages.ePlayer); return false; }
+
+        // Enable LigthApi for the player
+        LightsApi.enable(player);
 
         // Message
-        EmptyMessage.toSender(commandInfo.getPlayer());
+        EmptyMessage.toSender(player);
         PluginTitleMessage titleMessage = new PluginTitleMessage(plugin, "AddLight " + plugin.messages.enable);
         titleMessage.add(plugin.messages.leftClick);
         titleMessage.add(plugin.messages.rightClick);

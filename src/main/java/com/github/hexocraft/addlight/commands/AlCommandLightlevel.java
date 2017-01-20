@@ -17,15 +17,18 @@ package com.github.hexocraft.addlight.commands;
  */
 
 import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraft.addlight.LightsApi;
 import com.github.hexocraft.addlight.configuration.Permissions;
 import com.github.hexocraftapi.command.Command;
 import com.github.hexocraftapi.command.CommandArgument;
 import com.github.hexocraftapi.command.CommandInfo;
 import com.github.hexocraftapi.command.type.ArgTypeInteger;
 import com.github.hexocraftapi.message.predifined.message.EmptyMessage;
+import com.github.hexocraftapi.message.predifined.message.ErrorMessage;
 import com.github.hexocraftapi.message.predifined.message.PluginTitleMessage;
 import com.github.hexocraftapi.message.predifined.message.WarningPrefixedMessage;
 import com.google.common.collect.Lists;
+import org.bukkit.entity.Player;
 
 import static com.github.hexocraft.addlight.commands.AlCommands.prefix;
 
@@ -61,15 +64,22 @@ public class AlCommandLightlevel extends Command<AddLightPlugin>
     @Override
     public boolean onCommand(CommandInfo commandInfo)
     {
-        int lightlevel = Integer.parseInt(commandInfo.getNamedArg("intensity"));
+        // Get the player
+        final Player player = commandInfo.getPlayer();
 
+        // Player is mandatory
+        if(player == null)  { ErrorMessage.toSender(commandInfo.getSender(), plugin.messages.ePlayer); return false; }
+
+        // Get light level from command line
+        int lightlevel = Integer.parseInt(commandInfo.getNamedArg("intensity"));
         if(lightlevel<=0 || lightlevel>15)
         {
             WarningPrefixedMessage.toPlayer(commandInfo.getPlayer(), prefix, plugin.messages.eIntensityNumber);
             return false;
         }
 
-        plugin.lightlevel = lightlevel;
+        // Define the light level for the player
+        LightsApi.getPlayer(player).lightlevel = lightlevel;
 
         // Message
 	    EmptyMessage.toSender(commandInfo.getPlayer());

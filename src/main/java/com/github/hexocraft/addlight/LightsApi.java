@@ -25,8 +25,11 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import static com.github.hexocraft.addlight.AddLightPlugin.*;
 import static com.github.hexocraft.addlight.commands.AlCommands.prefix;
@@ -38,9 +41,68 @@ import static com.github.hexocraft.addlight.commands.AlCommands.prefix;
  */
 public class LightsApi
 {
-	private static int            delay     = 10;
+	public static class LigthPlayer
+	{
+		public boolean enable          = false;
+		public boolean connectedBlocks = false;
+		public int     lightlevel      = 15;
 
-    public static void createLight(final Player player, final Location location, final int lightLevel)
+		public LigthPlayer() {}
+
+		public LigthPlayer(boolean enable)
+		{
+			this.enable = enable;
+		}
+
+		public LigthPlayer(boolean connectedBlocks, int lightlevel)
+		{
+			this.connectedBlocks = connectedBlocks;
+			this.lightlevel = lightlevel;
+		}
+	}
+
+
+	private static Map<UUID, LigthPlayer> players = new HashMap<>();      // List of players
+	private static int                    delay   = 10;                   // Delay(in ticks) before executing asynchronous tasks
+
+
+	// Get the player
+	public static LigthPlayer getPlayer(Player player)
+	{
+		if(player == null)  return null;
+
+		// Get the player if exist
+		LigthPlayer ligthPlayer = players.get(player.getUniqueId());
+
+		// If not create it
+		if(ligthPlayer == null)
+			players.put(player.getUniqueId(), new LigthPlayer());
+
+		return players.get(player.getUniqueId());
+	}
+
+	// Enable player to create a chest preview
+	public static void enable(Player player) { getPlayer(player).enable = true; }
+
+	// Disable player from creating a chest preview
+	public static void disable(Player player) { getPlayer(player).enable = false; }
+
+	// Remove all players from the player list
+	public static void remove(Player player) { players.remove(player.getUniqueId()); }
+	public static void removeAll() { players.clear(); }
+
+	// Get player info
+	public static boolean isEnable(Player player) { return getPlayer(player).enable; };
+	public static boolean connectedBlocks(Player player) { return getPlayer(player).connectedBlocks; };
+	public static int ligthLevel(Player player) { return getPlayer(player).lightlevel; };
+
+
+	public static void createLight(final Player player, final Location location, final int lightLevel)
+	{
+		createLight(player, location, lightLevel, false);
+	}
+
+	public static void createLight(final Player player, final Location location, final int lightLevel, final boolean useConnectedBlocks)
     {
 		// Création de la lumière pour des block connectés
 		if(useConnectedBlocks && Permissions.has(player, Permissions.CONNECTED))
@@ -104,7 +166,13 @@ public class LightsApi
 		}
     }
 
-    public static void removeLight(final Player player, final Location location)
+
+	public static void removeLight(final Player player, final Location location)
+	{
+		removeLight(player, location, false);
+	}
+
+	public static void removeLight(final Player player, final Location location, final boolean useConnectedBlocks)
     {
         // Suppression de la lumière pour des block connectés
         if(useConnectedBlocks && Permissions.has(player, Permissions.CONNECTED))

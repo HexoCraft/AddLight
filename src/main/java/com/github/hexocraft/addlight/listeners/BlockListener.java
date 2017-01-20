@@ -17,6 +17,7 @@ package com.github.hexocraft.addlight.listeners;
  */
 
 import com.github.hexocraft.addlight.AddLightPlugin;
+import com.github.hexocraft.addlight.LightsApi;
 import com.github.hexocraft.addlight.configuration.Permissions;
 import com.github.hexocraftapi.util.PlayerUtil;
 import org.bukkit.Material;
@@ -24,8 +25,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-
-import static com.github.hexocraft.addlight.AddLightPlugin.isEnable;
 
 /**
  * This file is part of AddLight
@@ -46,7 +45,7 @@ public class BlockListener implements Listener
     @EventHandler(priority= EventPriority.MONITOR)
     public void onBlockBreak(BlockBreakEvent event)
     {
-        if(isEnable
+        if(LightsApi.isEnable(event.getPlayer())
            && PlayerUtil.getItemInHand(event.getPlayer()).getType() == Material.GLOWSTONE_DUST
            && Permissions.has(event.getPlayer(), Permissions.USE))
         {
