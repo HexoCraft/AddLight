@@ -235,4 +235,17 @@ public class LightsApi
 			}.runTaskLaterAsynchronously(instance, delay);
 		}
     }
+
+
+	public static void reLight(final Player player, final Location location)
+	{
+		new BukkitRunnable()
+		{
+			@Override
+			public void run()
+			{
+				Lights.relight(location);
+			}
+		}.runTaskLaterAsynchronously(instance, delay);
+	}
 }

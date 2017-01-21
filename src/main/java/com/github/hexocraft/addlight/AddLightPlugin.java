@@ -29,9 +29,11 @@ import com.github.hexocraftapi.message.predifined.message.PluginMessage;
 import com.github.hexocraftapi.message.predifined.message.PluginTitleMessage;
 import com.github.hexocraftapi.plugin.Plugin;
 import com.github.hexocraftapi.updater.BukkitUpdater;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.RegisteredServiceProvider;
 
 /**
  * This file is part of AddLight
@@ -46,66 +48,85 @@ public class AddLightPlugin extends Plugin
 
 	/* Plugins */
 	public static WorldEditHooker worldEdit = null;
+	public static Economy economy = null;
 
 
-    /**
-     * Activation du plugin
-     */
-    @Override
-    public void onEnable()
-    {
+	/**
+	 * Activation du plugin
+	 */
+	@Override
+	public void onEnable()
+	{
 		/* Instance du plugin */
 		instance = this;
 
         /* Chargement de la config */
-        config = new Config(this, "config.yml", true);
-        messages = new Messages(this, "message.yml", true);
+		config = new Config(this, "config.yml", true);
+		messages = new Messages(this, "message.yml", true);
 
         /* Enregistrement du gestionnaire de commandes */
-	    registerCommands(new AlCommands(this));
+		registerCommands(new AlCommands(this));
 
         /* Enregistrement des listeners */
-        Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new BlockListener(this), this);
 		Bukkit.getPluginManager().registerEvents(new UpdaterListener(this), this);
 
 		/* Plugins */
 		worldEdit = (WorldEditHooker) new Hook(WorldEditHooker.class, "WorldEdit", "com.sk89q.worldedit.bukkit.WorldEditPlugin").get();
+		economy = setupEconomy();
 
 		/* Enable message */
-	    PluginTitleMessage titleMessage = new PluginTitleMessage(this, "AddLight is enable ...", ChatColor.YELLOW);
-	    if(worldEdit != null) titleMessage.add("Integration with " + ChatColor.YELLOW + worldEdit.get().getName());
-	    titleMessage.send(Bukkit.getConsoleSender());
+		PluginTitleMessage titleMessage = new PluginTitleMessage(this, "AddLight is enable ...", ChatColor.YELLOW);
+		if(worldEdit != null) titleMessage.add("Integration with " + ChatColor.YELLOW + worldEdit.get().getName());
+		if(economy != null) titleMessage.add("Integration with " + ChatColor.YELLOW + "Vault");
+		titleMessage.send(Bukkit.getConsoleSender());
 
         /* Updater */
-	    if(config.useUpdater)
-		    runUpdater(getServer().getConsoleSender(), 20 * 10);
+		if(config.useUpdater)
+			runUpdater(getServer().getConsoleSender(), 20 * 10);
 
         /* Metrics */
-	    if(config.useMetrics)
-		    runMetrics(20 * 2);
-    }
+		if(config.useMetrics)
+			runMetrics(20 * 2);
+	}
 
-    /**
-     * Désactivation du plugin
-     */
-    @Override
-    public void onDisable()
-    {
-	    LightsApi.removeAll();
+	/**
+	 * Désactivation du plugin
+	 */
+	@Override
+	public void onDisable()
+	{
+		LightsApi.removeAll();
 
-	    super.onDisable();
+		super.onDisable();
 
-	    PluginMessage.toConsole(this, "Disabled", ChatColor.RED, new Line("AddLight is now disabled", ChatColor.DARK_RED));
-    }
+		PluginMessage.toConsole(this, "Disabled", ChatColor.RED, new Line("AddLight is now disabled", ChatColor.DARK_RED));
+	}
 
-    public void runUpdater(final CommandSender sender, int delay)
-    {
-	    super.runUpdater(new BukkitUpdater(this, "255160"), sender, delay);
-    }
+	public void runUpdater(final CommandSender sender, int delay)
+	{
+		super.runUpdater(new BukkitUpdater(this, "255160"), sender, delay);
+	}
 
-    private void runMetrics(int delay)
-    {
-	    super.RunMetrics(delay);
-    }
+	private void runMetrics(int delay)
+	{
+		super.RunMetrics(delay);
+	}
+
+	/**
+	 * Setup Vault Economy
+	 *
+	 * @return Economy object
+	 */
+	private Economy setupEconomy() {
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			return null;
+		}
+		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+		if (rsp == null) {
+			return null;
+		}
+		return rsp.getProvider();
+	}
 }

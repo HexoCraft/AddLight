@@ -20,6 +20,8 @@ import com.github.hexocraft.addlight.AddLightPlugin;
 import com.github.hexocraft.addlight.LightsApi;
 import com.github.hexocraft.addlight.configuration.Permissions;
 import com.github.hexocraftapi.message.predifined.message.SimpleMessage;
+import com.github.hexocraftapi.message.predifined.message.SimplePrefixedMessage;
+import com.github.hexocraftapi.message.predifined.message.WarningPrefixedMessage;
 import com.github.hexocraftapi.nms.utils.NmsChunkUtil;
 import com.github.hexocraftapi.reflection.minecraft.Minecraft;
 import com.github.hexocraftapi.util.PlayerUtil;
@@ -34,6 +36,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.EquipmentSlot;
+
+import static com.github.hexocraft.addlight.AddLightPlugin.config;
+import static com.github.hexocraft.addlight.AddLightPlugin.economy;
+import static com.github.hexocraft.addlight.AddLightPlugin.messages;
+import static com.github.hexocraft.addlight.commands.AlCommands.prefix;
 
 /**
  * This file is part AddGlow
@@ -82,6 +89,48 @@ public class PlayerListener implements Listener
         {
             // Clicked location
             Location clickedLoc = event.getClickedBlock().getLocation();
+
+            // Player bypass cost
+            boolean byPass = Permissions.has(player, Permissions.BYPASS_COST);
+
+            // Glowstone cost for creating light
+            if(!byPass && config.costGlowstone > 0 && PlayerUtil.getItemInHand(player).getAmount()<config.costGlowstone)
+            {
+                // Cancel event
+                event.setCancelled(true);
+                // Relight, as ligth might have disappeared
+                LightsApi.reLight(player, clickedLoc);
+                // Send message
+                WarningPrefixedMessage.toPlayer(player, prefix, messages.eCostGlowstone);
+                return;
+            }
+
+            // Money cost for creating light
+            if(!byPass && config.costMoney > 0 && economy!=null && !economy.has(player, config.costMoney))
+            {
+                event.setCancelled(true);
+                // Relight, as ligth might have disappeared
+                LightsApi.reLight(player, clickedLoc);
+                // Send message
+                WarningPrefixedMessage.toPlayer(player, prefix, messages.eCostMoney);
+                return;
+            }
+
+            // Pay for creating ligths
+            if(!byPass && config.costGlowstone > 0)
+            {
+                PlayerUtil.getItemInHand(player).setAmount(PlayerUtil.getItemInHand(player).getAmount() - config.costGlowstone);
+                // Send message
+                String message =String.format(messages.sCostGlowstone, config.costGlowstone);
+                SimplePrefixedMessage.toPlayer(player, prefix, message);
+            }
+            if(!byPass && config.costMoney > 0 && economy!=null)
+            {
+                economy.withdrawPlayer(player, config.costMoney);
+                // Send message
+                String message =String.format(messages.sCostMoney, config.costMoney, economy.currencyNamePlural());
+                SimplePrefixedMessage.toPlayer(player, prefix, message);
+            }
 
             // Création de la lumière
             LightsApi.createLight(player, clickedLoc, lightPlayer.lightlevel, lightPlayer.connectedBlocks);

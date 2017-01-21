@@ -45,7 +45,15 @@ public class Config extends Configuration
 
     /* ConnectedBlock */
     @ConfigPath(path = "connectedBlock", comment = "*-------------- ConnectedBlock configuration -----------------*")
-    @ConfigValue(path = "connectedBlock.limit", comment = "Limit the number of connected blocks") public int cbLimit = 1024;
+    @ConfigValue(path = "connectedBlock.limit", comment = "Limit the number of connected blocks")
+                                                                                public int cbLimit = 1024;
+
+    /* Cost */
+    @ConfigPath(path = "cost",  comment = "*------------ Charge player for adding lights ----------------*")
+    @ConfigValue(path = "cost.glowstone-dust", comment = "if > 0 user will have to pay this amount of glowstone to add lights")
+                                                                                public int costGlowstone = 6;
+    @ConfigValue(path = "cost.money", comment = "if > 0 user will have to pay this amount of money to add lights (This require vault to be installed)")
+                                                                                public int costMoney = 0;
 
 
     public Config(JavaPlugin plugin, String fileName, boolean load)

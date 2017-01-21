@@ -32,6 +32,7 @@ public enum Permissions
     WORLDEDIT("AddLight.worldedit"),
     CONNECTED("AddLight.connected"),
     INTENSITY("AddLight.intensity"),
+    BYPASS_COST("AddLight.bypass.cost"),
 
     DEBUG("AddLight.debug");
 

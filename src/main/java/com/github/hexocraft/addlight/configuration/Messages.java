@@ -61,13 +61,17 @@ public class Messages extends Configuration
 	/* Success */
     @ConfigPath(path = "success", 		comment = "List of Messages used after a sucess command")
     @ConfigValue(path = "success.relaod")		                public String sReload = "AddLight has been reloaded";
+    @ConfigValue(path = "success.cost.glowstone")               public String sCostGlowstone = "%s glowstones dust have been removed of your inventory for creating a light.";
+    @ConfigValue(path = "success.cost.money")                   public String sCostMoney = "%s %s have been withdraw of your account for creating a light.";
 
     /* Errors */
     @ConfigPath(path = "errors", 		comment = "List of error messages")
     @ConfigValue(path = "errors.AccesDenied")                   public String AccesDenied = "You don't have permission to do that!";
     @ConfigValue(path = "errors.UseConnected")                  public String eUseConnected = "You don't have permission to use connected blocks!";
     @ConfigValue(path = "errors.intensity.number")              public String eIntensityNumber = "Lights intensity must be between 1 and 15";
-    @ConfigValue(path = "errors.player")                        public String ePlayer = "this command can only be executed by a player";
+    @ConfigValue(path = "errors.player")                        public String ePlayer = "This command can only be executed by a player";
+    @ConfigValue(path = "errors.cost.glowstone")                public String eCostGlowstone = "You don't have enought glowstone to create ligths.";
+    @ConfigValue(path = "errors.cost.money")                    public String eCostMoney = "You don't have enought money to create ligths.";
 
     /* Messages */
     @ConfigPath(path = "messages")
