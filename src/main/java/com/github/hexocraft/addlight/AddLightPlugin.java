@@ -20,10 +20,10 @@ import com.github.hexocraft.addlight.commands.AlCommands;
 import com.github.hexocraft.addlight.configuration.Config;
 import com.github.hexocraft.addlight.configuration.Messages;
 import com.github.hexocraft.addlight.integrations.WorldEditHooker;
-import com.github.hexocraft.addlight.listeners.UpdaterListener;
-import com.github.hexocraftapi.integration.Hook;
 import com.github.hexocraft.addlight.listeners.BlockListener;
 import com.github.hexocraft.addlight.listeners.PlayerListener;
+import com.github.hexocraft.addlight.listeners.UpdaterListener;
+import com.github.hexocraftapi.integration.Hook;
 import com.github.hexocraftapi.message.Line;
 import com.github.hexocraftapi.message.predifined.message.PluginMessage;
 import com.github.hexocraftapi.message.predifined.message.PluginTitleMessage;
@@ -83,12 +83,10 @@ public class AddLightPlugin extends Plugin
 		titleMessage.send(Bukkit.getConsoleSender());
 
         /* Updater */
-		if(config.useUpdater)
-			runUpdater(getServer().getConsoleSender(), 20 * 10);
+        runUpdater(getServer().getConsoleSender(), 20 * 10);
 
         /* Metrics */
-		if(config.useMetrics)
-			runMetrics(20 * 2);
+        runMetrics(20 * 2);
 	}
 
 	/**
@@ -106,12 +104,14 @@ public class AddLightPlugin extends Plugin
 
 	public void runUpdater(final CommandSender sender, int delay)
 	{
-		super.runUpdater(new BukkitUpdater(this, "255160"), sender, delay);
+		if(config.useUpdater)
+			super.runUpdater(new BukkitUpdater(this, "255160"), sender, config.downloadUpdate ,delay);
 	}
 
 	private void runMetrics(int delay)
 	{
-		super.RunMetrics(delay);
+		if(config.useMetrics)
+			super.RunMetrics(delay);
 	}
 
 	/**

@@ -33,13 +33,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
-import static com.github.hexocraft.addlight.AddLightPlugin.config;
-import static com.github.hexocraft.addlight.AddLightPlugin.economy;
-import static com.github.hexocraft.addlight.AddLightPlugin.messages;
+import static com.github.hexocraft.addlight.AddLightPlugin.*;
 import static com.github.hexocraft.addlight.commands.AlCommands.prefix;
 
 /**
@@ -53,13 +50,6 @@ public class PlayerListener implements Listener
     public PlayerListener(AddLightPlugin plugin)
     {
         super();
-    }
-
-    @EventHandler()
-    public void onPlayerInteract(PlayerJoinEvent event)
-    {
-        if(event.getPlayer().isOp())
-            AddLightPlugin.instance.runUpdater(event.getPlayer(), 20);
     }
 
     @EventHandler()
