@@ -1,7 +1,7 @@
 package com.github.hexocraft.addlight.configuration;
 
 /*
- * Copyright 2016 hexosse
+ * Copyright 2017 hexosse
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -25,15 +25,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 
 @ConfigHeader(comment = {
-"# ===--- SoundEffect ---------------------------------------------------------------------------------------------=== #",
+"# ===--- AddLight ------------------------------------------------------------------------------------------------=== #",
 "#                                                                                                                      ",
 "#     Quickly add invisible light sources                                                                              ",
 "#                                                                                                                      ",
-"# ===------------------------------------------------------------------------------------------ © 2016 Hexosse ---=== #"
+"# ===------------------------------------------------------------------------------------------ © 2017 Hexosse ---=== #"
 })
 @ConfigFooter(comment = {
 " ",
-"# ===--- Enjoy -------------------------------------------------------------------------------- © 2016 Hexosse ---=== #"
+"# ===--- Enjoy -------------------------------------------------------------------------------- © 2017 Hexosse ---=== #"
 })
 public class Config extends Configuration
 {
