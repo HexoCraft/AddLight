@@ -26,6 +26,7 @@ permissions:
       AddLight.use: true
       AddLight.worldedit: true
       AddLight.connected: true
+      AddLight.intensity: true
       AddLight.bypass.cost: true
   # Users permissions
   AddLight.user:
