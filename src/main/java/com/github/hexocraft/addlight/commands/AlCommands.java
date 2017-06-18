@@ -28,16 +28,11 @@ import com.google.common.collect.Lists;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import static com.github.hexocraft.addlight.AddLightPlugin.messages;
+import static com.github.hexocraft.addlight.AddLightPlugin.instance;
 
-/**
- * This file is part of AddLight
- *
- * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
- */
 public class AlCommands extends Command<AddLightPlugin>
 {
-	public static Prefix prefix = new Prefix(messages.chatPrefix);
+	public static Prefix prefix = new Prefix(instance.messages.chatPrefix);
 
 	/**
      * @param plugin The plugin that this object belong to.
@@ -71,9 +66,9 @@ public class AlCommands extends Command<AddLightPlugin>
 
 		// Send info message
 		EmptyMessage.toSender(player);
-		PluginTitleMessage titleMessage = new PluginTitleMessage(plugin, "AddLight : " + ChatColor.AQUA + (LightsApi.isEnable(player) ? "on" : "off"));
-		titleMessage.add("Connected blocks : " + ChatColor.AQUA + (LightsApi.connectedBlocks(player) ? "on" : "off"));
-		titleMessage.add("Lights intensity : " + ChatColor.AQUA + LightsApi.ligthLevel(player));
+		PluginTitleMessage titleMessage = new PluginTitleMessage(plugin, instance.messages.chatPrefix + " " + ChatColor.AQUA + (LightsApi.isEnable(player) ? "on" : "off"));
+		titleMessage.add(instance.messages.connectedblocks + " : " + ChatColor.AQUA + (LightsApi.connectedBlocks(player) ? "on" : "off"));
+		titleMessage.add(instance.messages.lightsIntensity + " : " + ChatColor.AQUA + LightsApi.ligthLevel(player));
 		titleMessage.send(commandInfo.getSenders());
 
 		return true;

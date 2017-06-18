@@ -27,11 +27,6 @@ import com.github.hexocraftapi.message.predifined.message.PluginTitleMessage;
 import com.google.common.collect.Lists;
 import org.bukkit.entity.Player;
 
-/**
- * This file is part of AddLight
- *
- * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
- */
 public class AlCommandEnable extends Command<AddLightPlugin>
 {
     /**
@@ -67,7 +62,7 @@ public class AlCommandEnable extends Command<AddLightPlugin>
 
         // Message
         EmptyMessage.toSender(player);
-        PluginTitleMessage titleMessage = new PluginTitleMessage(plugin, "AddLight " + plugin.messages.enable);
+        PluginTitleMessage titleMessage = new PluginTitleMessage(plugin, plugin.messages.chatPrefix + " " + plugin.messages.enable);
         titleMessage.add(plugin.messages.leftClick);
         titleMessage.add(plugin.messages.rightClick);
         titleMessage.send(commandInfo.getSenders());
