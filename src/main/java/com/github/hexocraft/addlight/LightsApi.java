@@ -20,8 +20,11 @@ import com.github.hexocraft.addlight.configuration.Permissions;
 import com.github.hexocraft.addlight.utils.ConnectedBlocks;
 import com.github.hexocraftapi.lights.Lights;
 import com.github.hexocraftapi.message.predifined.message.SimplePrefixedMessage;
+import com.google.common.collect.Lists;
 import com.sk89q.worldedit.BlockVector;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -121,10 +124,10 @@ public class LightsApi
 					}
 
 					List<Location> locations = ConnectedBlocks.getConnectedBlocks(location, config.cbLimit, corner1, corner2);
-					Lights.createLight(locations, lightLevel);
+					int count = Lights.createLight(locations, lightLevel);
 
 					// Message
-					SimplePrefixedMessage.toPlayer(player, prefix, Integer.toString(locations.size()) + " " + messages.lightsCreated);
+					SimplePrefixedMessage.toPlayer(player, prefix, count + " " + messages.lightsCreated);
 				}
 			}.runTaskLaterAsynchronously(instance, delay);
 		}
@@ -137,15 +140,17 @@ public class LightsApi
 				public void run()
 				{
 					Iterator<BlockVector> blocks = worldEdit.getBlockVector(player, location);
-					int count = 0;
+					List<Location> locations = Lists.newArrayList();
 
 					while(blocks != null && blocks.hasNext())
 					{
-						BlockVector block = blocks.next();
-						Location blockLocation = new Location(location.getWorld(), block.getBlockX(), block.getBlockY(), block.getBlockZ());
-						Lights.createLight(blockLocation, lightLevel);
-						count++;
+						BlockVector pos = blocks.next();
+						Block block = location.getWorld().getBlockAt(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ());
+						if(block.getType() != Material.AIR)
+							locations.add(block.getLocation());
 					}
+
+					int count = Lights.createLight(locations, lightLevel);
 
 					// Message
 					SimplePrefixedMessage.toPlayer(player, prefix, "" + count + " " + messages.lightsCreated);
@@ -191,10 +196,10 @@ public class LightsApi
 					}
 
 					List<Location> locations = ConnectedBlocks.getConnectedBlocks(location, config.cbLimit, corner1, corner2);
-					Lights.removeLight(locations);
+					int count = Lights.removeLight(locations);
 
 					// Message
-					SimplePrefixedMessage.toPlayer(player, prefix, Integer.toString(locations.size()) + " " + messages.lightsDeleted);
+					SimplePrefixedMessage.toPlayer(player, prefix, count + " " + messages.lightsDeleted);
 				}
 			}.runTaskLaterAsynchronously(instance, delay);
 		}
@@ -207,15 +212,17 @@ public class LightsApi
 				public void run()
 				{
 					Iterator<BlockVector> blocks = worldEdit.getBlockVector(player, location);
-					int count = 0;
+					List<Location> locations = Lists.newArrayList();
 
 					while(blocks != null && blocks.hasNext())
 					{
-						BlockVector block = blocks.next();
-						Location blockLocation = new Location(location.getWorld(), block.getBlockX(), block.getBlockY(), block.getBlockZ());
-						Lights.removeLight(blockLocation);
-						count++;
+						BlockVector pos = blocks.next();
+						Block block = location.getWorld().getBlockAt(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ());
+						if(block.getType() != Material.AIR)
+							locations.add(block.getLocation());
 					}
+
+					int count = Lights.removeLight(locations);
 
 					// Message
 					SimplePrefixedMessage.toPlayer(player, prefix, "" + count + " " + messages.lightsDeleted);
