@@ -154,7 +154,7 @@
         <dependency>
             <groupId>3rdParty</groupId>
             <artifactId>WorldEdit</artifactId>
-            <version>6.1.7-SNAPSHOT</version>
+            <version>6.1.8-SNAPSHOT</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
