@@ -146,27 +146,27 @@ public class PlayerListener implements Listener
             LightsApi.removeLight(player, clickedLoc, lightPlayer.connectedBlocks);
         }
 
-        //
-        if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
-           && PlayerUtil.getItemInHand(player) != null
-           && PlayerUtil.getItemInHand(player).getType() == Material.AIR
-           && Permissions.has(player, Permissions.DEBUG))
-        {
-            if(Minecraft.Version.getVersion().newerThan(Minecraft.Version.v1_8_R4))
-            {
-                EquipmentSlot e = event.getHand();
-                if(e.equals(EquipmentSlot.OFF_HAND))
-                    return;
-            }
-
-            // Clicked location
-            Location clickedLoc = event.getClickedBlock().getLocation();
-
-            // Brightness
-            SimpleMessage.toPlayer(player, "Block : " + clickedLoc.getBlock().getState().getData());
-            SimpleMessage.toPlayer(player, "Location : " + clickedLoc.getBlockX() + " ," + clickedLoc.getBlockY() + " ," + clickedLoc.getBlockZ());
-            SimpleMessage.toPlayer(player, "Brightness (SKY) : " + NmsChunkUtil.getBrightness(15, clickedLoc));
-            SimpleMessage.toPlayer(player, "Brightness (BLOCK) : " + NmsChunkUtil.getBrightness(0, clickedLoc));
-        }
+//        //
+//        if(event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
+//           && PlayerUtil.getItemInHand(player) != null
+//           && PlayerUtil.getItemInHand(player).getType() == Material.AIR
+//           && Permissions.has(player, Permissions.DEBUG))
+//        {
+//            if(Minecraft.Version.getVersion().newerThan(Minecraft.Version.v1_8_R4))
+//            {
+//                EquipmentSlot e = event.getHand();
+//                if(e.equals(EquipmentSlot.OFF_HAND))
+//                    return;
+//            }
+//
+//            // Clicked location
+//            Location clickedLoc = event.getClickedBlock().getLocation();
+//
+//            // Brightness
+//            SimpleMessage.toPlayer(player, "Block : " + clickedLoc.getBlock().getState().getData());
+//            SimpleMessage.toPlayer(player, "Location : " + clickedLoc.getBlockX() + " ," + clickedLoc.getBlockY() + " ," + clickedLoc.getBlockZ());
+//            SimpleMessage.toPlayer(player, "Brightness (BLOCK) : " + NmsChunkUtil.getBrightness(0, clickedLoc));
+//            SimpleMessage.toPlayer(player, "Brightness (SKY) : " + NmsChunkUtil.getBrightness(15, clickedLoc));
+//        }
     }
 }
