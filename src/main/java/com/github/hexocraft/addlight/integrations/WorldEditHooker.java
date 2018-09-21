@@ -21,8 +21,8 @@ import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.LocalSession;
 import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.bukkit.BukkitPlayer;
-import com.sk89q.worldedit.bukkit.selections.Selection;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.CylinderRegion;
 import com.sk89q.worldedit.regions.Polygonal2DRegion;
@@ -36,83 +36,104 @@ import java.util.Iterator;
 /**
  * @author <b>hexosse</b> (<a href="https://github.comp/hexosse">hexosse on GitHub</a>))
  */
-public class WorldEditHooker extends Hooker<com.sk89q.worldedit.bukkit.WorldEditPlugin,WorldEditHooker>
-{
-	public WorldEditHooker() {
-		super();
-	}
+public class WorldEditHooker extends Hooker<com.sk89q.worldedit.bukkit.WorldEditPlugin, WorldEditHooker> {
+    public WorldEditHooker() {
+        super();
+    }
 
-	// Capture the plugin if exist
-	public WorldEditHooker capture(com.sk89q.worldedit.bukkit.WorldEditPlugin worldEditPlugin)
-	{
-		this.plugin = worldEditPlugin;
-		return this;
-	}
+    // Capture the plugin if exist
+    public WorldEditHooker capture(com.sk89q.worldedit.bukkit.WorldEditPlugin worldEditPlugin) {
+        this.plugin = worldEditPlugin;
+        return this;
+    }
 
-	/**
-	 * this function is inspired from com.sk89q.worldedit.bukkit.WorldEditPlugin.getSelection
-	 *
-	 * @param player Player
-	 * @return player region
-	 */
-	@SuppressWarnings("deprecation")
-	public Region getRegion(Player player)
-	{
-		if(player == null) throw new IllegalArgumentException("Null player not allowed");
-		if(!player.isOnline()) throw new IllegalArgumentException("Offline player not allowed");
+    /**
+     * this function is inspired from com.sk89q.worldedit.bukkit.WorldEditPlugin.getSelection
+     *
+     * @param player Player
+     *
+     * @return player region
+     */
+    public Region getRegion(Player player) {
+        if(player == null) throw new IllegalArgumentException("Null player not allowed");
+        if(!player.isOnline()) throw new IllegalArgumentException("Offline player not allowed");
 
-		BukkitPlayer worldEditPlayer = plugin.wrapPlayer(player);
-		LocalSession session = WorldEdit.getInstance().getSessionManager().get(worldEditPlayer);
-		RegionSelector selector = session.getRegionSelector(worldEditPlayer.getWorld());
-		try {
-			return selector.getRegion();
-		} catch (IncompleteRegionException e) {
-			return null;
-		}
-	}
+        BukkitPlayer worldEditPlayer = plugin.wrapPlayer(player);
+        LocalSession session = WorldEdit.getInstance().getSessionManager().get(worldEditPlayer);
+        RegionSelector selector = session.getRegionSelector(worldEditPlayer.getWorld());
 
-	/**
-	 * @param player Player
-	 * @param location Location
-	 * @return true if @location is in @player selection
-	 */
-	public boolean isLocationInSelection(Player player, Location location)
-	{
-		Selection selection = plugin.getSelection(player);
-		return selection != null && selection.contains(location);
-	}
+        try {
+            return selector.getRegion();
+        } catch(IncompleteRegionException e) {
+            return null;
+        }
+    }
 
-	/**
-	 * @param player Player
-	 * @param location Location in selection
-	 * @return Region
-	 */
-	public Iterator<BlockVector> getBlockVector(Player player, Location location)
-	{
-		if(!isLocationInSelection(player, location)) return null;
+    public Region getSelection(Player player) {
+        if(player == null) throw new IllegalArgumentException("Null player not allowed");
+        if(!player.isOnline()) throw new IllegalArgumentException("Offline player not allowed");
 
-		Region region = getRegion(player);
+        try {
+            BukkitPlayer worldEditPlayer = plugin.wrapPlayer(player);
+            LocalSession session = WorldEdit.getInstance().getSessionManager().get(worldEditPlayer);
+            Region region = session.getSelection(worldEditPlayer.getWorld());
 
-		// CuboidRegion
-		if(region instanceof CuboidRegion)
-		{
-			CuboidRegion cuboid = (CuboidRegion)region;
+            return region;
+        } catch(IncompleteRegionException e) {
+            return null;
+        }
+    }
 
-			return cuboid.iterator();
-		}
-		else if(region instanceof Polygonal2DRegion)
-		{
-			Polygonal2DRegion polygonal2D = (Polygonal2DRegion)region;
+    /**
+     * @param player Player
+     * @param location Location
+     *
+     * @return true if @location is in @player selection
+     */
+    public boolean isLocationInSelection(Player player, Location location) {
+        if(player == null) throw new IllegalArgumentException("Null player not allowed");
+        if(!player.isOnline()) throw new IllegalArgumentException("Offline player not allowed");
 
-			return polygonal2D.iterator();
-		}
-		else if(region instanceof CylinderRegion)
-		{
-			CylinderRegion cylinder = (CylinderRegion)region;
+        try {
+            BukkitPlayer worldEditPlayer = plugin.wrapPlayer(player);
+            LocalSession session = WorldEdit.getInstance().getSessionManager().get(worldEditPlayer);
+            Region region = session.getSelection(worldEditPlayer.getWorld());
 
-			return cylinder.iterator();
-		}
-		else
-			return region != null ? region.iterator() : null;
-	}
+            return region != null && region.contains(BukkitAdapter.asVector(location));
+        } catch(IncompleteRegionException e) {
+            return false;
+        }
+    }
+
+    /**
+     * @param player Player
+     * @param location Location in selection
+     *
+     * @return Region
+     */
+    public Iterator<BlockVector> getBlockVector(Player player, Location location) {
+        if(!isLocationInSelection(player, location))
+            return null;
+
+        Region region = getRegion(player);
+
+        // CuboidRegion
+        if(region instanceof CuboidRegion) {
+            CuboidRegion cuboid = (CuboidRegion) region;
+
+            return cuboid.iterator();
+        }
+        else if(region instanceof Polygonal2DRegion) {
+            Polygonal2DRegion polygonal2D = (Polygonal2DRegion) region;
+
+            return polygonal2D.iterator();
+        }
+        else if(region instanceof CylinderRegion) {
+            CylinderRegion cylinder = (CylinderRegion) region;
+
+            return cylinder.iterator();
+        }
+        else
+            return region != null ? region.iterator() : null;
+    }
 }

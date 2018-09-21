@@ -22,6 +22,8 @@ import com.github.hexocraftapi.lights.Lights;
 import com.github.hexocraftapi.message.predifined.message.SimplePrefixedMessage;
 import com.google.common.collect.Lists;
 import com.sk89q.worldedit.BlockVector;
+import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -119,8 +121,11 @@ public class LightsApi
 					Location corner2 = null;
 					if(worldEdit != null && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
 					{
-						corner1 = worldEdit.get().getSelection(player).getMaximumPoint();
-						corner2 = worldEdit.get().getSelection(player).getMinimumPoint();
+						Vector vCorner1 = worldEdit.getSelection(player).getMaximumPoint();
+						Vector vCorner2 = worldEdit.getSelection(player).getMinimumPoint();
+
+						corner1 = BukkitAdapter.adapt(player.getWorld(), vCorner1);
+						corner2 = BukkitAdapter.adapt(player.getWorld(), vCorner2);
 					}
 
 					List<Location> locations = ConnectedBlocks.getConnectedBlocks(location, config.cbLimit, corner1, corner2);
@@ -191,8 +196,11 @@ public class LightsApi
 					Location corner2 = null;
 					if(worldEdit != null && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
 					{
-						corner1 = worldEdit.get().getSelection(player).getMaximumPoint();
-						corner2 = worldEdit.get().getSelection(player).getMinimumPoint();
+						Vector vCorner1 = worldEdit.getSelection(player).getMaximumPoint();
+						Vector vCorner2 = worldEdit.getSelection(player).getMinimumPoint();
+
+						corner1 = BukkitAdapter.adapt(player.getWorld(), vCorner1);
+						corner2 = BukkitAdapter.adapt(player.getWorld(), vCorner2);
 					}
 
 					List<Location> locations = ConnectedBlocks.getConnectedBlocks(location, config.cbLimit, corner1, corner2);

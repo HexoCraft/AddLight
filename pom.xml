@@ -23,7 +23,7 @@
     <groupId>com.github.hexocraft</groupId>
     <artifactId>addlight</artifactId>
     <name>AddLight</name>
-    <version>4.2.2</version>
+    <version>4.3.0</version>
     <packaging>jar</packaging>
     <description>This plugin allow server admin to add invisible light sources.</description>
     <url>https://github.com/hexocraft/AddLight</url>
@@ -53,7 +53,7 @@
 
     <!-- Propriétés du projet -->
     <properties>
-        <jdk.version>1.7</jdk.version>
+        <jdk.version>1.8</jdk.version>
         <bukkit.version>1.13.1-R0.1-SNAPSHOT</bukkit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <github.global.server>github</github.global.server>
@@ -86,6 +86,11 @@
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
+        </repository>
+        <!-- hexocraft repository -->
+        <repository>
+            <id>hexocraft-repo</id>
+            <url>http://repo.hexocube.fr/artifactory/public</url>
         </repository>
         <!-- hexosse repository -->
         <repository>
@@ -152,9 +157,9 @@
         </dependency>
         <!-- WorldEdit -->
         <dependency>
-            <groupId>3rdParty</groupId>
-            <artifactId>WorldEdit</artifactId>
-            <version>6.1.8-SNAPSHOT</version>
+            <groupId>com.sk89q</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>7.0.0-SNAPSHOT</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -199,14 +204,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
             </plugin>
 
             <!-- maven-compiler-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.8.0</version>
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
@@ -218,7 +223,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -243,7 +248,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>3.1.0</version>
                 <configuration>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
