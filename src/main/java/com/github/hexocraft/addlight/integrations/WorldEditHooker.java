@@ -20,14 +20,15 @@ import com.github.hexocraftapi.integration.Hooker;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.IncompleteRegionException;
 import com.sk89q.worldedit.LocalSession;
+import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.WorldEdit;
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.CylinderRegion;
 import com.sk89q.worldedit.regions.Polygonal2DRegion;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.regions.RegionSelector;
+import com.sk89q.worldedit.world.World;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -58,11 +59,11 @@ public class WorldEditHooker extends Hooker<com.sk89q.worldedit.bukkit.WorldEdit
         if(player == null) throw new IllegalArgumentException("Null player not allowed");
         if(!player.isOnline()) throw new IllegalArgumentException("Offline player not allowed");
 
-        BukkitPlayer worldEditPlayer = plugin.wrapPlayer(player);
-        LocalSession session = WorldEdit.getInstance().getSessionManager().get(worldEditPlayer);
-        RegionSelector selector = session.getRegionSelector(worldEditPlayer.getWorld());
-
         try {
+            BukkitPlayer wPlayer = plugin.wrapPlayer(player);
+            LocalSession session = WorldEdit.getInstance().getSessionManager().get(wPlayer);
+            RegionSelector selector = session.getRegionSelector((World) wPlayer.getWorld());
+
             return selector.getRegion();
         } catch(IncompleteRegionException e) {
             return null;
@@ -74,11 +75,9 @@ public class WorldEditHooker extends Hooker<com.sk89q.worldedit.bukkit.WorldEdit
         if(!player.isOnline()) throw new IllegalArgumentException("Offline player not allowed");
 
         try {
-            BukkitPlayer worldEditPlayer = plugin.wrapPlayer(player);
-            LocalSession session = WorldEdit.getInstance().getSessionManager().get(worldEditPlayer);
-            Region region = session.getSelection(worldEditPlayer.getWorld());
-
-            return region;
+            BukkitPlayer wPlayer = plugin.wrapPlayer(player);
+            LocalSession session = WorldEdit.getInstance().getSessionManager().get(wPlayer);
+            return session.getSelection((World) wPlayer.getWorld());
         } catch(IncompleteRegionException e) {
             return null;
         }
@@ -95,11 +94,11 @@ public class WorldEditHooker extends Hooker<com.sk89q.worldedit.bukkit.WorldEdit
         if(!player.isOnline()) throw new IllegalArgumentException("Offline player not allowed");
 
         try {
-            BukkitPlayer worldEditPlayer = plugin.wrapPlayer(player);
-            LocalSession session = WorldEdit.getInstance().getSessionManager().get(worldEditPlayer);
-            Region region = session.getSelection(worldEditPlayer.getWorld());
-
-            return region != null && region.contains(BukkitAdapter.asVector(location));
+            BukkitPlayer wPlayer = plugin.wrapPlayer(player);
+            LocalSession session = WorldEdit.getInstance().getSessionManager().get(wPlayer);
+            Region region = session.getSelection((World) wPlayer.getWorld());
+            Vector vLocation = new Vector(location.getX(), location.getY(), location.getZ());
+            return region != null && region.contains(vLocation);
         } catch(IncompleteRegionException e) {
             return false;
         }

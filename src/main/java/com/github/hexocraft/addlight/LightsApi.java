@@ -23,7 +23,6 @@ import com.github.hexocraftapi.message.predifined.message.SimplePrefixedMessage;
 import com.google.common.collect.Lists;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.Vector;
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -124,8 +123,8 @@ public class LightsApi
 						Vector vCorner1 = worldEdit.getSelection(player).getMaximumPoint();
 						Vector vCorner2 = worldEdit.getSelection(player).getMinimumPoint();
 
-						corner1 = BukkitAdapter.adapt(player.getWorld(), vCorner1);
-						corner2 = BukkitAdapter.adapt(player.getWorld(), vCorner2);
+						corner1 = new org.bukkit.Location(player.getWorld(), vCorner1.getX(), vCorner1.getY(), vCorner1.getZ());
+						corner2 = new org.bukkit.Location(player.getWorld(), vCorner2.getX(), vCorner2.getY(), vCorner2.getZ());
 					}
 
 					List<Location> locations = ConnectedBlocks.getConnectedBlocks(location, config.cbLimit, corner1, corner2);
@@ -199,8 +198,8 @@ public class LightsApi
 						Vector vCorner1 = worldEdit.getSelection(player).getMaximumPoint();
 						Vector vCorner2 = worldEdit.getSelection(player).getMinimumPoint();
 
-						corner1 = BukkitAdapter.adapt(player.getWorld(), vCorner1);
-						corner2 = BukkitAdapter.adapt(player.getWorld(), vCorner2);
+						corner1 = new org.bukkit.Location(player.getWorld(), vCorner1.getX(), vCorner1.getY(), vCorner1.getZ());
+						corner2 = new org.bukkit.Location(player.getWorld(), vCorner2.getX(), vCorner2.getY(), vCorner2.getZ());
 					}
 
 					List<Location> locations = ConnectedBlocks.getConnectedBlocks(location, config.cbLimit, corner1, corner2);
