@@ -23,7 +23,7 @@
     <groupId>com.github.hexocraft</groupId>
     <artifactId>addlight</artifactId>
     <name>AddLight</name>
-    <version>4.3.1</version>
+    <version>4.3.2</version>
     <packaging>jar</packaging>
     <description>This plugin allow server admin to add invisible light sources.</description>
     <url>https://github.com/hexocraft/AddLight</url>
@@ -54,7 +54,7 @@
     <!-- Propriétés du projet -->
     <properties>
         <jdk.version>1.8</jdk.version>
-        <bukkit.version>1.13.1-R0.1-SNAPSHOT</bukkit.version>
+        <bukkit.version>1.13.2-R0.1-SNAPSHOT</bukkit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <github.global.server>github</github.global.server>
     </properties>

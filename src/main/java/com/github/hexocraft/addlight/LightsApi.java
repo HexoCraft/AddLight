@@ -21,13 +21,13 @@ import com.github.hexocraft.addlight.utils.ConnectedBlocks;
 import com.github.hexocraftapi.lights.Lights;
 import com.github.hexocraftapi.message.predifined.message.SimplePrefixedMessage;
 import com.google.common.collect.Lists;
-import com.sk89q.worldedit.BlockVector;
-import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.math.BlockVector3;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.BlockVector;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -120,8 +120,8 @@ public class LightsApi
 					Location corner2 = null;
 					if(worldEdit != null && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
 					{
-						Vector vCorner1 = worldEdit.getSelection(player).getMaximumPoint();
-						Vector vCorner2 = worldEdit.getSelection(player).getMinimumPoint();
+						BlockVector3 vCorner1 = worldEdit.getSelection(player).getMaximumPoint();
+						BlockVector3 vCorner2 = worldEdit.getSelection(player).getMinimumPoint();
 
 						corner1 = new org.bukkit.Location(player.getWorld(), vCorner1.getX(), vCorner1.getY(), vCorner1.getZ());
 						corner2 = new org.bukkit.Location(player.getWorld(), vCorner2.getX(), vCorner2.getY(), vCorner2.getZ());
@@ -143,13 +143,13 @@ public class LightsApi
 				@Override
 				public void run()
 				{
-					Iterator<BlockVector> blocks = worldEdit.getBlockVector(player, location);
-					List<Location> locations = Lists.newArrayList();
+					Iterator<BlockVector3> blocks    = worldEdit.getBlockVector(player, location);
+					List<Location>         locations = Lists.newArrayList();
 
 					while(blocks != null && blocks.hasNext())
 					{
-						BlockVector pos = blocks.next();
-						Block block = location.getWorld().getBlockAt(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ());
+						BlockVector3 pos   = blocks.next();
+						Block        block = location.getWorld().getBlockAt(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ());
 						if(block.getType() != Material.AIR)
 							locations.add(block.getLocation());
 					}
@@ -195,8 +195,8 @@ public class LightsApi
 					Location corner2 = null;
 					if(worldEdit != null && Permissions.has(player, Permissions.WORLDEDIT) && worldEdit.isLocationInSelection(player, location))
 					{
-						Vector vCorner1 = worldEdit.getSelection(player).getMaximumPoint();
-						Vector vCorner2 = worldEdit.getSelection(player).getMinimumPoint();
+						BlockVector3 vCorner1 = worldEdit.getSelection(player).getMaximumPoint();
+						BlockVector3 vCorner2 = worldEdit.getSelection(player).getMinimumPoint();
 
 						corner1 = new org.bukkit.Location(player.getWorld(), vCorner1.getX(), vCorner1.getY(), vCorner1.getZ());
 						corner2 = new org.bukkit.Location(player.getWorld(), vCorner2.getX(), vCorner2.getY(), vCorner2.getZ());
@@ -218,12 +218,12 @@ public class LightsApi
 				@Override
 				public void run()
 				{
-					Iterator<BlockVector> blocks = worldEdit.getBlockVector(player, location);
+					Iterator<BlockVector3> blocks = worldEdit.getBlockVector(player, location);
 					List<Location> locations = Lists.newArrayList();
 
 					while(blocks != null && blocks.hasNext())
 					{
-						BlockVector pos = blocks.next();
+						BlockVector3 pos = blocks.next();
 						Block block = location.getWorld().getBlockAt(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ());
 						if(block.getType() != Material.AIR)
 							locations.add(block.getLocation());
